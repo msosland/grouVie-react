@@ -8,45 +8,76 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View
+  View,
+  TextInput,
+  TouchableHighlight,
 } from 'react-native';
 
-class GrouVieReact extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
-  }
-}
+var Camera = require("react-native-camera");
+var GrouVieReact = React.createClass({
+    getInitialState: function() {
+        return {
+            cameraType: Camera.constants.Type.back
+        }
+    },
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    render: function() {
+        return (
+            <Camera
+                ref="cam"
+                style={styles.container}
+                type={this.state.cameraType}>
+                <View style={styles.buttonBar}>
+                    <TouchableHighlight style={styles.button} onPress={this._switchCamera}>
+                        <Text style={styles.buttonText}>Flip</Text>
+                    </TouchableHighlight>
+                    <TouchableHighlight style={styles.button} onPress={this._takePicture}>
+                        <Text style={styles.buttonText}>Take</Text>
+                    </TouchableHighlight>
+                </View>
+            </Camera>
+        );
+    },
+
+    _switchCamera: function() {
+        var state = this.state;
+        state.cameraType = state.cameraType === Camera.constants.Type.back ? Camera.constants.Type.front : Camera.constants.Type.back;
+        this.setState(state);
+    },
+
+    _takePicture: function() {
+        this.refs.cam.capture(function(err, data) {
+            console.log(err, data);
+        });
+    }
+
+});
+
+var styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "transparent",
+    },
+    buttonBar: {
+        flexDirection: "row",
+        position: "absolute",
+        bottom: 25,
+        right: 0,
+        left: 0,
+        justifyContent: "center"
+    },
+    button: {
+        padding: 10,
+        // color: "#FFFFFF",
+        borderWidth: 1,
+        borderColor: "#FFFFFF",
+        margin: 5
+    },
+    buttonText: {
+        // color: "#FFFFFF"
+    }
 });
 
 AppRegistry.registerComponent('GrouVieReact', () => GrouVieReact);
