@@ -6,7 +6,8 @@ var {
   Text,
   Image,
   ListView,
-  StyleSheet
+  StyleSheet,
+  ScrollView
 } = React;
 
 var styles = StyleSheet.create({
@@ -16,35 +17,31 @@ var styles = StyleSheet.create({
   },
 });
 
-class ChallengePage extends Component
+class ChallengePage extends Component {
   render(){
-    var participations = this.props.participations
-    var list = participations.map((item, index) => {
+    // var participations = this.props.participations
+    var participations = [{participant: 'mike', image_url: 'some_url.com'}, {participant: 'alana', image_url: 'another_url.com'}];
 
+    var list = participations.map((item, index) => {
       return (
         <View key={index}>
-          <View style={}>
-                <Text>{participations[index].participant} </Text>
-
-                <Image source={{participations[index].image_url}} />
+          <View><Text>{participations[index].participant}</Text><Image source="{participations[index].image_url}" /></View></View>
+          )
                 // Something to press to trigger CameraRoll
-      //       <TouchableHighlight
-      //         onPress={this.openPage.bind(this, repos[index].html_url)}
-      //         underlayColor='transparent'>
-      //         <Text style={styles.name}>{repos[index].name}</Text>
-      //       </TouchableHighlight>
-      //       <Text style={styles.stars}> Stars: {repos[index].stargazers_count} </Text>
-      //       {desc}
-          </View>
-        </View>
-      // )
-        )
+                //       <TouchableHighlight
+                //         onPress={this.openPage.bind(this, repos[index].html_url)}
+                //         underlayColor='transparent'>
+                //         <Text style={styles.name}>{repos[index].name}</Text>
+                //       </TouchableHighlight>
+                //       <Text style={styles.stars}> Stars: {repos[index].stargazers_count} </Text>
+                //       {desc}
     });
     return (
-      <Scrollview>
+      <ScrollView>
         {list}
-      </Scrollview>
+      </ScrollView>
       )
   }
+};
 
   module.exports = ChallengePage;
