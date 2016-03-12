@@ -23,7 +23,7 @@ class GrouVieReact extends React.Component {
       <Navigator
         initialRoute={{name: 'My First Scene', index: 0}}
         renderScene={(route, navigator) =>
-          <GroupMembers
+          <Main
             name={route.name}
             onForward={() => {
               var nextIndex = route.index + 1;
