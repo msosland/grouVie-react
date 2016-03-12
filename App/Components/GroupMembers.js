@@ -1,18 +1,13 @@
-import React from 'react-native';
+var React = require('react-native');
 
-const {
+var {
   StyleSheet,
   ScrollView,
   Text,
   View,
-  Navigator,
-  PixelRatio,
-  TouchableOpacity,
   TouchableHighlight,
+  Component,
   Image,
-  NativeModules: {
-    ImagePickerManager
-  }
 } = React;
 
 var styles = StyleSheet.create({
@@ -39,15 +34,23 @@ var styles = StyleSheet.create({
   },
 });
 
-class GroupMembers extends React.component{
+class GroupMembers extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      image_url: '',
+    };
+  }
+
   render(){
     var members = [{username: "Charlie"}, {username: "Debbie"}, {username: "Eddie"}]; //this.props.members;
     var list = members.map((member, index) => {
-      // var profilePic = members[index].image_url ? <Image style={styles.image} source={{members[index].image_url}}/> : <Text style={styles.imageSquare}> No Picture yet </Text>;
+      var profilePic = members[index].image_url ? <Image style={styles.image} source={members[index].image_url} /> : <Text style={styles.imageSquare}> No Picture yet </Text>;
       return (
         <View key={index}>
           <View style={styles.rowContainer}>
-            // {profilePic}
+            {profilePic}
             <Text style={styles.name}> {members[index].username} </Text>
           </View>
         </View>

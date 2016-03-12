@@ -1,8 +1,10 @@
 'use strict';
+
 import React from 'react-native';
 // var NativeImagePicker = require('./App/Components/NativeImagePicker');
-// var GroupMembers = require('./App/Components/GroupMembers');
-var ChallengeShow = require('./App/Components/ChallengeShow');
+var GroupMembers = require('./App/Components/GroupMembers');
+// var ChallengeShow = require('./App/Components/ChallengeShow');
+// var GroupChallenges = require('./App/Components/GroupChallenges');
 
 const {
   StyleSheet,
@@ -24,7 +26,7 @@ class GrouVieReact extends React.Component {
       <Navigator
         initialRoute={{name: 'My First Scene', index: 0}}
         renderScene={(route, navigator) =>
-          <ChallengeShow
+          <GroupMembers
             name={route.name}
             onForward={() => {
               var nextIndex = route.index + 1;
