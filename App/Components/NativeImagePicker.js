@@ -1,6 +1,3 @@
-'use strict';
-import React from 'react-native';
-
 const {
   StyleSheet,
   Text,
@@ -13,7 +10,7 @@ const {
   }
 } = React;
 
-class GrouVieReact extends React.Component {
+class NativeImagePicker extends React.Component {
 
   state = {
     avatarSource: null,
@@ -129,4 +126,4 @@ const styles = StyleSheet.create({
   }
 });
 
-React.AppRegistry.registerComponent('GrouVieReact', () => GrouVieReact);
+module.exports = NativeImagePicker;
