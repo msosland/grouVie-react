@@ -1,7 +1,10 @@
+import React from 'react-native';
+
 const {
   StyleSheet,
   Text,
   View,
+  Navigator,
   PixelRatio,
   TouchableOpacity,
   Image,
