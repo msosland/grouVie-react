@@ -4,15 +4,8 @@ const {
   StyleSheet,
   ScrollView,
   Text,
+  Component,
   View,
-  Navigator,
-  PixelRatio,
-  TouchableOpacity,
-  TouchableHighlight,
-  Image,
-  NativeModules: {
-    ImagePickerManager
-  }
 } = React;
 
 var styles = StyleSheet.create({
@@ -36,9 +29,10 @@ var styles = StyleSheet.create({
   },
 });
 
-class GroupComments extends React.component{
+class GroupComments extends Component {
   render(){
-    var comments = this.props.comments;
+    // var comments = this.props.comments;
+    var comments = [{user: "Mike", content: "Hello"},{user: "Lauren", content: "Hi"}]
     var list = comments.map((comment, index) => {
       return (
         <View key={index}>
