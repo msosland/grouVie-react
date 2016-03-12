@@ -5,6 +5,7 @@ var GroupChallenges = require('./GroupChallenges');
 var groupCalls = require('../Utils/groupCalls');
 
 var {
+  Component,
   Text,
   View,
   Navigator,
@@ -28,7 +29,7 @@ var styles = StyleSheet.create({
   }
 });
 
-class GroupPage extends React.Component{
+class GroupPage extends Component {
   makeBackground(btn){
     var obj = {
       flexDirection: 'row',
@@ -102,7 +103,7 @@ class GroupPage extends React.Component{
   }
 };
 
-Dashboard.propTypes = {
+GroupPage.propTypes = {
   userInfo: React.PropTypes.object.isRequired
 }
 
