@@ -1,8 +1,8 @@
 'use strict';
+
 import React from 'react-native';
 // var NativeImagePicker = require('./App/Components/NativeImagePicker');
 var GroupChallenges = require('./App/Components/GroupChallenges');
-
 
 const {
   StyleSheet,
