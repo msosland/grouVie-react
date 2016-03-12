@@ -18,7 +18,7 @@ var styles = StyleSheet.create({
   rowContainer: {
     flexDirection: 'column',
     flex: 1,
-    padding: 10
+    padding: 10,
   },
   name: {
     color: '#48BBEC',
@@ -32,7 +32,7 @@ var styles = StyleSheet.create({
   },
   nameText: {
     fontSize: 14,
-    paddingBottom: 5
+    paddingBottom: 5,
   }
 });
 
