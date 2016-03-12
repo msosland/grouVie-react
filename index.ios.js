@@ -2,7 +2,9 @@
 
 import React from 'react-native';
 // var NativeImagePicker = require('./App/Components/NativeImagePicker');
-var GroupChallenges = require('./App/Components/GroupChallenges');
+var GroupMembers = require('./App/Components/GroupMembers');
+// var ChallengeShow = require('./App/Components/ChallengeShow');
+// var GroupChallenges = require('./App/Components/GroupChallenges');
 
 const {
   StyleSheet,
