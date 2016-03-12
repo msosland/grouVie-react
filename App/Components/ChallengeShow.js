@@ -2,6 +2,7 @@ var React = require('react-native');
 
 var {
   View,
+  Component,
   Text,
   Image,
   ListView,
@@ -15,13 +16,34 @@ var styles = StyleSheet.create({
   },
 });
 
-class ChallengePage extends React.Component
-  constructor
-  render({
+class ChallengePage extends Component
+  render(){
+    var participations = this.props.participations
+    var list = participations.map((item, index) => {
+
+      return (
+        <View key={index}>
+          <View style={}>
+                <Text>{participations[index].participant} </Text>
+
+                <Image source={{participations[index].image_url}} />
+                // Something to press to trigger CameraRoll
+      //       <TouchableHighlight
+      //         onPress={this.openPage.bind(this, repos[index].html_url)}
+      //         underlayColor='transparent'>
+      //         <Text style={styles.name}>{repos[index].name}</Text>
+      //       </TouchableHighlight>
+      //       <Text style={styles.stars}> Stars: {repos[index].stargazers_count} </Text>
+      //       {desc}
+          </View>
+        </View>
+      // )
+        )
+    });
     return (
-      <View>
-        <Text>Challenge Name</Text>
-      </View>
+      <Scrollview>
+        {list}
+      </Scrollview>
       )
   }
 
