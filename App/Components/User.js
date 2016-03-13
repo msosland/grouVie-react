@@ -75,9 +75,13 @@ class User extends Component {
 	}
 
   goToGroup(group) {
+    console.log("**********************");
+    console.log(group);
+    console.log(this.props.user);
+    console.log("***************************");
     this.props.navigator.push({
       component: GroupPage,
-      passProps: {group}
+      passProps: {group: group, user: this.props.user}
     });
   }
 

@@ -71,7 +71,7 @@ class GroupComments extends Component {
     this.setState({
       comment: ''
     });
-    posts.postComment(comment, this.props.group.id)
+    posts.postComment(comment, this.props.group.id, this.props.user.id)
       .then((data) => {
         this.props.comments.push(data);
         this.setState({});
