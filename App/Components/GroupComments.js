@@ -30,9 +30,18 @@ var styles = StyleSheet.create({
 });
 
 class GroupComments extends Component {
+  constructor(props) {
+    super(props);
+    console.log("print");
+    console.log(this.props);
+    this.state = {
+      username: '',
+      image_url: ''
+    };
+  }
   render(){
-    // var comments = this.props.comments;
-    var comments = [{user: "Mike", content: "Hello"},{user: "Lauren", content: "Hi"}]
+    var comments = this.props.groups[0].comments;
+    // var comments = [{user: "Mike", content: "Hello"},{user: "Lauren", content: "Hi"}]
     var list = comments.map((comment, index) => {
       return (
         <View key={index}>

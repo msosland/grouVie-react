@@ -17,7 +17,16 @@ var styles = StyleSheet.create({
   },
 });
 
-class ChallengePage extends Component {
+class ChallengeShow extends Component {
+  constructor(props) {
+    super(props);
+    console.log("print");
+    console.log(this.props);
+    this.state = {
+      username: '',
+      image_url: ''
+    };
+  }
   render(){
     // var participations = this.props.participations
     var participations = [{participant: 'mike', image_url: 'some_url.com'}, {participant: 'alana', image_url: 'another_url.com'}];

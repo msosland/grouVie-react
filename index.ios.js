@@ -1,14 +1,12 @@
 'use strict';
-
 var React = require('react-native');
-// var NativeImagePicker = require('./App/Components/NativeImagePicker');
+
 var User = require('./App/Components/User');
 var GroupPage = require('./App/Components/GroupPage');
 var GroupMembers = require('./App/Components/GroupMembers');
 var GroupChallenges = require('./App/Components/GroupChallenges');
 var GroupComments = require('./App/Components/GroupComments');
-// var ChallengeShow = require('./App/Components/ChallengeShow');
-// var GroupChallenges = require('./App/Components/GroupChallenges');
+var ChallengeShow = require('./App/Components/ChallengeShow');
 
 const {
   StyleSheet,
@@ -27,7 +25,6 @@ const {
 
 class GrouVieReact extends Component {
 
-
   renderScene(route, navigator) {
     if (route.component == User) {
       return <User {...route.passProps} navigator={navigator}  />
@@ -43,6 +40,9 @@ class GrouVieReact extends Component {
     }
     if (route.component == GroupComments) {
       return <GroupComments {...route.passProps} navigator={navigator}  />
+    }
+    if (route.component == ChallengeShow) {
+      return <ChallengeShow {...route.passProps} navigator={navigator}  />
     }
   }
 
@@ -63,6 +63,7 @@ var styles = StyleSheet.create({
 });
 
 
+React.AppRegistry.registerComponent('GrouVieReact', () => GrouVieReact);
       //   initialRoute={{name: 'My First Scene', index: 0}}
       //   renderScene={(route, navigator) =>
       //     <User
@@ -81,5 +82,3 @@ var styles = StyleSheet.create({
       //         }
       //     }}/>
       // } />
-
-React.AppRegistry.registerComponent('GrouVieReact', () => GrouVieReact);
