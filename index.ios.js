@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react-native';
+var React = require('react-native');
 // var NativeImagePicker = require('./App/Components/NativeImagePicker');
 var User = require('./App/Components/User');
 var GroupPage = require('./App/Components/GroupPage');
@@ -14,6 +14,7 @@ const {
   StyleSheet,
   Text,
   View,
+  Component,
   PixelRatio,
   TouchableOpacity,
   Image,
@@ -24,28 +25,30 @@ const {
   }
 } = React;
 
-class GrouVieReact extends React.Component {
+class GrouVieReact extends Component {
+
+
   renderScene(route, navigator) {
     if (route.component == User) {
-      return <User navigator={navigator} {...route.passProps} />
+      return <User {...route.passProps} navigator={navigator}  />
     }
     if (route.component == GroupPage) {
-      return <GroupPage navigator={navigator} {...route.passProps} />
+      return <GroupPage {...route.passProps} navigator={navigator}  />
     }
     if (route.component == GroupMembers) {
-      return <GroupMembers navigator={navigator} {...route.passProps} />
+      return <GroupMembers {...route.passProps} navigator={navigator}  />
     }
     if (route.component == GroupChallenges) {
-      return <GroupChallenges navigator={navigator} {...route.passProps} />
+      return <GroupChallenges {...route.passProps} navigator={navigator}  />
     }
     if (route.component == GroupComments) {
-      return <GroupComments navigator={navigator} {...route.passProps} />
+      return <GroupComments {...route.passProps} navigator={navigator}  />
     }
   }
 
   render() {
     return (
-      <Navigator style={{flex:1}} initialRoute={{component: User}} renderScene={this.renderScene} />
+      <Navigator style={{flex:1}} initialRoute={{component: User, props: {}}} renderScene={this.renderScene} />
 
     )
   }

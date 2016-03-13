@@ -30,10 +30,14 @@ var styles = StyleSheet.create({
 });
 
 class GroupPage extends Component {
-
-  componentDidMount() {
-    this.render();
+  constructor(props) {
+    super(props);
+    console.log(this.props);
+    this.state = {
+      group: "hello"
+    };
   }
+
   makeBackground(btn){
     var obj = {
       flexDirection: 'row',
@@ -51,19 +55,20 @@ class GroupPage extends Component {
     return obj;
   }
   goToMembers(){
-    console.log(this.props);
+    console.log("****************")
+    console.log(this.props.groups);
     this.props.navigator.push({
       component: GroupMembers
           // title: 'Group Members',
-          // passProps: {members: jsonRes }
+          passProps: {members: jsonRes }
     });
   }
 
   goToComments(){
         this.props.navigator.push({
-          component: GroupComments
+          component: GroupComments,
           // title: "Group Comments",
-          // passProps: { comments: jsonRes }
+          passProps: {}
         });
   }
 
@@ -104,8 +109,8 @@ class GroupPage extends Component {
   }
 };
 
-GroupPage.propTypes = {
-  userInfo: React.PropTypes.object.isRequired
-}
+// GroupPage.propTypes = {
+//   userInfo: React.PropTypes.object.isRequired
+// }
 
 module.exports = GroupPage;
