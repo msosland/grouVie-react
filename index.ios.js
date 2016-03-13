@@ -18,8 +18,8 @@ var NavigationBarRouteMapper = {
     )
   },
   Title: function( route, navigator, index, navState ){
-    console.log('in title function');
-    console.log(route.component);
+    // console.log('in title function');
+    // console.log(route.component);
     return(
       <Text>Title</Text>
     )
