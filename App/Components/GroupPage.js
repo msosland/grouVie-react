@@ -65,7 +65,10 @@ class GroupPage extends Component {
   goToComments(){
     this.props.navigator.push({
       component: GroupComments,
-      passProps: {comments: this.props.group.comments }
+      passProps: {
+        comments: this.props.group.comments,
+        group: this.props.group
+       }
     });
   }
 
