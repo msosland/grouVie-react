@@ -1,5 +1,6 @@
 
 var React = require('react-native');
+var GroupPage = require('./GroupPage');
 
 var {
 	StyleSheet,
@@ -7,6 +8,7 @@ var {
 	ListView,
 	View,
 	Component,
+  Navigator,
 	Text,
 } = React;
 
@@ -55,16 +57,27 @@ class User extends Component {
 	}
 
 	fetchData() {
+
 		fetch("http://grouvie.herokuapp.com/users/1/groups")
 			.then((response) => response.json())
 			.then((responseData) => {
-				this.setState({
+        this.setState({
+          responseData: responseData,
 					dataSource: this.state.dataSource.cloneWithRows(responseData),
 					loaded: true,
 				});
 			})
 			.done();
 	}
+
+  goToGroup() {
+    console.log(this.props);
+    this.props.navigator.push({
+      component: GroupPage,
+      title: 'Group',
+      passProps: { group: this.props.responseData }
+    });
+  }
 
 	render() {
 		// if (!this.state.loaded) {
@@ -74,7 +87,7 @@ class User extends Component {
 		return (
 			<ListView
 				dataSource={this.state.dataSource}
-				renderRow={this.renderGroup}
+				renderRow={this.renderGroup.bind(this)}
 				style={styles.listView} />
 			);
 	}
@@ -82,7 +95,9 @@ class User extends Component {
 	renderGroup(group) {
 		return (
 			<View style={styles.container}>
-				<Text style={styles.group_id}>{group.name}</Text>
+        <TouchableHighlight onPress={this.goToGroup.bind(this)}>
+  				  <Text>{group.name}</Text>
+        </TouchableHighlight>
 			</View>
 		);
 	}

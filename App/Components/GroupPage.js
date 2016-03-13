@@ -30,6 +30,10 @@ var styles = StyleSheet.create({
 });
 
 class GroupPage extends Component {
+
+  componentDidMount() {
+    this.render();
+  }
   makeBackground(btn){
     var obj = {
       flexDirection: 'row',
@@ -47,36 +51,33 @@ class GroupPage extends Component {
     return obj;
   }
   goToMembers(){
-    groupCalls.getMembers(this.props.group)
-      .then((jsonRes) => {
-        this.props.navigator.push({
-          component: GroupMembers,
-          title: 'Group Members',
-          passProps: {members: jsonRes }
-        });
-      })
+    console.log(this.props);
+    this.props.navigator.push({
+      component: GroupMembers
+          // title: 'Group Members',
+          // passProps: {members: jsonRes }
+    });
   }
+
   goToComments(){
-    groupCalls.getComments(this.props.group)
-      .then((jsonRes) => {
         this.props.navigator.push({
-          component: GroupComments,
-          title: "Group Comments",
-          passProps: { comments: jsonRes }
+          component: GroupComments
+          // title: "Group Comments",
+          // passProps: { comments: jsonRes }
         });
-      })
   }
+
   goToChallenges(){
-    groupCalls.getChallenges(this.props.group)
-      .then((jsonRes) => {
-        jsonRes = jsonRes || {};
-        this.props.navigator.push({
-          component: GroupChallenges,
-          title: 'Challenges',
-          passProps: { challenges: jsonRes }
-        });
-      })
+    // groupCalls.getChallenges(this.props.group)
+    //   .then((jsonRes) => {
+    //     jsonRes = jsonRes || {};
+      this.props.navigator.push({
+        component: GroupChallenges
+        // title: 'Challenges',
+        // passProps: { challenges: jsonRes }
+      });
   }
+
   render(){
     return (
       <View style={styles.container}>
@@ -96,7 +97,7 @@ class GroupPage extends Component {
             style={this.makeBackground(2)}
             onPress={this.goToChallenges.bind(this)}
             underlayColor="#9BAAF3">
-              <Text style={styles.buttonText}>Take Challenges</Text>
+              <Text style={styles.buttonText}>View Challenges</Text>
         </TouchableHighlight>
       </View>
     )
