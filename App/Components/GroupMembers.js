@@ -37,6 +37,8 @@ var styles = StyleSheet.create({
 class GroupMembers extends Component {
   constructor(props) {
     super(props);
+    console.log("print");
+    console.log(this.props);
     this.state = {
       username: '',
       image_url: '',

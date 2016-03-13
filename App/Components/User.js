@@ -45,6 +45,7 @@ class User extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+      groups: [],
 			dataSource: new ListView.DataSource({
 				rowHasChanged: (row1, row2) => row1 !== row2,
 			}),
@@ -57,12 +58,13 @@ class User extends Component {
 	}
 
 	fetchData() {
-
+    console.log(this.state);
+    console.log(this.props);
 		fetch("http://grouvie.herokuapp.com/users/1/groups")
 			.then((response) => response.json())
 			.then((responseData) => {
         this.setState({
-          responseData: responseData,
+          groups: responseData,
 					dataSource: this.state.dataSource.cloneWithRows(responseData),
 					loaded: true,
 				});
@@ -71,11 +73,12 @@ class User extends Component {
 	}
 
   goToGroup() {
-    console.log(this.props);
+    console.log("ds");
+    console.log(this.state.groups);
     this.props.navigator.push({
       component: GroupPage,
-      title: 'Group',
-      passProps: { group: this.props.responseData }
+      // title: 'Group',
+      passProps: {groups: this.state.groups}
     });
   }
 
