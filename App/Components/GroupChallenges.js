@@ -48,7 +48,7 @@ class GroupChallenges extends Component {
   }
 
 	render() {
-		var challenges = this.props.groups[0].challenges;
+		var challenges = this.props.challenges;
 		// var challenges = [{name: "Do the dishes", description: "Well"}, {name: "Clean the fridge", description: "Well"}];
 		var list = challenges.map((item,index) => {
 			var desc = challenges[index].name ? <Text style={styles.name}> {challenges[index].name} </Text> : <View />;

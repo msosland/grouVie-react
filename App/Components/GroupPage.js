@@ -31,7 +31,7 @@ var styles = StyleSheet.create({
 class GroupPage extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
+    console.log(this.props.group.members);
     this.state = {
       group: "hello"
     };
@@ -54,24 +54,24 @@ class GroupPage extends Component {
     return obj;
   }
   goToMembers(){
-    console.log(this.props.groups);
+    console.log(this.props.group);
     this.props.navigator.push({
       component: GroupMembers,
-      passProps: {groups: this.props.groups }
+      passProps: {members: this.props.group.members }
     });
   }
 
   goToComments(){
     this.props.navigator.push({
       component: GroupComments,
-      passProps: {groups: this.props.groups }
+      passProps: {comments: this.props.group.comments }
     });
   }
 
   goToChallenges(){
     this.props.navigator.push({
       component: GroupChallenges,
-      passProps: { groups: this.props.groups }
+      passProps: { challenges: this.props.group.challenges }
     });
   }
 

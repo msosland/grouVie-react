@@ -53,4 +53,4 @@ class ChallengeShow extends Component {
   }
 };
 
-  module.exports = ChallengePage;
+  module.exports = ChallengeShow;
