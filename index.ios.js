@@ -1,6 +1,7 @@
 'use strict';
 var React = require('react-native');
 
+var Login = require('./App/Components/Login')
 var User = require('./App/Components/User');
 var GroupPage = require('./App/Components/GroupPage');
 var GroupMembers = require('./App/Components/GroupMembers');
@@ -18,8 +19,6 @@ var NavigationBarRouteMapper = {
     )
   },
   Title: function( route, navigator, index, navState ){
-    // console.log('in title function');
-    // console.log(route.component);
     return(
       <Text>Title</Text>
     )
@@ -52,6 +51,9 @@ const {
 class GrouVieReact extends Component {
 
   renderScene(route, navigator) {
+    if (route.component == Login) {
+      return <Login {...route.passProps} navigator={navigator} title={"Login"} leftButton={"Back"}  />
+    }
     if (route.component == User) {
       return <User {...route.passProps} navigator={navigator} title={"Profile Page"} leftButton={"Back"}  />
     }
@@ -76,7 +78,7 @@ class GrouVieReact extends Component {
     return (
       <Navigator
       style={{flex:1}}
-      initialRoute={{component: User, props: {}}}
+      initialRoute={{component: Login, props: {}}}
       renderScene={this.renderScene}
       navigationBar={
           <Navigator.NavigationBar
