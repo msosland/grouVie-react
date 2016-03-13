@@ -61,11 +61,12 @@ class User extends Component {
 	fetchData() {
     console.log(this.state);
     console.log(this.props);
-		fetch("http://grouvie.herokuapp.com/users/1/groups")
+		fetch("http://grouvie.herokuapp.com/users/5/groups")
 			.then((response) => response.json())
-			.then((responseData) => {
+      .then((responseData) => {
+      console.log(responseData);
         this.setState({
-          groups: responseData,
+          // groups: responseData,
 					dataSource: this.state.dataSource.cloneWithRows(responseData),
 					loaded: true,
 				});
@@ -73,10 +74,10 @@ class User extends Component {
 			.done();
 	}
 
-  goToGroup() {
+  goToGroup(group) {
     this.props.navigator.push({
       component: GroupPage,
-      passProps: {groups: this.state.groups}
+      passProps: {group}
     });
   }
 
@@ -92,11 +93,11 @@ class User extends Component {
 
 	renderGroup(group) {
 		return (
-			<View style={styles.container}>
-        <TouchableHighlight onPress={this.goToGroup.bind(this)}>
-  				  <Text>{group.name}</Text>
-        </TouchableHighlight>
-			</View>
+  			<View style={styles.container}>
+          <TouchableHighlight onPress={() => this.goToGroup(group)}>
+    				  <Text>{group.name}</Text>
+          </TouchableHighlight>
+  			</View>
 		);
 	}
 }

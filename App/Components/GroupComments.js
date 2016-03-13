@@ -41,8 +41,7 @@ class GroupComments extends Component {
     };
   }
   render(){
-    var comments = this.props.groups[0].comments;
-    // var comments = [{user: "Mike", content: "Hello"},{user: "Lauren", content: "Hi"}]
+    var comments = this.props.comments;
     var list = comments.map((comment, index) => {
       return (
         <View key={index}>
