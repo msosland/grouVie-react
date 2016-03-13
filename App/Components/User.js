@@ -14,11 +14,13 @@ var {
 
 var styles = StyleSheet.create({
   container: {
+    top: 40,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+
   },
   rightContainer: {
     flex: 1,

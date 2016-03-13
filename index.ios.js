@@ -11,22 +11,30 @@ var GroupComments = require('./App/Components/GroupComments');
 // var GroupChallenges = require('./App/Components/GroupChallenges');
 
 var NavigationBarRouteMapper = {
-  LeftButton: function( route, navigator, index, navState ) {
+  LeftButton: function( route, navigator, index, navState ){
+    if (index === 0) {
+      return null;
+    }
     return(
-      <Text>{ route.leftButton }</Text>
-      )
+      <Text onPress={() => navigator.pop()}>Back</Text>
+    )
   },
-  Title: function( route, navigator, index, navState ) {
+  Title: function( route, navigator, index, navState ){
+    console.log('in title function');
+    console.log(route.component);
     return(
-      <Text>{ route.title }</Text>
-      )
+      <Text>Title</Text>
+    )
   },
-  RightButton: function( route, navigator, index, navState ) {
+  RightButton: function( route, navigator, index, navState ){
+    if (index === 0) {
+      return null;
+    }
     return(
-      <Text>{ route.rightButton }</Text>
-      )
-  },
-}
+      <Text></Text>
+    )
+  }
+};
 
 const {
   StyleSheet,
@@ -66,11 +74,16 @@ class GrouVieReact extends Component {
 
   render() {
     return (
-      <Navigator style={{flex:1}} initialRoute={{component: User, props: {}}} renderScene={this.renderScene}navigationBar={
-          <Navigator.NavigationBar routeMapper={ NavigationBarRouteMapper } />
-      } />
-
-    )
+      <Navigator
+      style={{flex:1}}
+      initialRoute={{component: User, props: {}}}
+      renderScene={this.renderScene}
+      navigationBar={
+          <Navigator.NavigationBar
+            style={{backgroundColor: 'pink', height: 45}}
+            routeMapper={ NavigationBarRouteMapper } />
+        } />
+    );
   }
 };
 
