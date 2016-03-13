@@ -2,7 +2,6 @@ var React = require('react-native');
 var GroupMembers = require('./GroupMembers');
 var GroupComments = require('./GroupComments');
 var GroupChallenges = require('./GroupChallenges');
-var groupCalls = require('../Utils/groupCalls');
 
 var {
   Component,
@@ -55,32 +54,25 @@ class GroupPage extends Component {
     return obj;
   }
   goToMembers(){
-    console.log("****************")
     console.log(this.props.groups);
     this.props.navigator.push({
       component: GroupMembers,
-          // title: 'Group Members',
-          passProps: {members: jsonRes }
+      passProps: {groups: this.props.groups }
     });
   }
 
   goToComments(){
-        this.props.navigator.push({
-          component: GroupComments,
-          // title: "Group Comments",
-          passProps: {}
-        });
+    this.props.navigator.push({
+      component: GroupComments,
+      passProps: {groups: this.props.groups }
+    });
   }
 
   goToChallenges(){
-    // groupCalls.getChallenges(this.props.group)
-    //   .then((jsonRes) => {
-    //     jsonRes = jsonRes || {};
-      this.props.navigator.push({
-        component: GroupChallenges
-        // title: 'Challenges',
-        // passProps: { challenges: jsonRes }
-      });
+    this.props.navigator.push({
+      component: GroupChallenges,
+      passProps: { groups: this.props.groups }
+    });
   }
 
   render(){

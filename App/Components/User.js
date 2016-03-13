@@ -1,4 +1,3 @@
-
 var React = require('react-native');
 var GroupPage = require('./GroupPage');
 
@@ -73,19 +72,13 @@ class User extends Component {
 	}
 
   goToGroup() {
-    console.log("ds");
-    console.log(this.state.groups);
     this.props.navigator.push({
       component: GroupPage,
-      // title: 'Group',
       passProps: {groups: this.state.groups}
     });
   }
 
 	render() {
-		// if (!this.state.loaded) {
-		// 	return this.renderLoadingView();
-		// }
 
 		return (
 			<ListView
@@ -105,8 +98,6 @@ class User extends Component {
 		);
 	}
 }
-
-
 
 
 module.exports = User;
