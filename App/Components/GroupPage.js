@@ -58,7 +58,7 @@ class GroupPage extends Component {
     console.log("****************")
     console.log(this.props.groups);
     this.props.navigator.push({
-      component: GroupMembers
+      component: GroupMembers,
           // title: 'Group Members',
           passProps: {members: jsonRes }
     });
