@@ -24,7 +24,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      username: '',
       password: '',
     }
   };
@@ -37,7 +37,7 @@ class Login extends Component {
   }
 
   handleSubmit(){
-    fetch("http://localhost:3000/login", {
+    fetch("http://grouvie.herokuapp.com/login", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -45,7 +45,7 @@ class Login extends Component {
       },
       dataType: 'json',
       body: JSON.stringify({
-        email: this.state.email,
+        username: this.state.username,
         password: this.state.password,
         })
  })
@@ -62,12 +62,12 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text> Email Address: </Text>
+        <Text> Username: </Text>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' onChangeText={(email) => this.setState({email})} value={this.state.email}/>
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' onChangeText={(username) => this.setState({username})} value={this.state.username}/>
         <Text> Password: </Text>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' onChangeText={(password) => this.setState({password})} value={this.state.password}/>
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' secureTextEntry={true} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
         <TouchableHighlight onPress={this.handleSubmit.bind(this)}>
           <Text> Log In </Text>
         </TouchableHighlight>
