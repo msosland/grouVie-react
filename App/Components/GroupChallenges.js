@@ -1,6 +1,7 @@
 
 var React = require('react-native');
 var ChallengeShow = require('./ChallengeShow');
+var posts = require('../Utils/posts');
 
 var {
 	StyleSheet,
@@ -10,6 +11,7 @@ var {
 	View,
 	Component,
 	Text,
+  TextInput,
 } = React;
 
 var styles = StyleSheet.create({
@@ -35,6 +37,20 @@ var styles = StyleSheet.create({
   nameText: {
     fontSize: 14,
     paddingBottom: 5,
+  },
+  input: {
+    height: 60,
+    padding: 10,
+    fontSize: 18,
+    color: '#111',
+    flex: 10
+  },
+  button: {
+    height: 60,
+    backgroundColor: '#48BBEC',
+    flex: 3,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
 
@@ -44,8 +60,8 @@ class GroupChallenges extends Component {
     console.log("print");
     console.log(this.props);
     this.state = {
-      username: '',
-      image_url: ''
+      challengeName: '',
+      challengeDescription: '',
     };
   }
 
@@ -54,6 +70,48 @@ class GroupChallenges extends Component {
       component: ChallengeShow,
       passProps: {challenge}
     });
+  }
+
+  handleSubmit() {
+    var challengeName = this.state.challengeName;
+    var challengeDescription = this.state.challengeDescription;
+    this.setState({
+      challengeName: '',
+      challengeDescription: ''
+    });
+    posts.postChallenge(challengeName, challengeDescription, this.props.group.id, this.props.user.id)
+      .then((responseJSON) => {
+        this.props.challenges.push(responseJSON);
+        this.setState({});
+        this.goToChallenge(responseJSON);
+      })
+      .catch((error) => {
+        console.log('Request failed', error);
+        this.setState({error});
+      });
+  }
+
+  footer() {
+    return (
+      <View>
+        <TextInput
+          style={styles.input}
+          value={this.state.challengeName}
+          onChangeText={(challengeName) => this.setState({challengeName})}
+          placeholder="Challenge Name" />
+        <TextInput
+          style={styles.input}
+          value={this.state.challengeDescription}
+          onChangeText={(challengeDescription) => this.setState({challengeDescription})}
+          placeholder="Challenge Description" />
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.handleSubmit.bind(this)}
+          underlayColor="#88d4f5">
+            <Text>Create Challenge</Text>
+        </TouchableHighlight>
+      </View>
+    )
   }
 
 	render() {
@@ -73,6 +131,7 @@ class GroupChallenges extends Component {
 		return (
       <ScrollView style={styles.container}>
         {list}
+        {this.footer()}
       </ScrollView>
     )
 	}
