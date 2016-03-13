@@ -1,5 +1,6 @@
 
 var React = require('react-native');
+var ChallengeShow = require('./ChallengeShow');
 
 var {
 	StyleSheet,
@@ -47,15 +48,21 @@ class GroupChallenges extends Component {
     };
   }
 
+  goToChallenge(challenge) {
+    this.props.navigator.push({
+      component: ChallengeShow,
+      passProps: {challenge}
+    });
+  }
+
 	render() {
 		var challenges = this.props.challenges;
-		// var challenges = [{name: "Do the dishes", description: "Well"}, {name: "Clean the fridge", description: "Well"}];
 		var list = challenges.map((item,index) => {
 			var desc = challenges[index].name ? <Text style={styles.name}> {challenges[index].name} </Text> : <View />;
 			return (
 				<View key={index}>
 					<View style={styles.rowContainer}>
-						<TouchableHighlight>
+						<TouchableHighlight onPress={() => this.goToChallenge(item)}>
 							<Text style={styles.nameText}>{challenges[index].name}</Text>
 						</TouchableHighlight>
 					</View>

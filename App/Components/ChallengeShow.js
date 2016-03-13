@@ -21,20 +21,18 @@ class ChallengeShow extends Component {
   constructor(props) {
     super(props);
     console.log("print");
-    console.log(this.props);
+    console.log(this.props.challenge.participations);
     this.state = {
       username: '',
       image_url: ''
     };
   }
   render(){
-    // var participations = this.props.participations
-    var participations = [{participant: 'mike', image_url: 'some_url.com'}, {participant: 'alana', image_url: 'another_url.com'}];
-
+    var participations = this.props.challenge.participations;
     var list = participations.map((item, index) => {
       return (
         <View key={index}>
-          <View><Text>{participations[index].participant}</Text><Image source="{participations[index].image_url}" /></View></View>
+          <View><Text>{participations[index].username}</Text><Image source="{participations[index].image_url}" /></View></View>
           )
                 // Something to press to trigger CameraRoll
                 //       <TouchableHighlight

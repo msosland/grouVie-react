@@ -46,8 +46,6 @@ class GroupMembers extends Component {
   }
 
   render(){
-    // var members = [{username: "Charlie"}, {username: "Debbie"}, {username: "Eddie"}]; //this.props.members;
-    var members = this.props.members;
     var list = members.map((member, index) => {
       var profilePic = members[index].image_url ? <Image style={styles.image} source={members[index].image_url} /> : <Text style={styles.imageSquare}> No Picture yet </Text>;
       return (
