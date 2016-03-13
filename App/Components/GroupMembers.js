@@ -12,6 +12,7 @@ var {
 
 var styles = StyleSheet.create({
   container: {
+    top: 40,
     flex: 1,
   },
   rowContainer: {
