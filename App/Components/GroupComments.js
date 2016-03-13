@@ -56,7 +56,8 @@ class GroupComments extends Component {
     this.state = {
       username: '',
       image_url: '',
-      comment: ''
+      comment: '',
+      commentObj: {}
     };
   }
   handleChange(e) {
@@ -67,15 +68,13 @@ class GroupComments extends Component {
 
   handleSubmit(){
     var comment = this.state.comment;
-    console.log(comment);
     this.setState({
       comment: ''
     });
-    // var url = "http://grouvie.herokuapp.com/groups/" + this.props.group.id + "/comments";
     posts.postComment(comment, this.props.group.id)
       .then((data) => {
-        console.log(data);
         this.props.comments.push(data);
+        this.setState({});
       })
       .catch((error) => {
         console.log('Request failed', error);
