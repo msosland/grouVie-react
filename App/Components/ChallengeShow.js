@@ -14,7 +14,7 @@ var styles = StyleSheet.create({
   container:{
     top: 40,
     flex: 1,
-    backgroundColor: '#111111'
+    // backgroundColor: '#111111'
   },
 });
 
@@ -45,7 +45,7 @@ class ChallengeShow extends Component {
                 //       {desc}
     });
     return (
-      <ScrollView>
+      <ScrollView style={styles.container}>
         {list}
       </ScrollView>
       )
