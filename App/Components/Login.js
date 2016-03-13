@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var User = require('./User');
 
 var {
   Component,
@@ -36,12 +37,6 @@ class Login extends Component {
   }
 
   handleSubmit(){
-    console.log(this.state.email);
-    console.log(this.state.password);
-    console.log(JSON.stringify({
-        email: 'alana@mail.com',
-        password: 'password',
-      }))
     fetch("http://localhost:3000/login", {
       method: 'POST',
       headers: {
@@ -52,19 +47,16 @@ class Login extends Component {
       body: JSON.stringify({
         email: this.state.email,
         password: this.state.password,
-      })
+        })
+ })
+    .then((response) => response.json())
+    .then((responseJSON) => {
+      this.goToUser(responseJSON);
     })
-      .then((response) => response.json()) //responseData
-      .then((responseData) => {
-        console.log(responseData);
-        // .then((responseData) => this.handleResponse(responseData))
-        // this.setState({
-        //   email
-        // })
-      })
-      .catch((error) => {
-        console.warn(error);
-      });
+    .catch((error) => {
+      console.warn(error);
+    })
+
 }
 
   render() {
