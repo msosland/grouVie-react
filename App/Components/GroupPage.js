@@ -32,6 +32,7 @@ class GroupPage extends Component {
   constructor(props) {
     super(props);
     console.log("group page constructor");
+    console.log(this.props.user);
     console.log(this.props.group.members);
     this.state = {
       group: "hello"
@@ -58,7 +59,7 @@ class GroupPage extends Component {
     console.log(this.props.group);
     this.props.navigator.push({
       component: GroupMembers,
-      passProps: {members: this.props.group.members }
+      passProps: {members: this.props.group.members, user: this.props.user }
     });
   }
 
@@ -67,7 +68,8 @@ class GroupPage extends Component {
       component: GroupComments,
       passProps: {
         comments: this.props.group.comments,
-        group: this.props.group
+        group: this.props.group,
+        user: this.props.user
        }
     });
   }
@@ -75,7 +77,7 @@ class GroupPage extends Component {
   goToChallenges(){
     this.props.navigator.push({
       component: GroupChallenges,
-      passProps: { challenges: this.props.group.challenges }
+      passProps: { challenges: this.props.group.challenges, user: this.props.user }
     });
   }
 
