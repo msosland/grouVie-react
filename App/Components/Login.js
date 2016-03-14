@@ -2,6 +2,8 @@
 
 var React = require('react-native');
 var User = require('./User');
+var ApiUtils = require('../Utils/ApiUtils');
+
 
 var {
   Component,
@@ -49,13 +51,12 @@ class Login extends Component {
         password: this.state.password,
         })
  })
+    .then(ApiUtils.checkStatus)
     .then((response) => response.json())
     .then((response) => {
       this.goToUser(response);
     })
-    .catch((error) => {
-      console.warn(error);
-    })
+    .catch(error => error)
 
 }
 

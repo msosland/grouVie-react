@@ -31,9 +31,6 @@ var styles = StyleSheet.create({
 class GroupPage extends Component {
   constructor(props) {
     super(props);
-    console.log("group page constructor");
-    console.log(this.props.user);
-    console.log(this.props.group.members);
     this.state = {
       group: "hello"
     };

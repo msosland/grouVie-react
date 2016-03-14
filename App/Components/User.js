@@ -59,12 +59,11 @@ class User extends Component {
 	}
 
 	fetchData() {
-    console.log(this.state);
     console.log(this.props);
 		fetch("http://grouvie.herokuapp.com/users/" + this.props.user.id +"/groups")
 			.then((response) => response.json())
       .then((responseData) => {
-      console.log(responseData);
+        console.log(responseData)
         this.setState({
           // groups: responseData,
 					dataSource: this.state.dataSource.cloneWithRows(responseData),

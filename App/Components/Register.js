@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var User = require('./User');
+var ApiUtils = require('../Utils/ApiUtils');
 
 var {
   Component,
@@ -38,11 +39,6 @@ class Register extends Component {
   }
 
   handleSubmit(){
-    console.log(JSON.stringify({
-        username: this.state.username,
-        email: this.state.email,
-        password: this.state.password,
-        }));
     fetch("http://grouvie.herokuapp.com/users", {
       method: 'POST',
       headers: {
@@ -55,16 +51,13 @@ class Register extends Component {
         email: this.state.email,
         password: this.state.password,
         })
- })
+    })
+    .then(ApiUtils.checkStatus)
     .then((response) => response.json())
     .then((response) => {
-      console.log(response)
       this.goToUser(response);
     })
-    .catch((error) => {
-      console.warn(error);
-    });
-
+    .catch(error => error)
 }
 
   render() {
