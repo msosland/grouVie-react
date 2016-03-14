@@ -15,12 +15,6 @@ var {
   TouchableHighlight
 } = React;
 
-var styles = StyleSheet.create({
-    container: {
-    marginTop: 55,
-    flex: 1
-  },
-});
 
 class Login extends Component {
   constructor(props) {
@@ -70,18 +64,62 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text> Username: </Text>
+        <Text style={styles.loginText}> Username: </Text>
         <TextInput
+<<<<<<< HEAD
           style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' autoCorrect={false} onChangeText={(username) => this.setState({username})} value={this.state.username}/>
         <Text> Password: </Text>
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' secureTextEntry={true} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
         <TouchableHighlight onPress={this.handleSubmit.bind(this)}>
           <Text> Log In </Text>
+=======
+          style={styles.blank} autoCapitalize='none' onChangeText={(username) => this.setState({username})} value={this.state.username}/>
+        <Text style={styles.loginText}> Password: </Text>
+        <TextInput style={styles.blank} autoCapitalize='none' secureTextEntry={true} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
+        <TouchableHighlight onPress={this.handleSubmit.bind(this)} style={styles.login}>
+          <Text style={styles.loginButtonText}> Log In </Text>
+>>>>>>> master
         </TouchableHighlight>
       </View>
       );
   }
 }
+
+var styles = StyleSheet.create({
+    container: {
+    marginTop: 200,
+    flex: 1
+  },
+  login: {
+    backgroundColor: '#ffffff',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    height: 55,
+    width: 100,
+    margin: 10,
+    borderRadius: 6,
+  },
+  loginText: {
+    fontSize: 24,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  loginButtonText: {
+    fontSize: 24,
+    color: '#4800a8',
+    alignSelf: 'center'
+  },
+  blank:{
+    height: 40,
+    width: 200,
+    alignSelf: 'center',
+    borderColor: 'gray',
+    borderWidth: 1,
+    backgroundColor: "#ffffff",
+    borderRadius: 6,
+  }
+});
+
 
 module.exports = Login;

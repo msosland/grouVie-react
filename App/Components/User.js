@@ -20,73 +20,10 @@ var {
   }
 } = React;
 
-var styles = StyleSheet.create({
-  container: {
-    top: 40,
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-
-  },
-  header: {
-    height: 200,
-  },
-  rightContainer: {
-    flex: 1,
-  },
-  group_id: {
-    fontSize: 20,
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  year: {
-    textAlign: 'center',
-  },
-  thumbnail: {
-    width: 53,
-    height: 81,
-  },
-  listView: {
-    paddingTop: 60,
-    backgroundColor: 'orange',
-  },
-  avatar: {
-    borderRadius: 75,
-    width: 150,
-    height: 150
-  },
-  avatarContainer: {
-    borderColor: '#9B9B9B',
-    borderWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-   button: {
-    bottom: 10,
-    height: 60,
-    backgroundColor: '#48BBEC',
-    flex: 3,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  center: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  footer: {
-    justifyContent: 'center',
-    marginTop: 50
-  }
-});
-
 class User extends Component {
-	constructor(props) {
-		super(props);
-    console.log("i'm on the user page!");
-    console.log(this.props.user);
-		this.state = {
+  constructor(props) {
+    super(props);
+    this.state = {
       groups: [],
 			dataSource: new ListView.DataSource({
 				rowHasChanged: (row1, row2) => row1 !== row2,
@@ -100,19 +37,18 @@ class User extends Component {
 		this.fetchData();
 	}
 
-	fetchData() {
-    console.log(this.props);
-		fetch("http://grouvie.herokuapp.com/users/" + this.props.user.id +"/groups")
-			.then((response) => response.json())
+  fetchData() {
+
+    fetch("http://grouvie.herokuapp.com/users/" + this.props.user.id +"/groups")
+      .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData)
         this.setState({
-					dataSource: this.state.dataSource.cloneWithRows(responseData),
-					loaded: true,
-				});
-			})
-			.done();
-	}
+          dataSource: this.state.dataSource.cloneWithRows(responseData),
+          loaded: true,
+        });
+      })
+      .done();
+  }
 
   selectPhotoTapped(item) {
     const options = {
@@ -127,12 +63,8 @@ class User extends Component {
     ImagePickerManager.showImagePicker(options, (response) => {
       var id = this.props.user.id;
       posts.postProfilePicture(response.data, id).then((responseJSON) => {
-        console.log("********************USER PROPS*****************");
-        console.log(this.props.user);
         this.props.user.image_url = responseJSON.image_url;
         this.setState({});
-        console.log("****************NEW PROPS****************");
-        console.log(this.props.user);
       }).done();
     });
   }
@@ -171,7 +103,6 @@ class User extends Component {
 
   newGroupButton() {
     return (
-
       <View style={styles.footer}>
       <Text> Create New Group: </Text>
         <View>
@@ -200,16 +131,79 @@ class User extends Component {
 			);
 	}
 
-	renderGroup(group) {
-		return (
-  			<View style={styles.container}>
-          <TouchableHighlight onPress={() => this.goToGroup(group)}>
-    				  <Text>{group.name}</Text>
+  renderGroup(group) {
+    return (
+        <View style={styles.container}>
+          <TouchableHighlight  onPress={() => this.goToGroup(group)}>
+              <Text style={styles.groupList}>{group.name}</Text>
           </TouchableHighlight>
-  			</View>
-		);
-	}
+        </View>
+    );
+  }
 }
 
+var styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+
+  },
+  user: {
+    fontSize: 24,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  groupList: {
+    fontSize: 35,
+    color: 'white',
+    margin: 10,
+    padding: 30,
+    width: 400,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 6,
+  },
+  header: {
+    height: 200,
+  },
+  rightContainer: {
+    flex: 1,
+  },
+  group_id: {
+    fontSize: 20,
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  year: {
+    textAlign: 'center',
+  },
+  thumbnail: {
+    width: 53,
+    height: 81,
+  },
+  listView: {
+    paddingTop: 60,
+    backgroundColor: '#310373',
+  },
+  avatar: {
+    borderRadius: 75,
+    width: 150,
+    height: 150
+  },
+  avatarContainer: {
+    borderColor: '#9B9B9B',
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  center: {
+    marginTop: 25,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});
 
 module.exports = User;

@@ -38,16 +38,23 @@ class GroupPage extends Component {
 
   makeBackground(btn){
     var obj = {
-      flexDirection: 'row',
-      alignSelf: 'stretch',
+      flexDirection:'column',
+      height: 200,
+      width: 200,
+      borderRadius: 100,
       justifyContent: 'center',
-      flex: 1
     }
     if(btn === 0){
+      obj.alignSelf = 'flex-start';
       obj.backgroundColor = '#48BBEC';
+      obj.marginLeft = 10;
     } else if (btn === 1){
+      obj.margin = 10;
+      obj.alignSelf = 'flex-end';
       obj.backgroundColor = '#E77AAE';
     } else {
+      obj.margin = 10;
+      obj.alignSelf = 'flex-start';
       obj.backgroundColor = '#758BF4';
     }
     return obj;

@@ -9,6 +9,7 @@ var {
   Text,
   TextInput,
   View,
+  Image,
   Navigator,
   StyleSheet,
   TouchableHighlight
@@ -20,11 +21,14 @@ var styles = StyleSheet.create({
     flex: 1
   },
   image: {
-    height: 350,
+    height: 155,
+    alignSelf: 'center',
+    margin: 100,
+
   },
   buttonText: {
     fontSize: 24,
-    color: 'white',
+    color: '#5a01d2',
     alignSelf: 'center'
   }
 });
@@ -42,15 +46,17 @@ class Main extends Component {
   }
   makeBackground(btn){
     var obj = {
-      flexDirection: 'row',
-      alignSelf: 'stretch',
+      alignSelf: 'center',
       justifyContent: 'center',
-      flex: 1
+      height: 55,
+      width: 100,
+      margin: 10,
+      borderRadius: 6,
     }
     if(btn === 0){
-      obj.backgroundColor = '#48BBEC';
+      obj.backgroundColor = '#ffffff';
     } else if (btn === 1){
-      obj.backgroundColor = '#E77AAE';
+      obj.backgroundColor = '#ffffff';
     } else {
       obj.backgroundColor = '#758BF4';
     }
@@ -60,16 +66,20 @@ class Main extends Component {
   render(){
     return (
       <View style={styles.container}>
+        <Image
+        resizeMode={"contain"}
+        style={styles.image}
+        source={require('../assets/darkcon.png')} />
         <TouchableHighlight
             style={this.makeBackground(0)}
             onPress={this.goToLogin.bind(this)}
-            underlayColor="#88D4F5">
+            underlayColor="#6d00ff">
               <Text style={styles.buttonText}>Login</Text>
         </TouchableHighlight>
         <TouchableHighlight
             style={this.makeBackground(1)}
             onPress={this.goToRegister.bind(this)}
-            underlayColor="#E39EBF">
+            underlayColor="#4800a8">
               <Text style={styles.buttonText}>Register</Text>
         </TouchableHighlight>
       </View>
