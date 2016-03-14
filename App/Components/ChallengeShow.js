@@ -38,6 +38,12 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     width: 150,
     height: 150
+  },
+  avatarContainer: {
+    borderColor: '#9B9B9B',
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 
@@ -125,8 +131,9 @@ class ChallengeShow extends Component {
     return (
       <ListView
         dataSource={this.state.dataSource}
-        renderRow={this.renderParticipant.bind(this)}/>
-        {this.footer()}
+        renderRow={this.renderParticipant.bind(this)}
+        renderFooter={this.footer.bind(this)}/>
+        // <View>{this.footer()}</View>
     );
   }
   renderParticipant(participant) {
