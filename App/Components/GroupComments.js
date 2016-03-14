@@ -50,9 +50,6 @@ var styles = StyleSheet.create({
 class GroupComments extends Component {
   constructor(props) {
     super(props);
-    console.log("print");
-    console.log(this.props);
-    console.log(this.state);
     this.state = {
       username: '',
       image_url: '',
