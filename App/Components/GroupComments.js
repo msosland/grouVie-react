@@ -6,46 +6,12 @@ const {
   ScrollView,
   Text,
   TextInput,
+  Dimensions,
   TouchableHighlight,
   Component,
   View,
+  DeviceEventEmitter
 } = React;
-
-var styles = StyleSheet.create({
-  container: {
-    top: 40,
-    flex: 1,
-  },
-  rowContainer: {
-    flexDirection: 'column',
-    flex: 1,
-    padding: 10
-  },
-  name: {
-    color: '#48BBEC',
-    fontSize: 18,
-    paddingBottom: 5
-  },
-  comment: {
-    color: '#48BBEC',
-    fontSize: 18,
-    paddingBottom: 5
-  },
-  input: {
-    height: 60,
-    padding: 10,
-    fontSize: 18,
-    color: '#111',
-    flex: 10
-  },
-  button: {
-    height: 60,
-    backgroundColor: '#48BBEC',
-    flex: 3,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
 
 class GroupComments extends Component {
   constructor(props) {
@@ -54,9 +20,28 @@ class GroupComments extends Component {
       username: '',
       image_url: '',
       comment: '',
-      commentObj: {}
+      commentObj: {},
+      visibleHeight: Dimensions.get('window').height,
     };
+    console.log(this.state.visibleHeight);
   }
+
+  componentWillMount () {
+    DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
+    DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
+  }
+
+  keyboardWillShow (e) {
+    let newSize = Dimensions.get('window').height - e.endCoordinates.height
+    this.setState({visibleHeight: newSize})
+    console.log(this.state.visibleHeight);
+  }
+
+  keyboardWillHide (e) {
+    this.setState({visibleHeight: Dimensions.get('window').height})
+    console.log(this.state.visibleHeight);
+  }
+
   handleChange(e) {
     this.setState({
       comment: e.nativeEvent.text
@@ -81,9 +66,9 @@ class GroupComments extends Component {
 
   footer() {
     return (
-      <View>
+      <View style={styles.footer}>
         <TextInput
-          style={styles.input}
+          style={styles.inputComment}
           value={this.state.comment}
           onChange={this.handleChange.bind(this)}
           placeholder="New Comment" />
@@ -110,11 +95,53 @@ class GroupComments extends Component {
     });
     return (
       <ScrollView style={styles.container}>
-        {list}
+        <View style={{flex: 0.8}}>{list}</View>
         {this.footer()}
       </ScrollView>
     )
   }
 };
+var styles = StyleSheet.create({
+  container: {
+    top: 40,
+    flex: 1,
+  },
+  rowContainer: {
+    flexDirection: 'column',
+    flex: 1,
+    padding: 10
+  },
+  name: {
+    color: '#48BBEC',
+    fontSize: 18,
+    paddingBottom: 5
+  },
+  comment: {
+    color: '#48BBEC',
+    fontSize: 18,
+    paddingBottom: 5
+  },
+  inputComment: {
+    color: "black",
+    height: 60,
+    padding: 10,
+    fontSize: 18,
+    backgroundColor: '#fff',
+  },
+  button: {
+    height: 60,
+    backgroundColor: '#48BBEC',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  footer: {
+    position: 'relative',
+    flex: .2,
+    marginTop: 20,
+    left:0,
+    right: 0,
+    bottom: 30,
+  }
+});
 
 module.exports = GroupComments;
