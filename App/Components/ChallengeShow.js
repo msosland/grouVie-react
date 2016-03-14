@@ -1,6 +1,7 @@
 var React = require('react-native');
 var NativeImagePicker = require('./NativeImagePicker');
-
+var posts = require('../Utils/posts');
+var part;
 var {
   View,
   NativeImagePicker,
@@ -10,6 +11,7 @@ var {
   ListView,
   StyleSheet,
   ScrollView,
+  PixelRatio,
   TouchableOpacity,
   NativeModules: {
     ImagePickerManager
@@ -20,8 +22,8 @@ const styles = StyleSheet.create({
   container: {
     top: 50,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
     backgroundColor: '#F5FCFF'
   },
   avatarContainer: {
@@ -45,7 +47,7 @@ class ChallengeShow extends Component {
     };
   }
 
-  selectPhotoTapped() {
+  selectPhotoTapped(item) {
     const options = {
       title: 'Photo Picker',
       quality: 0.5,
@@ -56,7 +58,7 @@ class ChallengeShow extends Component {
       }
     };
     ImagePickerManager.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
+      // console.log('Response = ', response);
       console.log(response.uri);
 
       if (response.didCancel) {
@@ -69,38 +71,28 @@ class ChallengeShow extends Component {
         console.log('User tapped custom button: ', response.customButton);
       }
       else {
-        // You can display the image using either:
-        //const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
-        const source = {uri: response.uri.replace('file://', ''), isStatic: true};
-
-        this.setState({
-          avatarSource: source
-        });
+      posts.postPicture(this.props.challenge.id, part).then((responseJSON) => console.log(responseJSON));
+      this.setState({});
       }
     });
   }
 
   render(){
+    posts.postPicture(this.props.challenge.id, 5).then((responseJSON) => console.log(responseJSON));
     var participations = this.props.challenge.participations;
+    console.log(participations);
     var list = participations.map((item, index) => {
+      part = item.id;
       return (
         <View key={index}>
           <View><Text>{participations[index].username}</Text><TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
           <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
-          { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
-            <Image style={styles.avatar} source={this.state.avatarSource} />
+          { participations[index].image_url == "/images/original/missing.png" ? <Text>Select a Photo</Text> :
+            <Image style={styles.avatar} source={participations[index].image_url} />
           }
           </View>
         </TouchableOpacity></View></View>
           )
-                // Something to press to trigger CameraRoll
-                //       <TouchableHighlight
-                //         onPress={this.openPage.bind(this, repos[index].html_url)}
-                //         underlayColor='transparent'>
-                //         <Text style={styles.name}>{repos[index].name}</Text>
-                //       </TouchableHighlight>
-                //       <Text style={styles.stars}> Stars: {repos[index].stargazers_count} </Text>
-                //       {desc}
     });
     return (
       <ScrollView style={styles.container}>
