@@ -4,7 +4,6 @@ var React = require('react-native');
 var User = require('./User');
 var ApiUtils = require('../Utils/ApiUtils');
 
-
 var {
   Component,
   Text,
@@ -22,17 +21,17 @@ var styles = StyleSheet.create({
   },
 });
 
-class Login extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
+      email: '',
       password: '',
     }
   };
 
   goToUser(user) {
-    console.log(user);
     this.props.navigator.push({
       component: User,
       passProps: {user}
@@ -40,7 +39,7 @@ class Login extends Component {
   }
 
   handleSubmit(){
-    fetch("http://grouvie.herokuapp.com/login", {
+    fetch("http://grouvie.herokuapp.com/users", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -49,16 +48,16 @@ class Login extends Component {
       dataType: 'json',
       body: JSON.stringify({
         username: this.state.username,
+        email: this.state.email,
         password: this.state.password,
         })
- })
+    })
     .then(ApiUtils.checkStatus)
     .then((response) => response.json())
     .then((response) => {
       this.goToUser(response);
     })
     .catch(error => error)
-
 }
 
   render() {
@@ -67,15 +66,18 @@ class Login extends Component {
         <Text> Username: </Text>
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' onChangeText={(username) => this.setState({username})} value={this.state.username}/>
+        <Text> E-mail: </Text>
+        <TextInput
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' onChangeText={(email) => this.setState({email})} value={this.state.email}/>
         <Text> Password: </Text>
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' secureTextEntry={true} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
         <TouchableHighlight onPress={this.handleSubmit.bind(this)}>
-          <Text> Log In </Text>
+          <Text> Create User </Text>
         </TouchableHighlight>
       </View>
       );
   }
 }
 
-module.exports = Login;
+module.exports = Register;
