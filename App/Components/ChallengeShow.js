@@ -72,6 +72,8 @@ class ChallengeShow extends Component {
       }
     };
     ImagePickerManager.showImagePicker(options, (response) => {
+      console.log("#############");
+      console.log(response);
       var id = this.props.user.id;
       var user = this.props.challenge.participations.find(function(participant) {
         return participant.user_id === id;
@@ -82,7 +84,9 @@ class ChallengeShow extends Component {
         this.props.challenge.participations.splice(index, 1);
       }
       console.log(this.props.challenge.participations);
-      posts.postPicture(this.props.challenge.id, user.id ).then((responseJSON) => {
+      console.log("*************");
+      console.log(response.data);
+      posts.postPicture(response.data, this.props.challenge.id, user.id ).then((responseJSON) => {
         console.log(responseJSON);
         this.props.challenge.participations.splice(index, 0, responseJSON);
         console.log(this.props.challenge.participations);
