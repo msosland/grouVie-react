@@ -1,5 +1,6 @@
 var React = require('react-native');
 var GroupPage = require('./GroupPage');
+var posts = require('../Utils/posts');
 
 var {
 	StyleSheet,
@@ -40,6 +41,17 @@ var styles = StyleSheet.create({
     paddingTop: 60,
     backgroundColor: 'orange',
   },
+  avatar: {
+    borderRadius: 0,
+    width: 150,
+    height: 150
+  },
+  avatarContainer: {
+    borderColor: '#9B9B9B',
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
 
 class User extends Component {
@@ -72,6 +84,32 @@ class User extends Component {
 			.done();
 	}
 
+  selectPhotoTapped(item) {
+    const options = {
+      title: 'Photo Picker',
+      quality: 0.5,
+      maxWidth: 300,
+      maxHeight: 300,
+      storageOptions: {
+        skipBackup: true
+      }
+    };
+    ImagePickerManager.showImagePicker(options, (response) => {
+      var id = this.props.user.id;
+      var user = this.props.challenge.participations.find(function(participant) {
+        return participant.user_id === id;
+      })
+      var index = this.props.challenge.participations.indexOf(user);
+      if (index > -1) {
+        this.props.challenge.participations.splice(index, 1);
+      }
+      posts.postPicture(response.data, this.props.challenge.id, user.id ).then((responseJSON) => {
+        this.props.challenge.participations.splice(index, 0, responseJSON);
+        this.setState({});
+      }).done();
+    });
+  }
+
   goToGroup(group) {
     this.props.navigator.push({
       component: GroupPage,
@@ -81,7 +119,15 @@ class User extends Component {
 
   getUserName() {
     return (
-      <Text>{this.props.user.username}</Text>
+      <View>
+      <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+          <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
+          { this.props.user.image_url == "/images/original/missing.png" ? <Text>Select a Photo</Text> :
+            <Image style={styles.avatar} source={{uri: this.props.user.image_url}} />
+          }
+          </View>
+        </TouchableOpacity>
+      <Text>{this.props.user.username}</Text></View>
       );
   }
 
