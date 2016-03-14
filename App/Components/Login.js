@@ -50,8 +50,8 @@ class Login extends Component {
         })
  })
     .then((response) => response.json())
-    .then((responseJSON) => {
-      this.goToUser(responseJSON);
+    .then((response) => {
+      this.goToUser(response);
     })
     .catch((error) => {
       console.warn(error);

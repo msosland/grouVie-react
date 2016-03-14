@@ -27,7 +27,6 @@ class Register extends Component {
       username: '',
       email: '',
       password: '',
-      image: '',
     }
   };
 
@@ -39,6 +38,11 @@ class Register extends Component {
   }
 
   handleSubmit(){
+    console.log(JSON.stringify({
+        username: this.state.username,
+        email: this.state.email,
+        password: this.state.password,
+        }));
     fetch("http://grouvie.herokuapp.com/users", {
       method: 'POST',
       headers: {
@@ -50,16 +54,16 @@ class Register extends Component {
         username: this.state.username,
         email: this.state.email,
         password: this.state.password,
-        image: this.state.image,
         })
  })
     .then((response) => response.json())
-    .then((responseJSON) => {
-      this.goToUser(responseJSON);
+    .then((response) => {
+      console.log(response)
+      this.goToUser(response);
     })
     .catch((error) => {
       console.warn(error);
-    })
+    });
 
 }
 
@@ -75,9 +79,6 @@ class Register extends Component {
         <Text> Password: </Text>
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' secureTextEntry={true} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
-          <Text> Image URL(optional): </Text>
-          <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none'onChangeText={(image) => this.setState({image})} value={this.state.image}/>
         <TouchableHighlight onPress={this.handleSubmit.bind(this)}>
           <Text> Create User </Text>
         </TouchableHighlight>
