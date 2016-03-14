@@ -82,22 +82,22 @@ class GroupPage extends Component {
     return (
       <View style={styles.container}>
         <TouchableHighlight
-            style={this.makeBackground(0)}
-            onPress={this.goToMembers.bind(this)}
-            underlayColor="#88D4F5">
-              <Text style={styles.buttonText}>View Members</Text>
+            style={this.makeBackground(2)}
+            onPress={this.goToChallenges.bind(this)}
+            underlayColor="#9BAAF3">
+              <Text style={styles.buttonText}>View Challenges</Text>
         </TouchableHighlight>
         <TouchableHighlight
             style={this.makeBackground(1)}
             onPress={this.goToComments.bind(this)}
             underlayColor="#E39EBF">
-              <Text style={styles.buttonText}>View Comments</Text>
+              <Text style={styles.buttonText}>Chat Room</Text>
         </TouchableHighlight>
         <TouchableHighlight
-            style={this.makeBackground(2)}
-            onPress={this.goToChallenges.bind(this)}
-            underlayColor="#9BAAF3">
-              <Text style={styles.buttonText}>View Challenges</Text>
+            style={this.makeBackground(0)}
+            onPress={this.goToMembers.bind(this)}
+            underlayColor="#88D4F5">
+              <Text style={styles.buttonText}>View Members</Text>
         </TouchableHighlight>
       </View>
     )

@@ -1,14 +1,22 @@
+'use strict';
 var React = require('react-native');
 var GroupPage = require('./GroupPage');
+var posts = require('../Utils/posts');
 
 var {
 	StyleSheet,
 	TouchableHighlight,
 	ListView,
 	View,
+  Image,
 	Component,
   Navigator,
+  TouchableOpacity,
 	Text,
+  NativeImagePicker,
+  NativeModules: {
+    ImagePickerManager
+  }
 } = React;
 
 var styles = StyleSheet.create({
@@ -20,6 +28,9 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
 
+  },
+  header: {
+    height: 200,
   },
   rightContainer: {
     flex: 1,
@@ -40,11 +51,27 @@ var styles = StyleSheet.create({
     paddingTop: 60,
     backgroundColor: 'orange',
   },
+  avatar: {
+    borderRadius: 75,
+    width: 150,
+    height: 150
+  },
+  avatarContainer: {
+    borderColor: '#9B9B9B',
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
 
 class User extends Component {
 	constructor(props) {
 		super(props);
+    console.log(this.props.user);
 		this.state = {
       groups: [],
 			dataSource: new ListView.DataSource({
@@ -72,6 +99,29 @@ class User extends Component {
 			.done();
 	}
 
+  selectPhotoTapped(item) {
+    const options = {
+      title: 'Photo Picker',
+      quality: 0.5,
+      maxWidth: 300,
+      maxHeight: 300,
+      storageOptions: {
+        skipBackup: true
+      }
+    };
+    ImagePickerManager.showImagePicker(options, (response) => {
+      var id = this.props.user.id;
+      posts.postProfilePicture(response.data, id).then((responseJSON) => {
+        console.log("********************USER PROPS*****************");
+        console.log(this.props.user);
+        this.props.user.image_url = responseJSON.image_url;
+        this.setState({});
+        console.log("****************NEW PROPS****************");
+        console.log(this.props.user);
+      }).done();
+    });
+  }
+
   goToGroup(group) {
     this.props.navigator.push({
       component: GroupPage,
@@ -81,7 +131,11 @@ class User extends Component {
 
   getUserName() {
     return (
-      <Text>{this.props.user.username}</Text>
+      <View style={styles.center}>
+      <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}><View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
+          { this.props.user.image_url == "/images/original/missing.png" ? <Text>Add a Photo</Text> : <Image style={styles.avatar} source={{uri: this.props.user.image_url}} /> }</View></TouchableOpacity>
+          <Text>{this.props.user.username}</Text></View>
+
       );
   }
 
