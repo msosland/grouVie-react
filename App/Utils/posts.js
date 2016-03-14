@@ -14,7 +14,15 @@ var posts = {
       method: 'post',
       body: JSON.stringify({challengeName, challengeDescription, userId})
     }).then((response) => response.json());
-  }
+  },
+
+  optInToChallenge(challengeId, userId) {
+    var url = "http://grouvie.herokuapp.com/challenges/" + challengeId + "/participations"
+    return fetch(url, {
+      method: 'post',
+      body: JSON.stringify({userId})
+    }).then((response) => response.json());
+  },
 };
 
 module.exports = posts;
