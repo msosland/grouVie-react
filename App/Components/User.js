@@ -1,3 +1,4 @@
+'use strict';
 var React = require('react-native');
 var GroupPage = require('./GroupPage');
 var posts = require('../Utils/posts');
@@ -7,9 +8,15 @@ var {
 	TouchableHighlight,
 	ListView,
 	View,
+  Image,
 	Component,
   Navigator,
+  TouchableOpacity,
 	Text,
+  NativeImagePicker,
+  NativeModules: {
+    ImagePickerManager
+  }
 } = React;
 
 var styles = StyleSheet.create({
@@ -21,6 +28,9 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
 
+  },
+  header: {
+    height: 200,
   },
   rightContainer: {
     flex: 1,
@@ -42,7 +52,7 @@ var styles = StyleSheet.create({
     backgroundColor: 'orange',
   },
   avatar: {
-    borderRadius: 0,
+    borderRadius: 75,
     width: 150,
     height: 150
   },
@@ -51,12 +61,17 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 
 class User extends Component {
 	constructor(props) {
 		super(props);
+    console.log(this.props.user);
 		this.state = {
       groups: [],
 			dataSource: new ListView.DataSource({
@@ -96,16 +111,13 @@ class User extends Component {
     };
     ImagePickerManager.showImagePicker(options, (response) => {
       var id = this.props.user.id;
-      var user = this.props.challenge.participations.find(function(participant) {
-        return participant.user_id === id;
-      })
-      var index = this.props.challenge.participations.indexOf(user);
-      if (index > -1) {
-        this.props.challenge.participations.splice(index, 1);
-      }
-      posts.postPicture(response.data, this.props.challenge.id, user.id ).then((responseJSON) => {
-        this.props.challenge.participations.splice(index, 0, responseJSON);
+      posts.postProfilePicture(response.data, id).then((responseJSON) => {
+        console.log("********************USER PROPS*****************");
+        console.log(this.props.user);
+        this.props.user.image_url = responseJSON.image_url;
         this.setState({});
+        console.log("****************NEW PROPS****************");
+        console.log(this.props.user);
       }).done();
     });
   }
@@ -119,15 +131,11 @@ class User extends Component {
 
   getUserName() {
     return (
-      <View>
-      <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-          <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
-          { this.props.user.image_url == "/images/original/missing.png" ? <Text>Select a Photo</Text> :
-            <Image style={styles.avatar} source={{uri: this.props.user.image_url}} />
-          }
-          </View>
-        </TouchableOpacity>
-      <Text>{this.props.user.username}</Text></View>
+      <View style={styles.center}>
+      <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}><View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
+          { this.props.user.image_url == "/images/original/missing.png" ? <Text>Add a Photo</Text> : <Image style={styles.avatar} source={{uri: this.props.user.image_url}} /> }</View></TouchableOpacity>
+          <Text>{this.props.user.username}</Text></View>
+
       );
   }
 
