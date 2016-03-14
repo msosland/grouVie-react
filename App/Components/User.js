@@ -61,7 +61,7 @@ class User extends Component {
 	fetchData() {
     console.log(this.state);
     console.log(this.props);
-		fetch("http://grouvie.herokuapp.com/users/5/groups")
+		fetch("http://grouvie.herokuapp.com/users/1/groups")
 			.then((response) => response.json())
       .then((responseData) => {
       console.log(responseData);

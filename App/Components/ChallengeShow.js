@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
 class ChallengeShow extends Component {
   constructor(props) {
     super(props);
+    console.log(this.props.user);
     this.state = {
       avatarSource: null
     };
@@ -58,27 +59,30 @@ class ChallengeShow extends Component {
       }
     };
     ImagePickerManager.showImagePicker(options, (response) => {
+      var id = this.props.user.id;
+      var user = this.props.challenge.participations.find(function(participant) {
+        return participant.user_id === id;
+      })
+      posts.postPicture(this.props.challenge.id, user.id ).then((responseJSON) => console.log(responseJSON));
+      this.render();
       // console.log('Response = ', response);
-      console.log(response.uri);
+      // console.log(response.uri);
 
-      if (response.didCancel) {
-        console.log('User cancelled photo picker');
-      }
-      else if (response.error) {
-        console.log('ImagePickerManager Error: ', response.error);
-      }
-      else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      }
-      else {
-      posts.postPicture(this.props.challenge.id, part).then((responseJSON) => console.log(responseJSON));
-      this.setState({});
-      }
+      // if (response.didCancel) {
+      //   console.log('User cancelled photo picker');
+      // }
+      // else if (response.error) {
+      //   console.log('ImagePickerManager Error: ', response.error);
+      // }
+      // else if (response.customButton) {
+      //   console.log('User tapped custom button: ', response.customButton);
+      // }
+      // else {
+      // }
     });
   }
 
   render(){
-    posts.postPicture(this.props.challenge.id, 5).then((responseJSON) => console.log(responseJSON));
     var participations = this.props.challenge.participations;
     console.log(participations);
     var list = participations.map((item, index) => {
@@ -88,7 +92,7 @@ class ChallengeShow extends Component {
           <View><Text>{participations[index].username}</Text><TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
           <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
           { participations[index].image_url == "/images/original/missing.png" ? <Text>Select a Photo</Text> :
-            <Image style={styles.avatar} source={participations[index].image_url} />
+            <Image style={styles.avatar} source={{uri: participations[index].image_url}} />
           }
           </View>
         </TouchableOpacity></View></View>
