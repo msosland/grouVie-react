@@ -1,7 +1,7 @@
 var React = require('react-native');
 var posts = require('../Utils/posts');
 var NativeImagePicker = require('./NativeImagePicker');
-
+var posts = require('../Utils/posts');
 var {
   View,
   NativeImagePicker,
@@ -11,6 +11,7 @@ var {
   ListView,
   StyleSheet,
   ScrollView,
+  // PixelRatio,
   TouchableHighlight,
   TouchableOpacity,
   NativeModules: {
@@ -22,8 +23,6 @@ const styles = StyleSheet.create({
   container: {
     top: 50,
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
     backgroundColor: '#F5FCFF'
   },
   button: {
@@ -34,28 +33,35 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  // avatarContainer: {
-  //   borderColor: '#9B9B9B',
-  //   borderWidth: 1 / PixelRatio.get(),
-  //   justifyContent: 'center',
-  //   alignItems: 'center'
-  // },
-  // avatar: {
-  //   borderRadius: 0,
-  //   width: 150,
-  //   height: 150
-  // }
+  avatar: {
+    borderRadius: 0,
+    width: 150,
+    height: 150
+  },
+  avatarContainer: {
+    borderColor: '#9B9B9B',
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
 
 class ChallengeShow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      avatarSource: null,
+      // dataSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2}),
+      avatarSource: null
     };
   }
 
-  selectPhotoTapped() {
+  // componentDidMount() {
+  //   this.setState({
+  //     dataSource: this.state.dataSource.cloneWithRows(this.props.challenge.participations)
+  //   });
+  // }
+
+  selectPhotoTapped(item) {
     const options = {
       title: 'Photo Picker',
       quality: 0.5,
@@ -66,27 +72,39 @@ class ChallengeShow extends Component {
       }
     };
     ImagePickerManager.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
-      console.log(response.uri);
-
-      if (response.didCancel) {
-        console.log('User cancelled photo picker');
+      var id = this.props.user.id;
+      var user = this.props.challenge.participations.find(function(participant) {
+        return participant.user_id === id;
+      })
+      var index = this.props.challenge.participations.indexOf(user);
+      console.log(index);
+      if (index > -1) {
+        this.props.challenge.participations.splice(index, 1);
       }
-      else if (response.error) {
-        console.log('ImagePickerManager Error: ', response.error);
-      }
-      else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      }
-      else {
-        // You can display the image using either:
-        //const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
-        const source = {uri: response.uri.replace('file://', ''), isStatic: true};
-
+      console.log(this.props.challenge.participations);
+      posts.postPicture(this.props.challenge.id, user.id ).then((responseJSON) => {
+        console.log(responseJSON);
+        this.props.challenge.participations.splice(index, 0, responseJSON);
+        console.log(this.props.challenge.participations);
         this.setState({
-          avatarSource: source
+          // dataSource: this.state.dataSource.cloneWithRows(this.props.challenge.participations)
         });
-      }
+      }).done();
+      // console.log('Response = ', response);
+      // console.log(response.uri);
+      // this.props.challenge.participations.push(responseJSON)
+      // if (response.didCancel) {
+      //   console.log('User cancelled photo picker');
+      // }
+      // else if (response.error) {
+      //   console.log('ImagePickerManager Error: ', response.error);
+      // }
+      // else if (response.customButton) {
+      //   console.log('User tapped custom button: ', response.customButton);
+      // }
+      // else {
+      // }
+      // source={{uri: participant.image_url}}
     });
   }
 
@@ -120,27 +138,43 @@ class ChallengeShow extends Component {
     )
   }
 
+  // render() {
+  //   return (
+  //     <ListView
+  //       dataSource={this.state.dataSource}
+  //       renderRow={this.renderParticipant.bind(this)}
+  //       renderFooter={this.footer.bind(this)}/>
+  //       // <View>{this.footer()}</View>
+  //   );
+  // }
+  // renderParticipant(participant) {
+  //     return (
+  //       <View>
+  //         <Text>{participant.username}</Text>
+  //         <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+  //         <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
+  //         { participant.image_url == "/images/original/missing.png" ? <Text>Select a Photo</Text> :
+  //         <Image style={styles.avatar} source={{uri: participant.image_url}}/>
+  //         }
+  //         </View>
+  //       </TouchableOpacity>
+  //     </View>
+  //     );
+  //   }
   render(){
     var participations = this.props.challenge.participations;
+    console.log(participations);
     var list = participations.map((item, index) => {
       return (
         <View key={index}>
           <View><Text>{participations[index].username}</Text><TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
           <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
-          { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
-            <Image style={styles.avatar} source={this.state.avatarSource} />
+          { participations[index].image_url == "/images/original/missing.png" ? <Text>Select a Photo</Text> :
+            <Image style={styles.avatar} source={{uri: participations[index].image_url}} />
           }
           </View>
         </TouchableOpacity></View></View>
           )
-                // Something to press to trigger CameraRoll
-                //       <TouchableHighlight
-                //         onPress={this.openPage.bind(this, repos[index].html_url)}
-                //         underlayColor='transparent'>
-                //         <Text style={styles.name}>{repos[index].name}</Text>
-                //       </TouchableHighlight>
-                //       <Text style={styles.stars}> Stars: {repos[index].stargazers_count} </Text>
-                //       {desc}
     });
     return (
       <ScrollView style={styles.container}>

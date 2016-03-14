@@ -68,7 +68,10 @@ class GroupChallenges extends Component {
   goToChallenge(challenge) {
     this.props.navigator.push({
       component: ChallengeShow,
-      passProps: {challenge, user: this.props.user}
+      passProps: {
+        challenge: challenge,
+        user: this.props.user
+      }
     });
   }
 

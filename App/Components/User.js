@@ -65,7 +65,6 @@ class User extends Component {
       .then((responseData) => {
         console.log(responseData)
         this.setState({
-          // groups: responseData,
 					dataSource: this.state.dataSource.cloneWithRows(responseData),
 					loaded: true,
 				});
