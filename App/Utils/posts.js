@@ -51,7 +51,15 @@ var posts = {
       method: 'post',
       body: JSON.stringify({userId})
     }).then((response) => response.json());
-  }
+  },
+
+  createNewGroup(groupName, userId) {
+    var url = "http://grouvie.herokuapp.com/users/" + userId + "/groups"
+    return fetch(url, {
+      method: 'post',
+      body: JSON.stringify({groupName})
+    }).then((response) => response.json());
+  },
 
 };
 

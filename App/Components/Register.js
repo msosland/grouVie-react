@@ -58,8 +58,7 @@ class Register extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.registerText}> Username: </Text>
-        <TextInput
-          style={styles.blank} autoCapitalize='none' onChangeText={(username) => this.setState({username})} value={this.state.username}/>
+        <TextInput style={styles.blank} autoCapitalize='none' onChangeText={(username) => this.setState({username})} value={this.state.username}/>
         <Text style={styles.registerText}> E-mail: </Text>
         <TextInput
           style={styles.blank} autoCapitalize='none' onChangeText={(email) => this.setState({email})} value={this.state.email}/>

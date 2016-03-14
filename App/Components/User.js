@@ -12,6 +12,7 @@ var {
 	Component,
   Navigator,
   TouchableOpacity,
+  TextInput,
 	Text,
   NativeImagePicker,
   NativeModules: {
@@ -19,23 +20,22 @@ var {
   }
 } = React;
 
-
 class User extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.user);
     this.state = {
       groups: [],
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
-      loaded: false,
-    };
-  }
+			dataSource: new ListView.DataSource({
+				rowHasChanged: (row1, row2) => row1 !== row2,
+			}),
+			loaded: false,
+      groupName: ''
+		};
+	}
 
-  componentDidMount() {
-    this.fetchData();
-  }
+	componentDidMount() {
+		this.fetchData();
+	}
 
   fetchData() {
 
@@ -69,6 +69,22 @@ class User extends Component {
     });
   }
 
+  handleSubmit() {
+    console.log("button submitted");
+    var groupName = this.state.groupName
+    this.setState({groupName: ''});
+    posts.createNewGroup(groupName, this.props.user.id)
+    .then((responseJSON) => {
+      this.props.groups.push(responseJSON);
+      goToGroup(responseJSON);
+
+    })
+    .catch((error) => {
+      console.log('Request failed', error);
+      this.setState({error});
+    });
+  }
+
   goToGroup(group) {
     this.props.navigator.push({
       component: GroupPage,
@@ -81,22 +97,39 @@ class User extends Component {
       <View style={styles.center}>
       <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}><View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
           { this.props.user.image_url == "/images/original/missing.png" ? <Text>Add a Photo</Text> : <Image style={styles.avatar} source={{uri: this.props.user.image_url}} /> }</View></TouchableOpacity>
-          <Text style={styles.user}>{this.props.user.username}</Text>
-          </View>
-
+          <Text>{this.props.user.username}</Text></View>
       );
-  }
+    }
 
-  render() {
-
+  newGroupButton() {
     return (
-      <ListView
-        renderHeader={this.getUserName.bind(this)}
-        dataSource={this.state.dataSource}
-        renderRow={this.renderGroup.bind(this)}
-        style={styles.listView} />
+      <View style={styles.footer}>
+      <Text> Create New Group: </Text>
+        <View>
+
+          <TextInput style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' placeholder='Group Name' autoCorrect={false} onChangeText={(groupName) => this.setState({groupName})} value={this.state.groupName}/>
+          <TouchableHighlight style={styles.button}
+            onPress={this.handleSubmit.bind(this)}
+            underlayColor="#88d4f5">
+            <Text>Submit</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
       );
   }
+
+	render() {
+		return (
+      <View>
+			<ListView
+        renderHeader={this.getUserName.bind(this)}
+				dataSource={this.state.dataSource}
+				renderRow={this.renderGroup.bind(this)}
+        renderFooter={this.newGroupButton.bind(this)}
+				style={styles.listView} />
+        </View>
+			);
+	}
 
   renderGroup(group) {
     return (

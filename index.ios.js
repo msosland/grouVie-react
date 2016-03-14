@@ -22,8 +22,8 @@ var NavigationBarRouteMapper = {
   },
   Title: function( route, navigator, index, navState ){
     return(
-      <Text style={{fontSize: 14,color: 'white',
-    alignSelf: 'center'}}>grouVie</Text>
+
+      <Text style={{fontSize: 14,color: 'white', alignSelf: 'center'}}>grouVie</Text>
     )
   },
   RightButton: function( route, navigator, index, navState ){
@@ -91,7 +91,7 @@ class GrouVieReact extends Component {
       renderScene={this.renderScene}
       navigationBar={
           <Navigator.NavigationBar
-            style={{backgroundColor: '#4800a8', height: 55}}
+            style={{backgroundColor: '#4800a8', height: 55, flexDirection: 'row'}}
             routeMapper={ NavigationBarRouteMapper } />
         } />
     );

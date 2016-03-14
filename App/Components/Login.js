@@ -26,7 +26,7 @@ class Login extends Component {
   };
 
   goToUser(user) {
-    console.log(user);
+    console.log("about to go to user profile page");
     this.props.navigator.push({
       component: User,
       passProps: {user}
@@ -34,6 +34,12 @@ class Login extends Component {
   }
 
   handleSubmit(){
+    var username = this.state.username
+    var password = this.state.password
+    this.setState({
+      username: '',
+      password: ''
+    });
     fetch("http://grouvie.herokuapp.com/login", {
       method: 'POST',
       headers: {
@@ -42,8 +48,8 @@ class Login extends Component {
       },
       dataType: 'json',
       body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
+        username: username,
+        password: password,
         })
  })
     .then(ApiUtils.checkStatus)
@@ -59,8 +65,7 @@ class Login extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.loginText}> Username: </Text>
-        <TextInput
-          style={styles.blank} autoCapitalize='none' onChangeText={(username) => this.setState({username})} value={this.state.username}/>
+        <TextInput style={styles.blank} autoCapitalize='none' onChangeText={(username) => this.setState({username})} value={this.state.username}/>
         <Text style={styles.loginText}> Password: </Text>
         <TextInput style={styles.blank} autoCapitalize='none' secureTextEntry={true} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
         <TouchableHighlight onPress={this.handleSubmit.bind(this)} style={styles.login}>
