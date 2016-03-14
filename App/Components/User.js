@@ -37,8 +37,8 @@ var styles = StyleSheet.create({
     height: 81,
   },
   listView: {
-    paddingTop: 20,
-    backgroundColor: '#F5FCFF',
+    paddingTop: 60,
+    backgroundColor: 'orange',
   },
 });
 
@@ -61,7 +61,7 @@ class User extends Component {
 	fetchData() {
     console.log(this.state);
     console.log(this.props);
-		fetch("http://grouvie.herokuapp.com/users/5/groups")
+		fetch("http://grouvie.herokuapp.com/users/" + this.props.user.id +"/groups")
 			.then((response) => response.json())
       .then((responseData) => {
       console.log(responseData);
@@ -85,10 +85,17 @@ class User extends Component {
     });
   }
 
+  getUserName() {
+    return (
+      <Text>{this.props.user.username}</Text>
+      );
+  }
+
 	render() {
 
 		return (
 			<ListView
+        renderHeader={this.getUserName.bind(this)}
 				dataSource={this.state.dataSource}
 				renderRow={this.renderGroup.bind(this)}
 				style={styles.listView} />
