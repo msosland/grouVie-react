@@ -17,12 +17,13 @@ var NavigationBarRouteMapper = {
       return null;
     }
     return(
-      <Text onPress={() => navigator.pop()}>Back</Text>
+      <Text style={{fontSize: 14,color: 'white'}}onPress={() => navigator.pop()}>Back</Text>
     )
   },
   Title: function( route, navigator, index, navState ){
     return(
-      <Text>Title</Text>
+      <Text style={{fontSize: 14,color: 'white',
+    alignSelf: 'center'}}>grouVie</Text>
     )
   },
   RightButton: function( route, navigator, index, navState ){
@@ -85,12 +86,12 @@ class GrouVieReact extends Component {
   render() {
     return (
       <Navigator
-      style={{flex:1}}
+      style={styles.container}
       initialRoute={{component: Main, props: {}}}
       renderScene={this.renderScene}
       navigationBar={
           <Navigator.NavigationBar
-            style={{backgroundColor: 'pink', height: 45}}
+            style={{backgroundColor: '#4800a8', height: 55}}
             routeMapper={ NavigationBarRouteMapper } />
         } />
     );
@@ -100,8 +101,9 @@ class GrouVieReact extends Component {
 
 var styles = StyleSheet.create({
   container:{
+    marginTop: 25,
     flex: 1,
-    backgroundColor: '#111111'
+    backgroundColor: '#310373'
   },
 });
 

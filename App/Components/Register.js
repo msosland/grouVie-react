@@ -14,12 +14,6 @@ var {
   TouchableHighlight
 } = React;
 
-var styles = StyleSheet.create({
-    container: {
-    marginTop: 55,
-    flex: 1
-  },
-});
 
 class Register extends Component {
   constructor(props) {
@@ -63,21 +57,55 @@ class Register extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text> Username: </Text>
+        <Text style={styles.registerText}> Username: </Text>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' onChangeText={(username) => this.setState({username})} value={this.state.username}/>
-        <Text> E-mail: </Text>
+          style={styles.blank} autoCapitalize='none' onChangeText={(username) => this.setState({username})} value={this.state.username}/>
+        <Text style={styles.registerText}> E-mail: </Text>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' onChangeText={(email) => this.setState({email})} value={this.state.email}/>
-        <Text> Password: </Text>
+          style={styles.blank} autoCapitalize='none' onChangeText={(email) => this.setState({email})} value={this.state.email}/>
+        <Text style={styles.registerText}> Password: </Text>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' secureTextEntry={true} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
-        <TouchableHighlight onPress={this.handleSubmit.bind(this)}>
-          <Text> Create User </Text>
+          style={styles.blank} autoCapitalize='none' secureTextEntry={true} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
+        <TouchableHighlight  style={styles.register} onPress={this.handleSubmit.bind(this)}>
+          <Text  style={styles.registerButtonText}> Create User </Text>
         </TouchableHighlight>
       </View>
       );
   }
 }
+var styles = StyleSheet.create({
+    container: {
+    marginTop: 200,
+    flex: 1
+  },
+  register: {
+    backgroundColor: '#ffffff',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    height: 55,
+    width: 150,
+    margin: 10,
+    borderRadius: 6,
+  },
+  registerText: {
+    fontSize: 24,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  registerButtonText: {
+    fontSize: 24,
+    color: '#4800a8',
+    alignSelf: 'center'
+  },
+  blank:{
+    height: 40,
+    width: 200,
+    alignSelf: 'center',
+    borderColor: 'gray',
+    borderWidth: 1,
+    backgroundColor: "#ffffff",
+    borderRadius: 6,
+  }
+});
 
 module.exports = Register;
