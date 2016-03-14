@@ -12,6 +12,7 @@ var {
 	Component,
   Navigator,
   TouchableOpacity,
+  TextInput,
 	Text,
   NativeImagePicker,
   NativeModules: {
@@ -62,15 +63,28 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+   button: {
+    bottom: 10,
+    height: 60,
+    backgroundColor: '#48BBEC',
+    flex: 3,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   center: {
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  footer: {
+    justifyContent: 'center',
+    marginTop: 50
   }
 });
 
 class User extends Component {
 	constructor(props) {
 		super(props);
+    console.log("i'm on the user page!");
     console.log(this.props.user);
 		this.state = {
       groups: [],
@@ -78,6 +92,7 @@ class User extends Component {
 				rowHasChanged: (row1, row2) => row1 !== row2,
 			}),
 			loaded: false,
+      groupName: ''
 		};
 	}
 
@@ -87,7 +102,7 @@ class User extends Component {
 
 	fetchData() {
     console.log(this.props);
-		fetch("http://localhost:3000/users/" + this.props.user.id +"/groups")
+		fetch("http://grouvie.herokuapp.com/users/" + this.props.user.id +"/groups")
 			.then((response) => response.json())
       .then((responseData) => {
         console.log(responseData)
@@ -122,6 +137,22 @@ class User extends Component {
     });
   }
 
+  handleSubmit() {
+    console.log("button submitted");
+    var groupName = this.state.groupName
+    this.setState({groupName: ''});
+    posts.createNewGroup(groupName, this.props.user.id)
+    .then((responseJSON) => {
+      this.props.groups.push(responseJSON);
+      goToGroup(responseJSON);
+
+    })
+    .catch((error) => {
+      console.log('Request failed', error);
+      this.setState({error});
+    });
+  }
+
   goToGroup(group) {
     this.props.navigator.push({
       component: GroupPage,
@@ -135,18 +166,37 @@ class User extends Component {
       <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}><View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
           { this.props.user.image_url == "/images/original/missing.png" ? <Text>Add a Photo</Text> : <Image style={styles.avatar} source={{uri: this.props.user.image_url}} /> }</View></TouchableOpacity>
           <Text>{this.props.user.username}</Text></View>
+      );
+    }
 
+  newGroupButton() {
+    return (
+
+      <View style={styles.footer}>
+      <Text> Create New Group: </Text>
+        <View>
+
+          <TextInput style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' placeholder='Group Name' autoCorrect={false} onChangeText={(groupName) => this.setState({groupName})} value={this.state.groupName}/>
+          <TouchableHighlight style={styles.button}
+            onPress={this.handleSubmit.bind(this)}
+            underlayColor="#88d4f5">
+            <Text>Submit</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
       );
   }
 
 	render() {
-
 		return (
+      <View>
 			<ListView
         renderHeader={this.getUserName.bind(this)}
 				dataSource={this.state.dataSource}
 				renderRow={this.renderGroup.bind(this)}
+        renderFooter={this.newGroupButton.bind(this)}
 				style={styles.listView} />
+        </View>
 			);
 	}
 

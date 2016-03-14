@@ -2,6 +2,7 @@ var React = require('react-native');
 var posts = require('../Utils/posts');
 var NativeImagePicker = require('./NativeImagePicker');
 var posts = require('../Utils/posts');
+
 var {
   View,
   NativeImagePicker,

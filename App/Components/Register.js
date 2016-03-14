@@ -39,7 +39,7 @@ class Register extends Component {
   }
 
   handleSubmit(){
-    fetch("http://localhost:3000/users", {
+    fetch("http://grouvie.herokuapp.com/users", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -65,13 +65,13 @@ class Register extends Component {
       <View style={styles.container}>
         <Text> Username: </Text>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' autoCorrect='false' onChangeText={(username) => this.setState({username})} value={this.state.username}/>
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' autoCorrect={false} onChangeText={(username) => this.setState({username})} value={this.state.username}/>
         <Text> E-mail: </Text>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' autoCorrect='false' onChangeText={(email) => this.setState({email})} value={this.state.email}/>
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' autoCorrect={false} onChangeText={(email) => this.setState({email})} value={this.state.email}/>
         <Text> Password: </Text>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' autoCorrect='false' secureTextEntry={true} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' autoCorrect={false} secureTextEntry={true} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
         <TouchableHighlight onPress={this.handleSubmit.bind(this)}>
           <Text> Create User </Text>
         </TouchableHighlight>

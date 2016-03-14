@@ -90,7 +90,7 @@ class GrouVieReact extends Component {
       renderScene={this.renderScene}
       navigationBar={
           <Navigator.NavigationBar
-            style={{backgroundColor: 'pink', height: 45}}
+            style={{backgroundColor: 'pink', height: 45, flexDirection: 'row'}}
             routeMapper={ NavigationBarRouteMapper } />
         } />
     );

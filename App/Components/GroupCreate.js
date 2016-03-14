@@ -30,6 +30,7 @@ class GroupCreate extends Component {
     this.state = {
       groupName: '',
       groupMembers: [],
+      numUsers: 1
     }
   };
 
@@ -42,7 +43,7 @@ class GroupCreate extends Component {
   // }
 
   handleSubmitGroup(){
-    fetch("http://localhost:3000/groups", {
+    fetch("http://grouvie.herokuapp.com/groups", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -66,12 +67,21 @@ class GroupCreate extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text> Username: </Text>
+        <Text> Group Name: </Text>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' autoCorrect='false' onChangeText={(username) => this.setState({username})} value={this.state.username}/>
-        <Text> Password: </Text>
-        <TextInput
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' autoCorrect='false' onChangeText={(groupName) => this.setState({groupName})} value={this.state.groupName}/>
+
+          // add new users field
+        <Text> Add Users: </Text>
+        for (var i = 0; i < this.props.numUsers; i++) {
+          <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' secureTextEntry={true} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
+        }
+
+        <TouchableHighlight onPress={this.props.numUsers++}>
+          <Text> Add More Users </Text>
+        </TouchableHighlight>
+
         <TouchableHighlight onPress={this.handleSubmitGroup.bind(this)}>
           <Text> Log In </Text>
         </TouchableHighlight>
