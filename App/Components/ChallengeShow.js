@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   avatarContainer: {
     borderColor: '#9B9B9B',
-    borderWidth: 1 / PixelRatio.get(),
+    borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },

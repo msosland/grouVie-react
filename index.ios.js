@@ -1,13 +1,15 @@
 'use strict';
 var React = require('react-native');
 
-var Login = require('./App/Components/Login')
+var Login = require('./App/Components/Login');
 var User = require('./App/Components/User');
 var GroupPage = require('./App/Components/GroupPage');
 var GroupMembers = require('./App/Components/GroupMembers');
 var GroupChallenges = require('./App/Components/GroupChallenges');
 var GroupComments = require('./App/Components/GroupComments');
 var ChallengeShow = require('./App/Components/ChallengeShow');
+var Main = require('./App/Components/Main');
+var Register = require('./App/Components/Register');
 
 var NavigationBarRouteMapper = {
   LeftButton: function( route, navigator, index, navState ){
@@ -51,6 +53,12 @@ const {
 class GrouVieReact extends Component {
 
   renderScene(route, navigator) {
+    if (route.component == Main) {
+      return <Main {...route.passProps} navigator={navigator} title={"Main"} leftButton={"Back"}  />
+    }
+    if (route.component == Register) {
+      return <Register {...route.passProps} navigator={navigator} title={"Register"} leftButton={"Back"}  />
+    }
     if (route.component == Login) {
       return <Login {...route.passProps} navigator={navigator} title={"Login"} leftButton={"Back"}  />
     }
@@ -78,7 +86,7 @@ class GrouVieReact extends Component {
     return (
       <Navigator
       style={{flex:1}}
-      initialRoute={{component: Login, props: {}}}
+      initialRoute={{component: Main, props: {}}}
       renderScene={this.renderScene}
       navigationBar={
           <Navigator.NavigationBar
@@ -99,21 +107,3 @@ var styles = StyleSheet.create({
 
 
 React.AppRegistry.registerComponent('GrouVieReact', () => GrouVieReact);
-      //   initialRoute={{name: 'My First Scene', index: 0}}
-      //   renderScene={(route, navigator) =>
-      //     <User
-      //       navigator={navigator}
-      //       name={route.name}
-      //       onForward={() => {
-      //         var nextIndex = route.index + 1;
-      //         navigator.push({
-      //           name: 'Scene ' + nextIndex,
-      //           index: nextIndex,
-      //         });
-      //       }}
-      //       onBack={() => {
-      //         if (route.index > 0) {
-      //           navigator.pop();
-      //         }
-      //     }}/>
-      // } />
