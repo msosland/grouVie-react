@@ -34,17 +34,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  // avatarContainer: {
-  //   borderColor: '#9B9B9B',
-  //   borderWidth: 1 / PixelRatio.get(),
-  //   justifyContent: 'center',
-  //   alignItems: 'center'
-  // },
-  // avatar: {
-  //   borderRadius: 0,
-  //   width: 150,
-  //   height: 150
-  // }
+  avatarContainer: {
+    borderColor: '#9B9B9B',
+    borderWidth: 1 / PixelRatio.get(),
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  avatar: {
+    borderRadius: 0,
+    width: 150,
+    height: 150
+  }
 });
 
 class ChallengeShow extends Component {
