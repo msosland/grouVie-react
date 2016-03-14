@@ -36,16 +36,22 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     width: 150,
     height: 150
-  }
+  },
 });
 
 class ChallengeShow extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.user);
     this.state = {
+      dataSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2}),
       avatarSource: null
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(this.props.challenge.participations)
+    });
   }
 
   selectPhotoTapped(item) {
@@ -64,7 +70,7 @@ class ChallengeShow extends Component {
         return participant.user_id === id;
       })
       posts.postPicture(this.props.challenge.id, user.id ).then((responseJSON) => console.log(responseJSON));
-      this.render();
+      this.componentDidMount();
       // console.log('Response = ', response);
       // console.log(response.uri);
 
@@ -79,31 +85,53 @@ class ChallengeShow extends Component {
       // }
       // else {
       // }
+      // source={{uri: participant.image_url}}
     });
   }
 
-  render(){
-    var participations = this.props.challenge.participations;
-    console.log(participations);
-    var list = participations.map((item, index) => {
-      part = item.id;
+  render() {
+    return (
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderParticipant.bind(this)}/>
+    );
+  }
+    renderParticipant(participant) {
       return (
-        <View key={index}>
-          <View><Text>{participations[index].username}</Text><TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+        <View>
+          <Text>{participant.username}</Text>
+          <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
           <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
-          { participations[index].image_url == "/images/original/missing.png" ? <Text>Select a Photo</Text> :
-            <Image style={styles.avatar} source={{uri: participations[index].image_url}} />
+          { participant.image_url == "/images/original/missing.png" ? <Text>Select a Photo</Text> :
+          <Image style={styles.avatar} source={{uri: participant.image_url}}/>
           }
           </View>
-        </TouchableOpacity></View></View>
-          )
-    });
-    return (
-      <ScrollView style={styles.container}>
-        {list}
-      </ScrollView>
-      )
-  }
+        </TouchableOpacity>
+      </View>
+      );
+    }
+  // render(){
+  //   var participations = this.props.challenge.participations;
+  //   console.log(participations);
+  //   var list = participations.map((item, index) => {
+  //     part = item.id;
+  //     return (
+  //       <View key={index}>
+  //         <View><Text>{participations[index].username}</Text><TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+  //         <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
+  //         { participations[index].image_url == "/images/original/missing.png" ? <Text>Select a Photo</Text> :
+  //           <Image style={styles.avatar} source={{uri: participations[index].image_url}} />
+  //         }
+  //         </View>
+  //       </TouchableOpacity></View></View>
+  //         )
+  //   });
+  //   return (
+  //     <ScrollView style={styles.container}>
+  //       {list}
+  //     </ScrollView>
+  //     )
+  // }
 };
 
   module.exports = ChallengeShow;
