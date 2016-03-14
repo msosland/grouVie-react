@@ -24,7 +24,16 @@ var posts = {
       method: "post",
       body: JSON.stringify({obj})
     }).then((res) => res.json());
+  },
+
+  optInToChallenge(challengeId, userId) {
+    var url = "http://localhost:3000/challenges/" + challengeId + "/participations"
+    return fetch(url, {
+      method: 'post',
+      body: JSON.stringify({userId})
+    }).then((response) => response.json());
   }
+
 };
 
 module.exports = posts;

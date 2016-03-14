@@ -1,4 +1,5 @@
 var React = require('react-native');
+var posts = require('../Utils/posts');
 var NativeImagePicker = require('./NativeImagePicker');
 var posts = require('../Utils/posts');
 var part;
@@ -11,7 +12,8 @@ var {
   ListView,
   StyleSheet,
   ScrollView,
-  PixelRatio,
+  // PixelRatio,
+  TouchableHighlight,
   TouchableOpacity,
   NativeModules: {
     ImagePickerManager
@@ -22,21 +24,21 @@ const styles = StyleSheet.create({
   container: {
     top: 50,
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
     backgroundColor: '#F5FCFF'
   },
-  avatarContainer: {
-    borderColor: '#9B9B9B',
-    borderWidth: 1 / PixelRatio.get(),
-    justifyContent: 'center',
-    alignItems: 'center'
+  button: {
+    top: 200,
+    height: 60,
+    backgroundColor: '#48BBEC',
+    flex: 3,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   avatar: {
     borderRadius: 0,
     width: 150,
     height: 150
-  },
+  }
 });
 
 class ChallengeShow extends Component {
@@ -89,14 +91,45 @@ class ChallengeShow extends Component {
     });
   }
 
+  handleSubmit(){
+    posts.optInToChallenge(this.props.challenge.id, this.props.user.id)
+    .then((responseJSON) => {
+      this.props.challenge.participations.push(responseJSON);
+      this.setState({});
+    })
+    .catch((error) => {
+      console.log('Request failed', error);
+      this.setState({error});
+    });
+  }
+
+  footer() {
+    for (var i = 0; i < this.props.challenge.participations.length; i++) {
+      if (this.props.challenge.participations[i].user_id === this.props.user.id) {
+        return true;
+      }
+    }
+    return (
+      <View>
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.handleSubmit.bind(this)}
+          underlayColor="#88d4f5">
+            <Text>Accept Challenge</Text>
+        </TouchableHighlight>
+      </View>
+    )
+  }
+
   render() {
     return (
       <ListView
         dataSource={this.state.dataSource}
         renderRow={this.renderParticipant.bind(this)}/>
+        {this.footer()}
     );
   }
-    renderParticipant(participant) {
+  renderParticipant(participant) {
       return (
         <View>
           <Text>{participant.username}</Text>
