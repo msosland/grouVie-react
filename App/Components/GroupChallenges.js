@@ -16,6 +16,7 @@ var {
 
 var styles = StyleSheet.create({
   container: {
+    marginTop: 50,
     top: 40,
     flex: 1,
   },
@@ -35,14 +36,18 @@ var styles = StyleSheet.create({
     paddingBottom: 5
   },
   nameText: {
+    color: 'white',
     fontSize: 14,
     paddingBottom: 5,
+  },
+  createChallenge: {
+    position: 'absolute'
   },
   input: {
     height: 60,
     padding: 10,
     fontSize: 18,
-    color: '#111',
+    backgroundColor: '#fff',
     flex: 10
   },
   button: {
@@ -96,7 +101,7 @@ class GroupChallenges extends Component {
 
   footer() {
     return (
-      <View>
+      <View style={styles.createChallenge}>
         <TextInput
           style={styles.input}
           value={this.state.challengeName}
