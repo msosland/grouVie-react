@@ -60,7 +60,7 @@ class User extends Component {
 
 	fetchData() {
     console.log(this.props);
-		fetch("http://grouvie.herokuapp.com/users/" + this.props.user.id +"/groups")
+		fetch("http://localhost:3000/users/" + this.props.user.id +"/groups")
 			.then((response) => response.json())
       .then((responseData) => {
         console.log(responseData)

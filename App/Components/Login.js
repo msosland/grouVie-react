@@ -40,7 +40,7 @@ class Login extends Component {
   }
 
   handleSubmit(){
-    fetch("http://grouvie.herokuapp.com/login", {
+    fetch("http://localhost:3000/login", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -66,7 +66,7 @@ class Login extends Component {
       <View style={styles.container}>
         <Text> Username: </Text>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' onChangeText={(username) => this.setState({username})} value={this.state.username}/>
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' autoCorrect='false' onChangeText={(username) => this.setState({username})} value={this.state.username}/>
         <Text> Password: </Text>
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' secureTextEntry={true} onChangeText={(password) => this.setState({password})} value={this.state.password}/>

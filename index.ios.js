@@ -22,7 +22,7 @@ var NavigationBarRouteMapper = {
   },
   Title: function( route, navigator, index, navState ){
     return(
-      <Text>Title</Text>
+      <Text>grouVie</Text>
     )
   },
   RightButton: function( route, navigator, index, navState ){

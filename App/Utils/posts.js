@@ -1,7 +1,7 @@
 var posts = {
   postComment(comment, groupId, userId){
     comment = comment.toLowerCase().trim();
-    var url = "http://grouvie.herokuapp.com/groups/" + groupId + "/comments";
+    var url = "http://localhost:3000/groups/" + groupId + "/comments";
     return fetch(url, {
       method: 'post',
       body: JSON.stringify({comment, userId})
@@ -9,7 +9,7 @@ var posts = {
   },
 
   postChallenge(challengeName, challengeDescription, groupId, userId) {
-    var url = "http://grouvie.herokuapp.com/groups/" + groupId + "/challenges";
+    var url = "http://localhost:3000/groups/" + groupId + "/challenges";
     return fetch(url, {
       method: 'post',
       body: JSON.stringify({challengeName, challengeDescription, userId})
@@ -23,7 +23,7 @@ var posts = {
     var imagereplaced = escape(imagedata);
     var obj = "data:image/jpeg;base64," + imagereplaced;
     console.log(obj);
-    var url = "http://grouvie.herokuapp.com/challenges/" + challengeId + "/participations/" + participationId;
+    var url = "http://localhost:3000/challenges/" + challengeId + "/participations/" + participationId;
     return fetch(url, {
       method: "post",
       body: JSON.stringify({"obj": obj})
@@ -31,7 +31,7 @@ var posts = {
   },
 
   optInToChallenge(challengeId, userId) {
-    var url = "http://grouvie.herokuapp.com/challenges/" + challengeId + "/participations"
+    var url = "http://localhost:3000/challenges/" + challengeId + "/participations"
     return fetch(url, {
       method: 'post',
       body: JSON.stringify({userId})
