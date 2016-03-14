@@ -30,6 +30,7 @@ class Login extends Component {
   };
 
   goToUser(user) {
+    console.log(user);
     this.props.navigator.push({
       component: User,
       passProps: {user}

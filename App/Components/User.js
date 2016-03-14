@@ -59,14 +59,12 @@ class User extends Component {
 	}
 
 	fetchData() {
-    console.log(this.state);
     console.log(this.props);
 		fetch("http://grouvie.herokuapp.com/users/" + this.props.user.id +"/groups")
 			.then((response) => response.json())
       .then((responseData) => {
       console.log(responseData);
         this.setState({
-          // groups: responseData,
 					dataSource: this.state.dataSource.cloneWithRows(responseData),
 					loaded: true,
 				});
@@ -75,10 +73,6 @@ class User extends Component {
 	}
 
   goToGroup(group) {
-    console.log("**********************");
-    console.log(group);
-    console.log(this.props.user);
-    console.log("***************************");
     this.props.navigator.push({
       component: GroupPage,
       passProps: {group: group, user: this.props.user}
