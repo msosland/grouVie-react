@@ -17,7 +17,7 @@ var posts = {
   },
 
   optInToChallenge(challengeId, userId) {
-    var url = "http://localhost:3000/challenges/" + challengeId + "/participations"
+    var url = "http://grouvie.herokuapp.com/challenges/" + challengeId + "/participations"
     return fetch(url, {
       method: 'post',
       body: JSON.stringify({userId})
