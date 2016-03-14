@@ -37,8 +37,8 @@ var styles = StyleSheet.create({
     height: 81,
   },
   listView: {
-    paddingTop: 20,
-    backgroundColor: '#F5FCFF',
+    paddingTop: 60,
+    backgroundColor: 'orange',
   },
 });
 
@@ -85,10 +85,17 @@ class User extends Component {
     });
   }
 
+  getUserName() {
+    return (
+      <Text>{this.props.user.username}</Text>
+      );
+  }
+
 	render() {
 
 		return (
 			<ListView
+        renderHeader={this.getUserName.bind(this)}
 				dataSource={this.state.dataSource}
 				renderRow={this.renderGroup.bind(this)}
 				style={styles.listView} />

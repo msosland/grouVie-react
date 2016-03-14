@@ -34,17 +34,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  avatarContainer: {
-    borderColor: '#9B9B9B',
-    borderWidth: 1 / PixelRatio.get(),
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  avatar: {
-    borderRadius: 0,
-    width: 150,
-    height: 150
-  }
+  // avatarContainer: {
+  //   borderColor: '#9B9B9B',
+  //   borderWidth: 1 / PixelRatio.get(),
+  //   justifyContent: 'center',
+  //   alignItems: 'center'
+  // },
+  // avatar: {
+  //   borderRadius: 0,
+  //   width: 150,
+  //   height: 150
+  // }
 });
 
 class ChallengeShow extends Component {
@@ -93,7 +93,6 @@ class ChallengeShow extends Component {
   handleSubmit(){
     posts.optInToChallenge(this.props.challenge.id, this.props.user.id)
     .then((responseJSON) => {
-      console.log(responseJSON)
       this.props.challenge.participations.push(responseJSON);
       this.setState({});
     })
@@ -104,6 +103,11 @@ class ChallengeShow extends Component {
   }
 
   footer() {
+    for (var i = 0; i < this.props.challenge.participations.length; i++) {
+      if (this.props.challenge.participations[i].user_id === this.props.user.id) {
+        return true;
+      }
+    }
     return (
       <View>
         <TouchableHighlight
