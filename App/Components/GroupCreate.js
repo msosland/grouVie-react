@@ -1,8 +1,9 @@
 'use strict';
 
 var React = require('react-native');
-var User = require('./User');
-var ApiUtils = require('../Utils/ApiUtils');
+// var User = require('./User');
+// var ApiUtils = require('../Utils/ApiUtils');
+// require nextpage component
 
 
 var {
@@ -22,31 +23,26 @@ var styles = StyleSheet.create({
   },
 });
 
-class Login extends Component {
+class GroupCreate extends Component {
   constructor(props) {
     super(props);
+    console.log(this.props);
     this.state = {
-      username: '',
-      password: '',
+      groupName: '',
+      groupMembers: [],
     }
   };
 
-  goToUser(user) {
-    console.log(user);
-    this.props.navigator.push({
-      component: User,
-      passProps: {user}
-    });
-  }
+  // goToUser(user) {
+  //   console.log(user);
+  //   this.props.navigator.push({
+  //     component: User,
+  //     passProps: {user}
+  //   });
+  // }
 
-  handleSubmit(){
-    var username = this.state.username
-    var password = this.state.password
-    this.setState({
-      username: '',
-      password: ''
-    });
-    fetch("http://localhost:3000/login", {
+  handleSubmitGroup(){
+    fetch("http://localhost:3000/groups", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -54,8 +50,8 @@ class Login extends Component {
       },
       dataType: 'json',
       body: JSON.stringify({
-        username: username,
-        password: password,
+        username: this.state.username,
+        password: this.state.password,
         })
  })
     .then(ApiUtils.checkStatus)
@@ -72,11 +68,11 @@ class Login extends Component {
       <View style={styles.container}>
         <Text> Username: </Text>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' autoCorrect={false} onChangeText={(username) => this.setState({username})} value={this.state.username}/>
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' autoCorrect='false' onChangeText={(username) => this.setState({username})} value={this.state.username}/>
         <Text> Password: </Text>
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' secureTextEntry={true} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
-        <TouchableHighlight onPress={this.handleSubmit.bind(this)}>
+        <TouchableHighlight onPress={this.handleSubmitGroup.bind(this)}>
           <Text> Log In </Text>
         </TouchableHighlight>
       </View>
@@ -84,4 +80,4 @@ class Login extends Component {
   }
 }
 
-module.exports = Login;
+module.exports = GroupCreate;
