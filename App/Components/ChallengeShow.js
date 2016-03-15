@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   read: {
-    color:'white',
+    color:'black',
   },
   avatar: {
     borderRadius: 0,
