@@ -80,9 +80,8 @@ class User extends Component {
     this.setState({groupName: ''});
     posts.createNewGroup(groupName, this.props.user.id)
     .then((responseJSON) => {
-      this.props.groups.push(responseJSON);
-      this.setState({});
-      this.goToGroup(responseJSON);
+      this.fetchData();
+      // this.goToGroup(responseJSON);
     })
     .catch((error) => {
       console.log('Request failed', error);
@@ -125,13 +124,14 @@ class User extends Component {
 
 	render() {
 		return (
-      <View>
+      <View style={{flex: 1}}>
 			<ListView
         renderHeader={this.getUserName.bind(this)}
 				dataSource={this.state.dataSource}
 				renderRow={this.renderGroup.bind(this)}
-        renderFooter={this.newGroupButton.bind(this)}
+        // renderFooter={this.newGroupButton.bind(this)}
 				style={styles.listView} />
+        <View>{this.newGroupButton()}</View>
         </View>
 			);
 	}
