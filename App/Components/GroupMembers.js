@@ -79,19 +79,19 @@ class GroupMembers extends Component {
       )
     });
     return (
-      <ScrollView style={styles.container}>
-        {list}
-        {this.footer()}
-      </ScrollView>
+      <View style={styles.container}>
+        <ScrollView>{list}</ScrollView>
+        <View>{this.footer()}</View>
+      </View>
     )
   }
 };
 
 var styles = StyleSheet.create({
   container: {
-    top: 40,
-    marginTop: 45,
     flex: 1,
+    paddingTop: 60,
+    backgroundColor: '#4800a8',
   },
   rowContainer: {
     flexDirection: 'row',
@@ -112,6 +112,12 @@ var styles = StyleSheet.create({
     alignSelf: 'center',
     color: 'white',
     fontSize: 35
+  },
+  button: {
+    height: 60,
+    backgroundColor: '#48BBEC',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 });
 
