@@ -69,18 +69,20 @@ class User extends Component {
     });
   }
 
+  handleChange(e) {
+    this.setState({
+      groupName: e.nativeEvent.text
+    })
+  }
+
   handleSubmit() {
-    console.log("button submitted");
     var groupName = this.state.groupName;
-    console.log(groupName);
-    console.log(this.props.user.id)
     this.setState({groupName: ''});
     posts.createNewGroup(groupName, this.props.user.id)
     .then((responseJSON) => {
-      console.log(responseJSON);
       this.props.groups.push(responseJSON);
-      goToGroup(responseJSON);
-
+      this.setState({});
+      this.goToGroup(responseJSON);
     })
     .catch((error) => {
       console.log('Request failed', error);
@@ -110,7 +112,7 @@ class User extends Component {
       <Text> Create New Group: </Text>
         <View>
 
-          <TextInput style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' placeholder='Group Name' autoCorrect={false} onChangeText={(groupName) => this.setState({groupName})} value={this.state.groupName}/>
+          <TextInput style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' placeholder='Group Name' autoCorrect={false} onChange={this.handleChange.bind(this)} value={this.state.groupName}/>
           <TouchableHighlight style={styles.button}
             onPress={this.handleSubmit.bind(this)}
             underlayColor="#88d4f5">
@@ -160,7 +162,7 @@ var styles = StyleSheet.create({
     fontSize: 35,
     color: 'white',
     margin: 10,
-    padding: 30,
+    // padding: 30,
     width: 400,
     alignSelf: 'center',
     justifyContent: 'center',

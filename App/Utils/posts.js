@@ -62,6 +62,14 @@ var posts = {
     }).then((response) => response.json());
   },
 
+  addMemberToGroup(username, groupId) {
+    var url = "http://localhost:3000/memberships/"
+    return fetch(url, {
+      method: 'post',
+      body: JSON.stringify({username, groupId})
+    }).then((response) => response.json());
+  },
+
 };
 
 module.exports = posts;
