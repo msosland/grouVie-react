@@ -42,21 +42,30 @@ class ChallengeShow extends Component {
 
 
     ImagePickerManager.showImagePicker(options, (response) => {
-      var id = this.props.user.id;
-      var user = this.props.challenge.participations.find(function(participant) {
-        return participant.user_id === id;
-      })
-      var index = this.props.challenge.participations.indexOf(user);
-      console.log(index);
-      if (index > -1) {
-        this.props.challenge.participations.splice(index, 1);
+      if (response.didCancel) {
+        console.log('User cancelled photo picker');
       }
-      posts.postPicture(response.data, this.props.challenge.id, user.id ).then((responseJSON) => {
-        this.props.challenge.participations.splice(index, 0, responseJSON);
-        this.setState({
-        });
-      }).done();
-
+      else if (response.error) {
+        console.log('ImagePickerManager Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        var id = this.props.user.id;
+        var user = this.props.challenge.participations.find(function(participant) {
+          return participant.user_id === id;
+        })
+        var index = this.props.challenge.participations.indexOf(user);
+        console.log(index);
+        if (index > -1) {
+          this.props.challenge.participations.splice(index, 1);
+        }
+        posts.postPicture(response.data, this.props.challenge.id, user.id ).then((responseJSON) => {
+          this.props.challenge.participations.splice(index, 0, responseJSON);
+          this.setState({
+          });
+        }).done();
+      }
     });
   }
 
@@ -111,13 +120,13 @@ class ChallengeShow extends Component {
     var list = participations.map((item, index) => {
       return (
         <View key={index}>
-          <View style={this.completeStyle(participations[index])}><View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
+          <View style={this.completeStyle(participations[index])}><TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}><View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
           { participations[index].image_url == "/images/original/missing.png" ? <Text>Select a Photo</Text> :
             <Image style={styles.avatar} source={{uri: participations[index].image_url}} />
           }
-          </View><Text style={styles.read}>{participations[index].username}</Text><TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+          </View></TouchableOpacity><Text style={styles.read}>{participations[index].username}</Text>
 
-        </TouchableOpacity></View></View>
+        </View></View>
           )
     });
     return (
