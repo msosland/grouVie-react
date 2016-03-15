@@ -49,6 +49,7 @@ class GroupChallenges extends Component {
     this.setState({btnLocation: 0})
   }
 
+
   handleSubmit() {
     var challengeName = this.state.challengeName;
     var challengeDescription = this.state.challengeDescription;
@@ -91,6 +92,17 @@ class GroupChallenges extends Component {
     )
   }
 
+  statusIndicator(challenge) {
+    for (var i=0; i < this.props.user.challenges.length; i++) {
+      if (this.props.user.challenges[i] == challenge) {
+        return '<Text style={fontSize: 20, color: 'green'}>{challenge.name}</Text>'
+      }
+      else {
+        return <Text style={fontSize: 20, color: 'gray'}>{challenge.name}</Text>
+      }
+    }
+  }
+
   render() {
     var challenges = this.props.challenges;
     var list = challenges.map((item,index) => {
@@ -99,7 +111,7 @@ class GroupChallenges extends Component {
         <View key={index}>
           <View style={styles.rowContainer}>
             <TouchableHighlight onPress={() => this.goToChallenge(item)}>
-              <Text style={styles.nameText}>{challenges[index].name}</Text>
+              <Text style={fontSize: 20, color: {this.statusIndicator()}}>{challenge.name}</Text>
               </TouchableHighlight>
             <TouchableHighlight onPress={() => this.goToChallenge(item)}>
             <Text style={styles.challengeDescription}>{challenges[index].description}</Text>
@@ -136,10 +148,6 @@ var styles = StyleSheet.create({
     color: '#48BBEC',
     fontSize: 18,
     paddingBottom: 5
-  },
-  nameText: {
-    color: '#4800a8',
-    fontSize: 20,
   },
   challengeDescription: {
     color: 'black',

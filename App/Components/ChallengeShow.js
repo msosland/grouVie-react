@@ -39,8 +39,6 @@ class ChallengeShow extends Component {
       }
     };
 
-
-
     ImagePickerManager.showImagePicker(options, (response) => {
       if (response.didCancel) {
         console.log('User cancelled photo picker');
@@ -69,20 +67,22 @@ class ChallengeShow extends Component {
     });
   }
 
-  completeStyle(participant) {
+  photoContainer(participant) {
     var obj = {
       flexDirection: 'row',
-      padding: 10,
+      padding: 3,
+      margin: 5,
+      // width: 180,
+      alignSelf: 'center',
+      alignItems: 'center'
     }
     if(participant.completed === true){
-      obj.backgroundColor = '#48BBEC';
+      obj.backgroundColor = 'green';
     } else {
-      obj.backgroundColor = '#E77AAE';
+      obj.backgroundColor = 'red';
     }
     return obj;
   }
-
-
 
   handleSubmit(){
     posts.optInToChallenge(this.props.challenge.id, this.props.user.id)
@@ -114,19 +114,38 @@ class ChallengeShow extends Component {
     )
   }
 
+  checkCompletion(participation) {
+    if (participation.completed) {
+      return participation.updated_at.toString().substr(5,5);
+      }
+    else {
+      return "Not Complete";
+    }
+  }
+
+  isYourPhoto(participation) {
+    if (participation.user_id == this.props.user.id) {
+      return "Camera Icon!";
+    }
+    else {
+      return "Incomplete";
+    }
+  }
   render(){
     var participations = this.props.challenge.participations;
     console.log(participations);
     var list = participations.map((item, index) => {
       return (
         <View key={index}>
-          <View style={this.completeStyle(participations[index])}><TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}><View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
-          { participations[index].image_url == "/images/original/missing.png" ? <Text>Select a Photo</Text> :
+          <View style={this.photoContainer(participations[index])}><TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}><View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
+          { participations[index].image_url == "/images/original/missing.png" ? <Text>{this.isYourPhoto(participations[index])}</Text> :
             <Image style={styles.avatar} source={{uri: participations[index].image_url}} />
           }
-          </View></TouchableOpacity><Text style={styles.read}>{participations[index].username}</Text>
-
-        </View></View>
+          </View></TouchableOpacity>
+        </View>
+          <Text style={styles.read}>{participations[index].username}</Text>
+          <Text style={styles.read}>{this.checkCompletion(participations[index])}</Text>
+        </View>
           )
     });
     return (
@@ -154,7 +173,7 @@ const styles = StyleSheet.create({
     flex: 3,
     paddingLeft: 10,
     alignSelf: 'center',
-    color: 'white',
+    color: 'black',
     fontSize: 35
   },
   buttonText: {
@@ -166,8 +185,8 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   avatarContainer: {
-    borderColor: '#9B9B9B',
-    borderWidth: 1,
+    // borderColor: '#9B9B9B',
+    // borderWidth: 10,
     justifyContent: 'center',
     alignItems: 'center'
   },
