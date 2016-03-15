@@ -132,7 +132,7 @@ class User extends Component {
   newGroupForm() {
     return (
       <View style={styles.footer}>
-          <TextInput style={{flex: 2, height: 40, backgroundColor: 'white', borderColor: 'gray', borderWidth: 1, margin: 10, padding: 10, width: 400, justifyContent: 'center', alignSelf: 'center'}} autoCapitalize='none' placeholder='Group Name' autoCorrect={false} onChange={this.handleChange.bind(this)} value={this.state.groupName}/>
+          <TextInput style={styles.textInput} autoCapitalize='none' placeholder='Group Name' autoCorrect={false} onChange={this.handleChange.bind(this)} value={this.state.groupName}/>
           <TouchableHighlight style={styles.button}
             onPress={this.handleSubmit.bind(this)}
             underlayColor="#88d4f5">
@@ -186,15 +186,11 @@ var styles = StyleSheet.create({
   createNew: {
     color: '#310373',
     fontSize: 35,
-    margin: 10,
     padding: 10,
-    width: 400,
-    alignSelf: 'center',
     justifyContent: 'center',
     textAlign: 'center',
     borderColor: '#310373',
     borderWidth: 1,
-    borderRadius: 6,
     backgroundColor: '#ffffff'
   },
   groupContainer: {
@@ -215,6 +211,14 @@ var styles = StyleSheet.create({
   listView: {
     paddingTop: 60,
     backgroundColor: '#310373',
+  },
+  textInput: {
+    flex: 2,
+    height: 40, 
+    backgroundColor: 'white', 
+    borderColor: 'gray', 
+    borderWidth: 1,
+    justifyContent: 'center', 
   },
   white: {
     color: 'white'
