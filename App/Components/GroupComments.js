@@ -19,10 +19,10 @@ class GroupComments extends Component {
     this.state = {
       username: '',
       image_url: '',
+      btnLocation: 0,
       comment: '',
-      commentObj: {},
-      visibleHeight: Dimensions.get('window').height,
-    };
+      commentObj: {}
+    }
   }
 
   componentWillMount () {
@@ -31,14 +31,11 @@ class GroupComments extends Component {
   }
 
   keyboardWillShow (e) {
-    let newSize = Dimensions.get('window').height - e.endCoordinates.height
-    this.setState({visibleHeight: newSize})
-    console.log(this.state.visibleHeight);
+    this.setState({btnLocation: e.endCoordinates.height})
   }
 
   keyboardWillHide (e) {
-    this.setState({visibleHeight: Dimensions.get('window').height})
-    console.log(this.state.visibleHeight);
+    this.setState({btnLocation: 0})
   }
 
   handleChange(e) {
@@ -87,7 +84,7 @@ class GroupComments extends Component {
 
   footer() {
     return (
-      <View style={styles.footer}>
+      <View>
         <TextInput
           style={styles.inputComment}
           value={this.state.comment}
@@ -118,7 +115,7 @@ class GroupComments extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>{list}</ScrollView>
-        <View>{this.footer()}</View>
+        <View style={{bottom: this.state.btnLocation}}>{this.footer()}</View>
       </View>
     )
   }
