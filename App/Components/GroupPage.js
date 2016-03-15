@@ -63,7 +63,7 @@ class GroupPage extends Component {
     console.log(this.props.group);
     this.props.navigator.push({
       component: GroupMembers,
-      passProps: {members: this.props.group.members, user: this.props.user }
+      passProps: {members: this.props.group.members, user: this.props.user, group: this.props.group }
     });
   }
 
