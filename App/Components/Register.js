@@ -58,13 +58,13 @@ class Register extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.registerText}> Username: </Text>
-        <TextInput style={styles.blank} autoCapitalize='none' onChangeText={(username) => this.setState({username})} value={this.state.username}/>
+        <TextInput style={styles.blank} autoCapitalize='none' autoCorrect={false} onChangeText={(username) => this.setState({username})} value={this.state.username}/>
         <Text style={styles.registerText}> E-mail: </Text>
         <TextInput
-          style={styles.blank} autoCapitalize='none' onChangeText={(email) => this.setState({email})} value={this.state.email}/>
+          style={styles.blank} autoCapitalize='none' autoCorrect={false} onChangeText={(email) => this.setState({email})} value={this.state.email}/>
         <Text style={styles.registerText}> Password: </Text>
         <TextInput
-          style={styles.blank} autoCapitalize='none' secureTextEntry={true} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
+          style={styles.blank} autoCapitalize='none' secureTextEntry={true} autoCorrect={false} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
         <TouchableHighlight  style={styles.register} onPress={this.handleSubmit.bind(this)}>
           <Text  style={styles.registerButtonText}> Create User </Text>
         </TouchableHighlight>
