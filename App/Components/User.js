@@ -90,16 +90,14 @@ class User extends Component {
   newGroupButton() {
     return (
       <View style={styles.footer}>
-      <Text style={styles.createNew}> Create New Group: </Text>
-        <View>
 
-          <TextInput style={{flex: 2, height: 40, backgroundColor: 'white', borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' placeholder='Group Name' autoCorrect={false} onChange={this.handleChange.bind(this)} value={this.state.groupName}/>
+
+          <TextInput style={{flex: 2, height: 40, backgroundColor: 'white', borderColor: 'gray', borderWidth: 1, margin: 10, padding: 10, width: 400, justifyContent: 'center', alignSelf: 'center'}} autoCapitalize='none' placeholder='Group Name' autoCorrect={false} onChange={this.handleChange.bind(this)} value={this.state.groupName}/>
           <TouchableHighlight style={styles.button}
             onPress={this.handleSubmit.bind(this)}
             underlayColor="#88d4f5">
-            <Text style={styles.createNew}>Submit</Text>
+            <Text style={styles.createNew}>Create New Group</Text>
           </TouchableHighlight>
-        </View>
       </View>
       );
   }
@@ -131,7 +129,6 @@ class User extends Component {
         renderHeader={this.getUserName.bind(this)}
 				dataSource={this.state.dataSource}
 				renderRow={this.renderGroup.bind(this)}
-        // renderFooter={this.newGroupButton.bind(this)}
 				style={styles.listView} />
         <View>{this.newGroupButton()}</View>
         </View>
@@ -153,7 +150,6 @@ var styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-
   },
   user: {
     fontSize: 24,
@@ -212,9 +208,18 @@ var styles = StyleSheet.create({
     alignItems: 'center'
   },
   createNew: {
-    color: '#ffffff',
+    color: '#310373',
+    fontSize: 35,
     margin: 10,
+    padding: 10,
+    width: 400,
     alignSelf: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    borderColor: '#310373',
+    borderWidth: 1,
+    borderRadius: 6,
+    backgroundColor: '#ffffff'
   }
 });
 
