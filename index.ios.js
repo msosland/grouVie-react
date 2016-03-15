@@ -17,7 +17,7 @@ var NavigationBarRouteMapper = {
       return null;
     }
     return(
-      <Text style={{fontSize: 14,color: 'white'}}onPress={() => navigator.pop()}>  Back</Text>
+      <Text style={{fontSize: 14, color: 'white'}}onPress={() => navigator.pop()}>  Back</Text>
     )
   },
   Title: function( route, navigator, index, navState ){
@@ -25,15 +25,17 @@ var NavigationBarRouteMapper = {
       return null;
     }
     return(
-      <Text style={{fontSize: 25,color: 'white', alignSelf: 'center'}}>grouVie</Text>
+      <Text style={{fontSize: 25, color: 'white', alignSelf: 'center'}}>grouVie</Text>
     )
   },
   RightButton: function( route, navigator, index, navState ){
     if (index === 0) {
       return null;
+    } else if (index === 1) {
+      return null;
     }
     return(
-      <Text></Text>
+      <Text style={{fontSize: 14, color: 'white'}} onPress={() => navigator.popToTop()}>Logout  </Text>
     )
   }
 };
