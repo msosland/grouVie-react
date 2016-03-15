@@ -38,8 +38,6 @@ var styles = StyleSheet.create({
 class GroupMembers extends Component {
   constructor(props) {
     super(props);
-    console.log("print");
-    console.log(this.props);
     this.state = {
       username: '',
       image_url: ''
@@ -49,7 +47,7 @@ class GroupMembers extends Component {
   render(){
     var members = this.props.members;
     var list = members.map((member, index) => {
-    var profilePic = members[index].image_url ? <Image style={styles.image} source={members[index].image_url} /> : <Text style={styles.imageSquare}> No Picture yet </Text>;
+    var profilePic = members[index].image_url ? <Image style={styles.image} source={{uri: members[index].image_url}} /> : <Text style={styles.imageSquare}> No Picture yet </Text>;
       return (
         <View key={index}>
           <View style={styles.rowContainer}>
