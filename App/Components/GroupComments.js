@@ -4,6 +4,7 @@ var posts = require('../Utils/posts');
 const {
   StyleSheet,
   ScrollView,
+  ListView,
   Text,
   TextInput,
   Dimensions,
@@ -16,12 +17,16 @@ const {
 class GroupComments extends Component {
   constructor(props) {
     super(props);
+    var ds = new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      });
     this.state = {
       username: '',
       image_url: '',
       btnLocation: 0,
       comment: '',
-      commentObj: {}
+      // commentObj: {},
+      dataSource: ds.cloneWithRows(this.props.comments)
     }
   }
 
@@ -64,62 +69,75 @@ class GroupComments extends Component {
     }
     return obj;
   }
-  handleSubmit(){
-    var comment = this.state.comment;
-    this.setState({
-      comment: ''
-    });
 
+  componentDidMount() {
 
-    posts.postComment(comment, this.props.group.id, this.props.user.id)
-      .then((data) => {
-        this.props.comments.push(data);
-        this.setState({});
-      })
-      .catch((error) => {
-        console.log('Request failed', error);
-        this.setState({error});
-      });
   }
 
-  footer() {
+  handleSubmit(){
+    var comment = this.state.comment;
+    if (comment !== '') {
+      this.setState({
+        comment: ''
+      });
+      posts.postComment(comment, this.props.group.id, this.props.user.id)
+        .then((data) => {
+          this.props.comments.push(data);
+          this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(this.props.comments)
+          });
+        })
+        .catch((error) => {
+          console.log('Request failed', error);
+          this.setState({error});
+        });
+    }
+  }
+
+  addCommentForm() {
     return (
       <View>
         <TextInput
           style={styles.inputComment}
           value={this.state.comment}
+          autoCapitalize='none'
+          autoCorrect={false}
           onChange={this.handleChange.bind(this)}
           placeholder="New Comment" />
         <TouchableHighlight
           style={styles.button}
           onPress={this.handleSubmit.bind(this)}
           underlayColor="#88d4f5">
-            <Text>Submit</Text>
+            <Text style={styles.submitText}>Submit</Text>
         </TouchableHighlight>
       </View>
     )
   }
-  render(){
-    var comments = this.props.comments;
-    var list = comments.map((comment, index) => {
-      return (
-        <View key={index}>
-          <View style={this.checkName(comments[index].username)}>
-          <Text style={styles.comment}> {comments[index].content} </Text>
-            <Text style={styles.name}> ~ {comments[index].username} </Text>
 
+  renderRow(comment) {
+    return (
+        <View >
+          <View style={this.checkName(comment.username)}>
+            <Text style={styles.comment}> {comment.content} </Text>
+            <Text style={styles.name}> ~ {comment.username} </Text>
           </View>
         </View>
-      )
-    });
+
+      );
+  }
+
+  render(){
     return (
       <View style={styles.container}>
-        <ScrollView>{list}</ScrollView>
-        <View style={{bottom: this.state.btnLocation}}>{this.footer()}</View>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderRow.bind(this)} />
+        <View style={{bottom: this.state.btnLocation}}>{this.addCommentForm()}</View>
       </View>
     )
   }
 };
+
 var styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -137,6 +155,10 @@ var styles = StyleSheet.create({
     paddingBottom: 5
   },
   inputComment: {
+    margin: 10,
+    width: 400,
+    justifyContent: 'center',
+    alignSelf: 'center',
     color: "black",
     height: 60,
     padding: 10,
@@ -145,10 +167,15 @@ var styles = StyleSheet.create({
   },
   button: {
     height: 60,
-    backgroundColor: '#48BBEC',
+    backgroundColor: '#4800a8',
     alignItems: 'center',
     justifyContent: 'center'
   },
+  submitText: {
+    color: 'white',
+    fontSize: 35,
+    margin: 10
+  }
 });
 
 module.exports = GroupComments;
