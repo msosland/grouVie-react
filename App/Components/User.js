@@ -39,7 +39,7 @@ class User extends Component {
 
   fetchData() {
 
-    fetch("http://localhost:3000/users/" + this.props.user.id +"/groups")
+    fetch("http://grouvie.herokuapp.com/users/" + this.props.user.id +"/groups")
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
