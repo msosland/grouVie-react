@@ -49,7 +49,7 @@ class Main extends Component {
       alignSelf: 'center',
       justifyContent: 'center',
       height: 55,
-      width: 100,
+      width: 200,
       margin: 10,
       borderRadius: 6,
     }
