@@ -129,8 +129,9 @@ class User extends Component {
         renderHeader={this.getUserName.bind(this)}
 				dataSource={this.state.dataSource}
 				renderRow={this.renderGroup.bind(this)}
-        renderFooter={this.newGroupButton.bind(this)}
+        // renderFooter={this.newGroupButton.bind(this)}
 				style={styles.listView} />
+        <View>{this.newGroupButton()}</View>
         </View>
 			);
 	}
