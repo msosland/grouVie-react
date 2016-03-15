@@ -62,16 +62,12 @@ class ChallengeShow extends Component {
 
   completeStyle(participant) {
     var obj = {
-      flexDirection:'column',
-      justifyContent: 'center',
+      flexDirection: 'row',
+      padding: 10,
     }
     if(participant.completed === true){
-      obj.alignSelf = 'flex-start';
       obj.backgroundColor = '#48BBEC';
-      obj.marginLeft = 10;
     } else {
-      obj.marginRight = 10;
-      obj.alignSelf = 'flex-end';
       obj.backgroundColor = '#E77AAE';
     }
     return obj;
@@ -115,12 +111,12 @@ class ChallengeShow extends Component {
     var list = participations.map((item, index) => {
       return (
         <View key={index}>
-          <View style={this.completeStyle(participations[index])}><Text style={styles.read}>{participations[index].username}</Text><TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-          <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
+          <View style={this.completeStyle(participations[index])}><View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
           { participations[index].image_url == "/images/original/missing.png" ? <Text>Select a Photo</Text> :
             <Image style={styles.avatar} source={{uri: participations[index].image_url}} />
           }
-          </View>
+          </View><Text style={styles.read}>{participations[index].username}</Text><TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+
         </TouchableOpacity></View></View>
           )
     });
@@ -136,7 +132,7 @@ class ChallengeShow extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 60,
+    paddingTop: 55,
     backgroundColor: '#F5FCFF'
   },
   button: {
@@ -146,15 +142,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   read: {
-    color:'black',
+    flex: 3,
+    paddingLeft: 10,
+    alignSelf: 'center',
+    color: 'white',
+    fontSize: 35
   },
   buttonText: {
     color: 'white',
   },
   avatar: {
-    borderRadius: 0,
     width: 150,
-    height: 150
+    height: 150,
+    borderRadius: 6,
   },
   avatarContainer: {
     borderColor: '#9B9B9B',
