@@ -53,7 +53,6 @@ class User extends Component {
   }
 
   fetchData() {
-
     fetch("http://grouvie.herokuapp.com/users/" + this.props.user.id +"/groups")
       .then((response) => response.json())
       .then((responseData) => {
@@ -130,11 +129,9 @@ class User extends Component {
       );
     }
 
-  newGroupButton() {
+  newGroupForm() {
     return (
       <View style={styles.footer}>
-
-
           <TextInput style={{flex: 2, height: 40, backgroundColor: 'white', borderColor: 'gray', borderWidth: 1, margin: 10, padding: 10, width: 400, justifyContent: 'center', alignSelf: 'center'}} autoCapitalize='none' placeholder='Group Name' autoCorrect={false} onChange={this.handleChange.bind(this)} value={this.state.groupName}/>
           <TouchableHighlight style={styles.button}
             onPress={this.handleSubmit.bind(this)}
@@ -145,19 +142,6 @@ class User extends Component {
       );
   }
 
-	render() {
-		return (
-      <View style={{flex: 1}}>
-			<ListView
-        renderHeader={this.getUserName.bind(this)}
-				dataSource={this.state.dataSource}
-				renderRow={this.renderGroup.bind(this)}
-				style={styles.listView} />
-        <View style={{bottom: this.state.btnLocation}}>{this.newGroupButton()}</View>
-        </View>
-			);
-	}
-
   renderGroup(group) {
     return (
         <View style={styles.container}>
@@ -167,6 +151,19 @@ class User extends Component {
         </View>
     );
   }
+
+	render() {
+		return (
+      <View style={{flex: 1}}>
+			<ListView
+        renderHeader={this.getUserName.bind(this)}
+				dataSource={this.state.dataSource}
+				renderRow={this.renderGroup.bind(this)}
+				style={styles.listView} />
+        <View style={{bottom: this.state.btnLocation}}>{this.newGroupForm()}</View>
+        </View>
+			);
+	}
 }
 
 var styles = StyleSheet.create({
