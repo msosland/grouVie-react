@@ -116,20 +116,19 @@ class GroupComments extends Component {
       )
     });
     return (
-      <View style={{flex: 1, paddingTop: 50}}>
-        <ScrollView style={styles.container}>{list}</ScrollView>
+      <View style={styles.container}>
+        <ScrollView>{list}</ScrollView>
         <View>{this.footer()}</View>
       </View>
     )
   }
 };
 var styles = StyleSheet.create({
-  // container: {
-  //   paddingTop: 25,
-  //   backgroundColor: 'white',
-  //   // top: 40,
-  //   // flex: 1,
-  // },
+  container: {
+    flex: 1,
+    paddingTop: 50,
+    backgroundColor: 'white',
+  },
   name: {
     fontSize: 18,
     color: 'white',
@@ -153,14 +152,6 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  // footer: {
-  //   position: 'relative',
-  //   flex: .2,
-  //   marginTop: 20,
-  //   left:0,
-  //   right: 0,
-  //   bottom: 30,
-  // }
 });
 
 module.exports = GroupComments;

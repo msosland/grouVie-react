@@ -81,7 +81,7 @@ class ChallengeShow extends Component {
           style={styles.button}
           onPress={this.handleSubmit.bind(this)}
           underlayColor="#88d4f5">
-            <Text>Accept Challenge</Text>
+            <Text style={styles.buttonText}>Accept Challenge</Text>
         </TouchableHighlight>
       </View>
     )
@@ -103,8 +103,8 @@ class ChallengeShow extends Component {
           )
     });
     return (
-      <View style={{flex: 1}}>
-        <ScrollView style={styles.container}>{list}</ScrollView>
+      <View style={styles.container}>
+        <ScrollView>{list}</ScrollView>
         <View>{this.footer()}</View>
       </View>
       )
@@ -112,21 +112,22 @@ class ChallengeShow extends Component {
 };
 
 const styles = StyleSheet.create({
-  // container: {
-  //   marginTop: 45,
-  //   top: 50,
-  //   flex: 1,
-  //   backgroundColor: '#F5FCFF'
-  // },
+  container: {
+    flex: 1,
+    paddingTop: 50,
+    backgroundColor: '#F5FCFF'
+  },
   button: {
     height: 60,
-    backgroundColor: 'white',
-
+    backgroundColor: '#4800a8',
     alignItems: 'center',
     justifyContent: 'center'
   },
   read: {
     color:'black',
+  },
+  buttonText: {
+    color: 'white',
   },
   avatar: {
     borderRadius: 0,
@@ -139,12 +140,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  // footer: {
-  //   marginTop: 20,
-  //   left:0,
-  //   right: 0,
-  //   bottom: 30,
-  // }
 });
 
 module.exports = ChallengeShow;
