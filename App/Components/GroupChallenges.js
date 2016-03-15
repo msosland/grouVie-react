@@ -30,19 +30,14 @@ var styles = StyleSheet.create({
     fontSize: 18,
     paddingBottom: 5
   },
-  stars: {
-    color: '#48BBEC',
-    fontSize: 14,
-    paddingBottom: 5
-  },
   nameText: {
     color: 'white',
     fontSize: 14,
     paddingBottom: 5,
   },
-  createChallenge: {
-    position: 'absolute'
-  },
+  // createChallenge: {
+  //   position: 'absolute'
+  // },
   input: {
     height: 60,
     padding: 10,
@@ -62,8 +57,6 @@ var styles = StyleSheet.create({
 class GroupChallenges extends Component {
   constructor(props) {
     super(props);
-    console.log("print");
-    console.log(this.props);
     this.state = {
       challengeName: '',
       challengeDescription: '',
