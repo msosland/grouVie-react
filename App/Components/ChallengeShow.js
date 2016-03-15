@@ -38,6 +38,9 @@ class ChallengeShow extends Component {
         skipBackup: true
       }
     };
+
+
+
     ImagePickerManager.showImagePicker(options, (response) => {
       var id = this.props.user.id;
       var user = this.props.challenge.participations.find(function(participant) {
@@ -56,6 +59,25 @@ class ChallengeShow extends Component {
 
     });
   }
+
+  completeStyle(participant) {
+    var obj = {
+      flexDirection:'column',
+      justifyContent: 'center',
+    }
+    if(participant.completed === true){
+      obj.alignSelf = 'flex-start';
+      obj.backgroundColor = '#48BBEC';
+      obj.marginLeft = 10;
+    } else {
+      obj.marginRight = 10;
+      obj.alignSelf = 'flex-end';
+      obj.backgroundColor = '#E77AAE';
+    }
+    return obj;
+  }
+
+
 
   handleSubmit(){
     posts.optInToChallenge(this.props.challenge.id, this.props.user.id)
@@ -93,7 +115,7 @@ class ChallengeShow extends Component {
     var list = participations.map((item, index) => {
       return (
         <View key={index}>
-          <View><Text style={styles.read}>{participations[index].username}</Text><TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+          <View style={this.completeStyle(participations[index])}><Text style={styles.read}>{participations[index].username}</Text><TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
           <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
           { participations[index].image_url == "/images/original/missing.png" ? <Text>Select a Photo</Text> :
             <Image style={styles.avatar} source={{uri: participations[index].image_url}} />
