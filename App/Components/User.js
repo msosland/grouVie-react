@@ -39,7 +39,7 @@ class User extends Component {
 
   fetchData() {
 
-    fetch("http://grouvie.herokuapp.com/users/" + this.props.user.id +"/groups")
+    fetch("http://localhost:3000/users/" + this.props.user.id +"/groups")
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
@@ -71,10 +71,13 @@ class User extends Component {
 
   handleSubmit() {
     console.log("button submitted");
-    var groupName = this.state.groupName
+    var groupName = this.state.groupName;
+    console.log(groupName);
+    console.log(this.props.user.id)
     this.setState({groupName: ''});
     posts.createNewGroup(groupName, this.props.user.id)
     .then((responseJSON) => {
+      console.log(responseJSON);
       this.props.groups.push(responseJSON);
       goToGroup(responseJSON);
 
