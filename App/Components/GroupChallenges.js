@@ -12,6 +12,7 @@ var {
 	Component,
 	Text,
   TextInput,
+  DeviceEventEmitter,
 } = React;
 
 
@@ -21,7 +22,8 @@ class GroupChallenges extends Component {
     this.state = {
       challengeName: '',
       challengeDescription: '',
-    };
+      btnLocation: 0
+    }
   }
 
   goToChallenge(challenge) {
@@ -32,6 +34,19 @@ class GroupChallenges extends Component {
         user: this.props.user
       }
     });
+  }
+
+  componentWillMount () {
+    DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
+    DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
+  }
+
+  keyboardWillShow (e) {
+    this.setState({btnLocation: e.endCoordinates.height})
+  }
+
+  keyboardWillHide (e) {
+    this.setState({btnLocation: 0})
   }
 
   handleSubmit() {
@@ -55,7 +70,7 @@ class GroupChallenges extends Component {
 
   footer() {
     return (
-      <View style={styles.footer}>
+      <View>
         <TextInput
           style={styles.inputChallenge}
           value={this.state.challengeName}
@@ -92,20 +107,15 @@ class GroupChallenges extends Component {
       )
     });
     return (
-      <View style={styles.container}>
-      <ScrollView>
-        {list}
-        {this.footer()}
-      </ScrollView>
+      <View style={{flex: 1, paddingTop: 50}}>
+        <ScrollView>{list}</ScrollView>
+        <View style={{bottom: this.state.btnLocation}}>{this.footer()}</View>
       </View>
     )
   }
 };
 
 var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   rowContainer: {
     flexDirection: 'row',
     flex: 1,
@@ -137,15 +147,6 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  footer: {
-    position: 'relative',
-    flex: .2,
-    marginTop: 50,
-    paddingTop: 5,
-    left:0,
-    right: 0,
-    bottom: 30,
-  }
 });
 
 module.exports = GroupChallenges;
