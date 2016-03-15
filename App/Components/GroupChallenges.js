@@ -62,8 +62,6 @@ var styles = StyleSheet.create({
 class GroupChallenges extends Component {
   constructor(props) {
     super(props);
-    console.log("print");
-    console.log(this.props);
     this.state = {
       challengeName: '',
       challengeDescription: '',
