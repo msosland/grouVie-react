@@ -113,12 +113,19 @@ var styles = StyleSheet.create({
     color: 'white',
     fontSize: 35
   },
+  inputComment: {
+    color: "black",
+    height: 60,
+    padding: 10,
+    fontSize: 25,
+    backgroundColor: '#fff',
+  },
   button: {
     height: 60,
     backgroundColor: '#48BBEC',
     alignItems: 'center',
     justifyContent: 'center'
-  },
+  }
 });
 
 module.exports = GroupMembers;
