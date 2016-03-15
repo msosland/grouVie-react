@@ -14,42 +14,7 @@ var {
   TextInput,
 } = React;
 
-var styles = StyleSheet.create({
-  container: {
-    marginTop: 50,
-    top: 40,
-    flex: 1,
-  },
-  rowContainer: {
-    flexDirection: 'column',
-    flex: 1,
-    padding: 10,
-  },
-  name: {
-    color: '#48BBEC',
-    fontSize: 18,
-    paddingBottom: 5
-  },
-  nameText: {
-    color: 'white',
-    fontSize: 14,
-    paddingBottom: 5,
-  },
-  input: {
-    height: 60,
-    padding: 10,
-    fontSize: 18,
-    backgroundColor: '#fff',
-    flex: 10
-  },
-  button: {
-    height: 60,
-    backgroundColor: '#48BBEC',
-    flex: 3,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
+
 
 class GroupChallenges extends Component {
   constructor(props) {
@@ -128,30 +93,27 @@ class GroupChallenges extends Component {
       )
     });
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
+      <ScrollView>
         {list}
         {this.footer()}
       </ScrollView>
+      </View>
     )
   }
 };
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 50,
     flex: 1,
-    marginBottom: 55,
   },
   rowContainer: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     flex: 1,
+    backgroundColor: 'white',
     borderRadius: 8,
     padding: 5,
-    margin: 10,
-    width: 400,
-    alignSelf: 'center',
-    backgroundColor: '#fff',
-
+    margin: 5
   },
   inputChallenge: {
     color: "black",
@@ -165,21 +127,9 @@ var styles = StyleSheet.create({
     fontSize: 18,
     paddingBottom: 5
   },
-  stars: {
-    color: '#48BBEC',
-    fontSize: 14,
-    paddingBottom: 5
-  },
   nameText: {
     color: '#4800a8',
     fontSize: 14,
-  },
-  input: {
-    height: 60,
-    padding: 10,
-    fontSize: 18,
-    backgroundColor: '#fff',
-    flex: 1,
   },
   button: {
     height: 60,
