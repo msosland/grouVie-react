@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   button: {
     top: 200,
     height: 60,
-    backgroundColor: '#48BBEC',
+    backgroundColor: 'white',
     flex: 3,
     alignItems: 'center',
     justifyContent: 'center'
@@ -139,6 +139,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  footer: {
+    position: 'relative',
+    flex: .2,
+    marginTop: 20,
+    left:0,
+    right: 0,
+    bottom: 30,
   }
 });
 

@@ -23,7 +23,6 @@ class GroupComments extends Component {
       commentObj: {},
       visibleHeight: Dimensions.get('window').height,
     };
-    console.log(this.state.visibleHeight);
   }
 
   componentWillMount () {
@@ -48,11 +47,33 @@ class GroupComments extends Component {
     });
   }
 
+  checkName(user){
+    var obj = {
+      flexDirection:'column',
+      width: 300,
+      flex: 1,
+      borderRadius: 6,
+      padding: 10,
+      justifyContent: 'center',
+    }
+    if(user === this.props.user.username){
+      obj.alignSelf = 'flex-start';
+      obj.backgroundColor = '#4800a8';
+      obj.margin = 10;
+    } else {
+      obj.margin = 10;
+      obj.alignSelf = 'flex-end';
+      obj.backgroundColor = '#6d00ff';
+    }
+    return obj;
+  }
   handleSubmit(){
     var comment = this.state.comment;
     this.setState({
       comment: ''
     });
+
+
     posts.postComment(comment, this.props.group.id, this.props.user.id)
       .then((data) => {
         this.props.comments.push(data);
@@ -86,9 +107,10 @@ class GroupComments extends Component {
     var list = comments.map((comment, index) => {
       return (
         <View key={index}>
-          <View style={styles.rowContainer}>
-            <Text style={styles.name}> {comments[index].username} </Text>
-            <Text style={styles.comment}> {comments[index].content} </Text>
+          <View style={this.checkName(comments[index].username)}>
+          <Text style={styles.comment}> {comments[index].content} </Text>
+            <Text style={styles.name}> ~ {comments[index].username} </Text>
+
           </View>
         </View>
       )
@@ -103,29 +125,26 @@ class GroupComments extends Component {
 };
 var styles = StyleSheet.create({
   container: {
+    paddingTop: 25,
+    backgroundColor: 'white',
     top: 40,
     flex: 1,
   },
-  rowContainer: {
-    flexDirection: 'column',
-    flex: 1,
-    padding: 10
-  },
   name: {
-    color: '#48BBEC',
     fontSize: 18,
+    color: 'white',
     paddingBottom: 5
   },
   comment: {
-    color: '#48BBEC',
-    fontSize: 18,
+    color: 'white',
+    fontSize: 25,
     paddingBottom: 5
   },
   inputComment: {
     color: "black",
     height: 60,
     padding: 10,
-    fontSize: 18,
+    fontSize: 25,
     backgroundColor: '#fff',
   },
   button: {
