@@ -71,7 +71,6 @@ class Main extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    // marginTop: 55,
     flex: 1
   },
   image: {
