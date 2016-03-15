@@ -105,7 +105,6 @@ class User extends Component {
     posts.createNewGroup(groupName, this.props.user.id)
     .then((responseJSON) => {
       this.fetchData();
-      // this.goToGroup(responseJSON);
     })
     .catch((error) => {
       console.log('Request failed', error);
@@ -125,15 +124,15 @@ class User extends Component {
       <View style={styles.center}>
       <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}><View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
           { this.props.user.image_url == "/images/original/missing.png" ? <Text>Add a Photo</Text> : <Image style={styles.avatar} source={{uri: this.props.user.image_url}} /> }</View></TouchableOpacity>
-          <Text style={styles.white}>{this.props.user.username}</Text></View>
+          <Text style={styles.profileUsername}>{this.props.user.username}</Text></View>
       );
     }
 
   newGroupForm() {
     return (
-      <View style={styles.footer}>
+      <View>
           <TextInput style={styles.textInput} autoCapitalize='none' placeholder='Group Name' autoCorrect={false} onChange={this.handleChange.bind(this)} value={this.state.groupName}/>
-          <TouchableHighlight style={styles.button}
+          <TouchableHighlight
             onPress={this.handleSubmit.bind(this)}
             underlayColor="#88d4f5">
             <Text style={styles.createNew}>Create New Group</Text>
@@ -173,7 +172,7 @@ var styles = StyleSheet.create({
     height: 150
   },
   avatarContainer: {
-    borderColor: '#9B9B9B',
+    borderColor: '#310373',
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center'
@@ -181,28 +180,30 @@ var styles = StyleSheet.create({
   center: {
     marginTop: 25,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderBottomColor: '#310373',
+    borderBottomWidth: 1,
+    paddingBottom: 5
   },
   createNew: {
-    color: '#310373',
-    fontSize: 35,
-    padding: 10,
-    justifyContent: 'center',
     textAlign: 'center',
-    borderColor: '#310373',
-    borderWidth: 1,
-    backgroundColor: '#ffffff'
+    color: 'white',
+    fontSize: 30,
+    padding: 5,
+    backgroundColor: '#4800a8'
   },
   groupContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: "row",
-    borderBottomColor: 'white',
+    borderTopWidth: 1,
+    borderTopColor: '#310373',
+    borderBottomColor: '#310373',
     borderBottomWidth: 1,
   },
   groupList: {
     fontSize: 35,
-    color: 'white',
+    color: '#310373',
     margin: 10,
     padding: 10,
     justifyContent: 'center',
@@ -210,15 +211,19 @@ var styles = StyleSheet.create({
   },
   listView: {
     paddingTop: 60,
-    backgroundColor: '#310373',
+    backgroundColor: 'white',
+  },
+  profileUsername: {
+    color: '#310373',
+    fontSize: 18,
   },
   textInput: {
-    flex: 2,
     height: 40, 
     backgroundColor: 'white', 
-    borderColor: 'gray', 
+    borderColor: '#310373', 
     borderWidth: 1,
-    justifyContent: 'center', 
+    justifyContent: 'center',
+    textAlign: 'center'
   },
   white: {
     color: 'white'
