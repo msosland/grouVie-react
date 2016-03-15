@@ -103,26 +103,24 @@ class ChallengeShow extends Component {
           )
     });
     return (
-      <ScrollView style={styles.container}>
-        {list}
-        {this.footer()}
-      </ScrollView>
+      <View style={{flex: 1}}>
+        <ScrollView style={styles.container}>{list}</ScrollView>
+        <View>{this.footer()}</View>
+      </View>
       )
   }
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 45,
-    top: 50,
-    flex: 1,
-    backgroundColor: '#F5FCFF'
-  },
+  // container: {
+  //   marginTop: 45,
+  //   top: 50,
+  //   flex: 1,
+  //   backgroundColor: '#F5FCFF'
+  // },
   button: {
-    top: 200,
     height: 60,
     backgroundColor: 'white',
-    flex: 3,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -140,14 +138,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  footer: {
-    position: 'relative',
-    flex: .2,
-    marginTop: 20,
-    left:0,
-    right: 0,
-    bottom: 30,
-  }
+  // footer: {
+  //   marginTop: 20,
+  //   left:0,
+  //   right: 0,
+  //   bottom: 30,
+  // }
 });
 
 module.exports = ChallengeShow;
