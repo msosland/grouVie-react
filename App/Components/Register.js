@@ -74,7 +74,7 @@ class Register extends Component {
 }
 var styles = StyleSheet.create({
     container: {
-    marginTop: 200,
+    marginTop: 150,
     flex: 1
   },
   register: {

@@ -15,24 +15,6 @@ var {
   TouchableHighlight
 } = React;
 
-var styles = StyleSheet.create({
-  container: {
-    // marginTop: 55,
-    flex: 1
-  },
-  image: {
-    height: 155,
-    alignSelf: 'center',
-    margin: 100,
-
-  },
-  buttonText: {
-    fontSize: 24,
-    color: '#5a01d2',
-    alignSelf: 'center'
-  }
-});
-
 class Main extends Component {
   goToLogin() {
     this.props.navigator.push({
@@ -85,6 +67,23 @@ class Main extends Component {
       </View>
     );
   }
-
 }
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  image: {
+    height: 155,
+    alignSelf: 'center',
+    margin: 100,
+
+  },
+  buttonText: {
+    fontSize: 24,
+    color: '#5a01d2',
+    alignSelf: 'center'
+  }
+});
+
 module.exports = Main;
