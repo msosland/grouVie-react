@@ -113,7 +113,7 @@ class GroupComments extends Component {
       )
     });
     return (
-      <View style={{flex: 1, paddingTop: 50}}>
+      <View style={styles.container}>
         <ScrollView>{list}</ScrollView>
         <View style={{bottom: this.state.btnLocation}}>{this.footer()}</View>
       </View>
@@ -121,6 +121,11 @@ class GroupComments extends Component {
   }
 };
 var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 50,
+    backgroundColor: 'white',
+  },
   name: {
     fontSize: 18,
     color: 'white',
