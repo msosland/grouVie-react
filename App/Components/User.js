@@ -144,7 +144,7 @@ class User extends Component {
 
   renderGroup(group) {
     return (
-        <View style={styles.container}>
+        <View style={styles.groupContainer}>
           <TouchableHighlight  onPress={() => this.goToGroup(group)}>
               <Text style={styles.groupList}>{group.name}</Text>
           </TouchableHighlight>
@@ -167,53 +167,6 @@ class User extends Component {
 }
 
 var styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  white: {
-    color: 'white'
-  },
-  user: {
-    fontSize: 24,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  groupList: {
-    fontSize: 35,
-    color: 'white',
-    margin: 10,
-    padding: 10,
-    width: 400,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 6,
-  },
-  header: {
-    height: 200,
-  },
-  rightContainer: {
-    flex: 1,
-  },
-  group_id: {
-    fontSize: 20,
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  year: {
-    textAlign: 'center',
-  },
-  thumbnail: {
-    width: 53,
-    height: 81,
-  },
-  listView: {
-    paddingTop: 60,
-    backgroundColor: '#310373',
-  },
   avatar: {
     borderRadius: 75,
     width: 150,
@@ -243,6 +196,28 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 6,
     backgroundColor: '#ffffff'
+  },
+  groupContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: "row",
+    borderBottomColor: 'white',
+    borderBottomWidth: 1,
+  },
+  groupList: {
+    fontSize: 35,
+    color: 'white',
+    margin: 10,
+    padding: 10,
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
+  listView: {
+    paddingTop: 60,
+    backgroundColor: '#310373',
+  },
+  white: {
+    color: 'white'
   }
 });
 
