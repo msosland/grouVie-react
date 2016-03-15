@@ -64,7 +64,8 @@ var posts = {
   },
 
   addMemberToGroup(username, groupId) {
-    var url = "http://localhost:3000/memberships/"
+    var url = "http://grouvie.herokuapp.com/memberships/"
+    console.log(username, groupId);
     return fetch(url, {
       method: 'post',
       body: JSON.stringify({username, groupId})
