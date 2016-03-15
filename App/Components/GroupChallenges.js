@@ -15,7 +15,6 @@ var {
 } = React;
 
 
-
 class GroupChallenges extends Component {
   constructor(props) {
     super(props);
@@ -113,7 +112,8 @@ var styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 8,
     padding: 5,
-    margin: 5
+    backgroundColor: '#fff',
+    margin: 5,
   },
   inputChallenge: {
     color: "black",

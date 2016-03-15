@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
   button: {
     height: 60,
     backgroundColor: 'white',
+
     alignItems: 'center',
     justifyContent: 'center'
   },

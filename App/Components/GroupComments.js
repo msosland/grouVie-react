@@ -50,10 +50,10 @@ class GroupComments extends Component {
   checkName(user){
     var obj = {
       flexDirection:'column',
-      width: 300,
       flex: 1,
       borderRadius: 6,
       padding: 10,
+      width: 300,
       justifyContent: 'center',
     }
     if(user === this.props.user.username){
