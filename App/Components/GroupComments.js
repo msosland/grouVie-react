@@ -19,10 +19,10 @@ class GroupComments extends Component {
     this.state = {
       username: '',
       image_url: '',
+      btnLocation: 0,
       comment: '',
-      commentObj: {},
-      visibleHeight: Dimensions.get('window').height,
-    };
+      commentObj: {}
+    }
   }
 
   componentWillMount () {
@@ -31,14 +31,11 @@ class GroupComments extends Component {
   }
 
   keyboardWillShow (e) {
-    let newSize = Dimensions.get('window').height - e.endCoordinates.height
-    this.setState({visibleHeight: newSize})
-    console.log(this.state.visibleHeight);
+    this.setState({btnLocation: e.endCoordinates.height})
   }
 
   keyboardWillHide (e) {
-    this.setState({visibleHeight: Dimensions.get('window').height})
-    console.log(this.state.visibleHeight);
+    this.setState({btnLocation: 0})
   }
 
   handleChange(e) {
@@ -87,7 +84,7 @@ class GroupComments extends Component {
 
   footer() {
     return (
-      <View style={styles.footer}>
+      <View>
         <TextInput
           style={styles.inputComment}
           value={this.state.comment}
@@ -117,19 +114,13 @@ class GroupComments extends Component {
     });
     return (
       <View style={{flex: 1, paddingTop: 50}}>
-        <ScrollView style={styles.container}>{list}</ScrollView>
-        <View>{this.footer()}</View>
+        <ScrollView>{list}</ScrollView>
+        <View style={{bottom: this.state.btnLocation}}>{this.footer()}</View>
       </View>
     )
   }
 };
 var styles = StyleSheet.create({
-  // container: {
-  //   paddingTop: 25,
-  //   backgroundColor: 'white',
-  //   // top: 40,
-  //   // flex: 1,
-  // },
   name: {
     fontSize: 18,
     color: 'white',
@@ -153,14 +144,6 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  // footer: {
-  //   position: 'relative',
-  //   flex: .2,
-  //   marginTop: 20,
-  //   left:0,
-  //   right: 0,
-  //   bottom: 30,
-  // }
 });
 
 module.exports = GroupComments;
