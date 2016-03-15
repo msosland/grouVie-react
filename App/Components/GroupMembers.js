@@ -11,6 +11,7 @@ var {
   TouchableHighlight,
   Component,
   Image,
+  DeviceEventEmitter
 } = React;
 
 
@@ -21,6 +22,19 @@ class GroupMembers extends Component {
       username: '',
       image_url: ''
     };
+  }
+
+  componentWillMount () {
+    DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
+    DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
+  }
+
+  keyboardWillShow (e) {
+    this.setState({btnLocation: e.endCoordinates.height})
+  }
+
+  keyboardWillHide (e) {
+    this.setState({btnLocation: 0})
   }
 
   handleChange(e) {
@@ -58,7 +72,7 @@ class GroupMembers extends Component {
           style={styles.button}
           onPress={this.handleSubmit.bind(this)}
           underlayColor="#88d4f5">
-            <Text>Add to Group</Text>
+            <Text style={styles.buttonText}>Add to Group</Text>
         </TouchableHighlight>
       </View>
     )
@@ -81,7 +95,7 @@ class GroupMembers extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>{list}</ScrollView>
-        <View>{this.footer()}</View>
+        <View style={{bottom: this.state.btnLocation}}>{this.footer()}</View>
       </View>
     )
   }
@@ -115,16 +129,22 @@ var styles = StyleSheet.create({
   },
   inputComment: {
     color: "black",
-    height: 60,
+    justifyContent: 'center',
+    textAlign: 'center',
+    height: 48,
     padding: 10,
     fontSize: 25,
     backgroundColor: '#fff',
   },
   button: {
-    height: 60,
+    height: 48,
     backgroundColor: '#48BBEC',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 22
   }
 });
 
