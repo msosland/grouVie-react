@@ -13,47 +13,32 @@ var {
   TouchableHighlight
 } = React;
 
-var styles = StyleSheet.create({
-  container: {
-    marginTop: 55,
-    flex: 1
-  },
-  image: {
-    height: 350,
-  },
-  buttonText: {
-    fontSize: 24,
-    color: 'white',
-    alignSelf: 'center'
-  }
-});
 
 class GroupPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      group: "hello"
+      group: "hello",
+      btnLocation: 0,
     };
   }
 
   makeBackground(btn){
     var obj = {
-      flexDirection:'column',
-      height: 150,
-      width: 150,
-      borderRadius: 75,
+      borderRadius: 6,
       justifyContent: 'center',
+      padding: 20,
     }
     if(btn === 0){
       obj.alignSelf = 'flex-start';
       obj.backgroundColor = '#48BBEC';
-      obj.marginLeft = 10;
+      obj.margin = 10;
     } else if (btn === 1){
-      obj.marginRight = 10;
+      obj.margin = 10;
       obj.alignSelf = 'flex-end';
       obj.backgroundColor = '#E77AAE';
     } else {
-      obj.marginLeft = 10;
+      obj.margin = 10;
       obj.alignSelf = 'flex-start';
       obj.backgroundColor = '#758BF4';
     }
@@ -87,11 +72,12 @@ class GroupPage extends Component {
   render(){
     return (
       <View style={styles.container}>
+
         <TouchableHighlight
             style={this.makeBackground(2)}
             onPress={this.goToChallenges.bind(this)}
             underlayColor="#9BAAF3">
-              <Text style={styles.buttonText}>View Challenges</Text>
+              <Text style={styles.buttonText}>Challenges</Text>
         </TouchableHighlight>
         <TouchableHighlight
             style={this.makeBackground(1)}
@@ -103,15 +89,41 @@ class GroupPage extends Component {
             style={this.makeBackground(0)}
             onPress={this.goToMembers.bind(this)}
             underlayColor="#88D4F5">
-              <Text style={styles.buttonText}>View Members</Text>
+              <Text style={styles.buttonText}>Members</Text>
         </TouchableHighlight>
+        <View style={{bottom: this.state.btnLocation}}>
+        <TouchableHighlight
+            style={styles.footer}>
+        <Text style={styles.buttonText}>{this.props.group.name}</Text>
+        </TouchableHighlight></View>
       </View>
     )
   }
 };
 
-// GroupPage.propTypes = {
-//   userInfo: React.PropTypes.object.isRequired
-// }
+var styles = StyleSheet.create({
+  container: {
+    paddingTop: 55,
+    flex: 1,
+    backgroundColor: 'white'
+  },
+  footer: {
+    height: 60,
+    backgroundColor: '#4800a8',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  footyText: {
+    color: 'white',
+    fontSize: 35,
+    margin: 10
+  },
+  buttonText: {
+    fontSize: 35,
+    color: 'white',
+    padding: 10,
+    alignSelf: 'center'
+  }
+});
 
 module.exports = GroupPage;
