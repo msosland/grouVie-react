@@ -33,7 +33,7 @@ class Register extends Component {
   }
 
   handleSubmit(){
-    fetch("http://grouvie.herokuapp.com/users", {
+    fetch("http://localhost:3000/users", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
