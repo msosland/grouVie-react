@@ -50,24 +50,6 @@ class User extends Component {
       .done();
   }
 
-  selectPhotoTapped(item) {
-    const options = {
-      title: 'Photo Picker',
-      quality: 0.5,
-      maxWidth: 300,
-      maxHeight: 300,
-      storageOptions: {
-        skipBackup: true
-      }
-    };
-    ImagePickerManager.showImagePicker(options, (response) => {
-      var id = this.props.user.id;
-      posts.postProfilePicture(response.data, id).then((responseJSON) => {
-        this.props.user.image_url = responseJSON.image_url;
-        this.setState({});
-      }).done();
-    });
-  }
 
   handleChange(e) {
     this.setState({
@@ -120,6 +102,26 @@ class User extends Component {
         </View>
       </View>
       );
+  }
+
+  selectPhotoTapped(item) {
+    const options = {
+      title: 'Photo Picker',
+      quality: 0.5,
+      maxWidth: 300,
+      maxHeight: 300,
+      storageOptions: {
+        skipBackup: true
+      }
+    };
+
+    ImagePickerManager.showImagePicker(options, (response) => {
+      var id = this.props.user.id;
+      posts.postProfilePicture(response.data, id).then((responseJSON) => {
+        this.props.user.image_url = responseJSON.image_url;
+        this.setState({});
+      }).done();
+    });
   }
 
 	render() {
