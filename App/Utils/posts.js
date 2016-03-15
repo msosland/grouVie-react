@@ -18,10 +18,11 @@ var posts = {
 
   postPicture(imagedata, challengeId, participationId) {
     var escape = function(jsonString) {
-      return jsonString.replace(/\n/g, "").replace(/\r/g, "").replace(/\t/g, "").replace(/\f/g, "");
-    };
+      return jsonString.replace(/\n/g, "").replace(/\r/g, "").replace(/\t/g, "").replace(/\f/g, "").replace(/=/g, "");
+    }
     var imagereplaced = escape(imagedata);
-    var obj = "data:image/jpeg;base64," + imagereplaced;
+    var imagereplacedagain = imagereplaced.replace(/=/g, "");
+    var obj = "data:image/jpeg;base64," + imagereplacedagain;
     console.log(obj);
     var url = "http://grouvie.herokuapp.com/challenges/" + challengeId + "/participations/" + participationId;
     return fetch(url, {
