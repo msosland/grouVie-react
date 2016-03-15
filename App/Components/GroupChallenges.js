@@ -14,50 +14,6 @@ var {
   TextInput,
 } = React;
 
-var styles = StyleSheet.create({
-  container: {
-    marginTop: 50,
-    top: 40,
-    flex: 1,
-  },
-  rowContainer: {
-    flexDirection: 'column',
-    flex: 1,
-    padding: 10,
-  },
-  name: {
-    color: '#48BBEC',
-    fontSize: 18,
-    paddingBottom: 5
-  },
-  stars: {
-    color: '#48BBEC',
-    fontSize: 14,
-    paddingBottom: 5
-  },
-  nameText: {
-    color: 'white',
-    fontSize: 14,
-    paddingBottom: 5,
-  },
-  createChallenge: {
-    position: 'absolute'
-  },
-  input: {
-    height: 60,
-    padding: 10,
-    fontSize: 18,
-    backgroundColor: '#fff',
-    flex: 10
-  },
-  button: {
-    height: 60,
-    backgroundColor: '#48BBEC',
-    flex: 3,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
 
 class GroupChallenges extends Component {
   constructor(props) {
@@ -101,14 +57,14 @@ class GroupChallenges extends Component {
 
   footer() {
     return (
-      <View style={styles.createChallenge}>
+      <View style={styles.footer}>
         <TextInput
-          style={styles.input}
+          style={styles.inputChallenge}
           value={this.state.challengeName}
           onChangeText={(challengeName) => this.setState({challengeName})}
           placeholder="Challenge Name" />
         <TextInput
-          style={styles.input}
+          style={styles.inputChallenge}
           value={this.state.challengeDescription}
           onChangeText={(challengeDescription) => this.setState({challengeDescription})}
           placeholder="Challenge Description" />
@@ -122,27 +78,90 @@ class GroupChallenges extends Component {
     )
   }
 
-	render() {
-		var challenges = this.props.challenges;
-		var list = challenges.map((item,index) => {
-			var desc = challenges[index].name ? <Text style={styles.name}> {challenges[index].name} </Text> : <View />;
-			return (
-				<View key={index}>
-					<View style={styles.rowContainer}>
-						<TouchableHighlight onPress={() => this.goToChallenge(item)}>
-							<Text style={styles.nameText}>{challenges[index].name}</Text>
-						</TouchableHighlight>
-					</View>
-				</View>
-			)
-		});
-		return (
+  render() {
+    var challenges = this.props.challenges;
+    var list = challenges.map((item,index) => {
+      var desc = challenges[index].name ? <Text style={styles.name}> {challenges[index].name} </Text> : <View />;
+      return (
+        <View key={index}>
+          <View style={styles.rowContainer}>
+            <TouchableHighlight onPress={() => this.goToChallenge(item)}>
+              <Text style={styles.nameText}>{challenges[index].name}</Text>
+            </TouchableHighlight>
+            <Text style={styles.challengeDescription}>{challenges[index].description}</Text>
+          </View>
+        </View>
+      )
+    });
+    return (
       <ScrollView style={styles.container}>
         {list}
         {this.footer()}
       </ScrollView>
     )
-	}
+  }
 };
+
+var styles = StyleSheet.create({
+  container: {
+    marginTop: 50,
+    flex: 1,
+    marginBottom: 55,
+  },
+  rowContainer: {
+    flexDirection: 'column',
+    flex: 1,
+    borderRadius: 8,
+    padding: 5,
+    margin: 10,
+    width: 400,
+    alignSelf: 'center',
+    backgroundColor: '#fff',
+
+  },
+  inputChallenge: {
+    color: "black",
+    height: 60,
+    padding: 10,
+    fontSize: 25,
+    backgroundColor: 'white',
+  },
+  name: {
+    color: '#48BBEC',
+    fontSize: 18,
+    paddingBottom: 5
+  },
+  stars: {
+    color: '#48BBEC',
+    fontSize: 14,
+    paddingBottom: 5
+  },
+  nameText: {
+    color: '#4800a8',
+    fontSize: 14,
+  },
+  input: {
+    height: 60,
+    padding: 10,
+    fontSize: 18,
+    backgroundColor: '#fff',
+    flex: 1,
+  },
+  button: {
+    height: 60,
+    backgroundColor: '#48BBEC',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  footer: {
+    position: 'relative',
+    flex: .2,
+    marginTop: 50,
+    paddingTop: 5,
+    left:0,
+    right: 0,
+    bottom: 30,
+  }
+});
 
 module.exports = GroupChallenges;
