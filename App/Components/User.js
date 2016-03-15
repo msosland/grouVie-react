@@ -14,6 +14,7 @@ var {
   TouchableOpacity,
   TextInput,
 	Text,
+  DeviceEventEmitter,
   NativeImagePicker,
   NativeModules: {
     ImagePickerManager
@@ -25,6 +26,7 @@ class User extends Component {
     super(props);
     this.state = {
       groups: [],
+      btnLocation: 0,
 			dataSource: new ListView.DataSource({
 				rowHasChanged: (row1, row2) => row1 !== row2,
 			}),
@@ -36,6 +38,19 @@ class User extends Component {
 	componentDidMount() {
 		this.fetchData();
 	}
+
+  componentWillMount () {
+    DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
+    DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
+  }
+
+  keyboardWillShow (e) {
+    this.setState({btnLocation: e.endCoordinates.height})
+  }
+
+  keyboardWillHide (e) {
+    this.setState({btnLocation: 0})
+  }
 
   fetchData() {
     fetch("http://grouvie.herokuapp.com/users/" + this.props.user.id +"/groups")
@@ -49,6 +64,34 @@ class User extends Component {
       .done();
   }
 
+  selectPhotoTapped(item) {
+    const options = {
+      title: 'Photo Picker',
+      quality: 0.5,
+      maxWidth: 300,
+      maxHeight: 300,
+      storageOptions: {
+        skipBackup: true
+      }
+    };
+    ImagePickerManager.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled photo picker');
+      }
+      else if (response.error) {
+        console.log('ImagePickerManager Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        var id = this.props.user.id;
+        posts.postProfilePicture(response.data, id).then((responseJSON) => {
+          this.props.user.image_url = responseJSON.image_url;
+          this.setState({});
+        }).done();
+    }
+    });
+  }
 
   handleChange(e) {
     this.setState({
@@ -82,7 +125,7 @@ class User extends Component {
       <View style={styles.center}>
       <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}><View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
           { this.props.user.image_url == "/images/original/missing.png" ? <Text>Add a Photo</Text> : <Image style={styles.avatar} source={{uri: this.props.user.image_url}} /> }</View></TouchableOpacity>
-          <Text>{this.props.user.username}</Text></View>
+          <Text style={styles.white}>{this.props.user.username}</Text></View>
       );
     }
 
@@ -97,26 +140,6 @@ class User extends Component {
           </TouchableHighlight>
       </View>
       );
-  }
-
-  selectPhotoTapped(item) {
-    const options = {
-      title: 'Photo Picker',
-      quality: 0.5,
-      maxWidth: 300,
-      maxHeight: 300,
-      storageOptions: {
-        skipBackup: true
-      }
-    };
-
-    ImagePickerManager.showImagePicker(options, (response) => {
-      var id = this.props.user.id;
-      posts.postProfilePicture(response.data, id).then((responseJSON) => {
-        this.props.user.image_url = responseJSON.image_url;
-        this.setState({});
-      }).done();
-    });
   }
 
   renderGroup(group) {
@@ -137,7 +160,7 @@ class User extends Component {
 				dataSource={this.state.dataSource}
 				renderRow={this.renderGroup.bind(this)}
 				style={styles.listView} />
-        <View>{this.newGroupForm()}</View>
+        <View style={{bottom: this.state.btnLocation}}>{this.newGroupForm()}</View>
         </View>
 			);
 	}
@@ -147,6 +170,9 @@ var styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  white: {
+    color: 'white'
   },
   user: {
     fontSize: 24,
