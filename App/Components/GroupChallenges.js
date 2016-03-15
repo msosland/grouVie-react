@@ -100,8 +100,10 @@ class GroupChallenges extends Component {
           <View style={styles.rowContainer}>
             <TouchableHighlight onPress={() => this.goToChallenge(item)}>
               <Text style={styles.nameText}>{challenges[index].name}</Text>
-            </TouchableHighlight>
+              </TouchableHighlight>
+            <TouchableHighlight onPress={() => this.goToChallenge(item)}>
             <Text style={styles.challengeDescription}>{challenges[index].description}</Text>
+            </TouchableHighlight>
           </View>
         </View>
       )
@@ -117,8 +119,6 @@ class GroupChallenges extends Component {
 
 var styles = StyleSheet.create({
   rowContainer: {
-    flexDirection: 'row',
-    flex: 1,
     backgroundColor: 'white',
     borderRadius: 8,
     padding: 5,
@@ -139,7 +139,11 @@ var styles = StyleSheet.create({
   },
   nameText: {
     color: '#4800a8',
-    fontSize: 14,
+    fontSize: 20,
+  },
+  challengeDescription: {
+    color: 'black',
+    fontSize: 15,
   },
   button: {
     height: 60,
