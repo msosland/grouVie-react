@@ -109,14 +109,14 @@ class User extends Component {
   newGroupButton() {
     return (
       <View style={styles.footer}>
-      <Text> Create New Group: </Text>
+      <Text style={styles.createNew}> Create New Group: </Text>
         <View>
 
-          <TextInput style={{height: 40, borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' placeholder='Group Name' autoCorrect={false} onChange={this.handleChange.bind(this)} value={this.state.groupName}/>
+          <TextInput style={{flex: 2, height: 40, backgroundColor: 'white', borderColor: 'gray', borderWidth: 1}} autoCapitalize='none' placeholder='Group Name' autoCorrect={false} onChange={this.handleChange.bind(this)} value={this.state.groupName}/>
           <TouchableHighlight style={styles.button}
             onPress={this.handleSubmit.bind(this)}
             underlayColor="#88d4f5">
-            <Text>Submit</Text>
+            <Text style={styles.createNew}>Submit</Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -162,7 +162,7 @@ var styles = StyleSheet.create({
     fontSize: 35,
     color: 'white',
     margin: 10,
-    // padding: 30,
+    padding: 10,
     width: 400,
     alignSelf: 'center',
     justifyContent: 'center',
@@ -208,6 +208,11 @@ var styles = StyleSheet.create({
     marginTop: 25,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  createNew: {
+    color: '#ffffff',
+    margin: 10,
+    alignSelf: 'center',
   }
 });
 

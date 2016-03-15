@@ -14,42 +14,6 @@ var {
   TextInput,
 } = React;
 
-var styles = StyleSheet.create({
-  container: {
-    marginTop: 50,
-    top: 40,
-    flex: 1,
-  },
-  rowContainer: {
-    flexDirection: 'column',
-    flex: 1,
-    padding: 10,
-  },
-  name: {
-    color: '#48BBEC',
-    fontSize: 18,
-    paddingBottom: 5
-  },
-  nameText: {
-    color: 'white',
-    fontSize: 14,
-    paddingBottom: 5,
-  },
-  input: {
-    height: 60,
-    padding: 10,
-    fontSize: 18,
-    backgroundColor: '#fff',
-    flex: 10
-  },
-  button: {
-    height: 60,
-    backgroundColor: '#48BBEC',
-    flex: 3,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
 
 class GroupChallenges extends Component {
   constructor(props) {
@@ -138,18 +102,14 @@ class GroupChallenges extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 50,
+    marginTop: 55,
     flex: 1,
-    marginBottom: 55,
   },
   rowContainer: {
     flexDirection: 'column',
     flex: 1,
     borderRadius: 8,
     padding: 5,
-    margin: 10,
-    width: 400,
-    alignSelf: 'center',
     backgroundColor: '#fff',
 
   },

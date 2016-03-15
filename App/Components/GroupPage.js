@@ -39,9 +39,9 @@ class GroupPage extends Component {
   makeBackground(btn){
     var obj = {
       flexDirection:'column',
-      height: 200,
-      width: 200,
-      borderRadius: 100,
+      height: 150,
+      width: 150,
+      borderRadius: 75,
       justifyContent: 'center',
     }
     if(btn === 0){
@@ -49,11 +49,11 @@ class GroupPage extends Component {
       obj.backgroundColor = '#48BBEC';
       obj.marginLeft = 10;
     } else if (btn === 1){
-      obj.margin = 10;
+      obj.marginRight = 10;
       obj.alignSelf = 'flex-end';
       obj.backgroundColor = '#E77AAE';
     } else {
-      obj.margin = 10;
+      obj.marginLeft = 10;
       obj.alignSelf = 'flex-start';
       obj.backgroundColor = '#758BF4';
     }
