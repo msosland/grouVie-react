@@ -53,6 +53,7 @@ class GroupComments extends Component {
       flex: 1,
       borderRadius: 6,
       padding: 10,
+      width: 300,
       justifyContent: 'center',
     }
     if(user === this.props.user.username){
