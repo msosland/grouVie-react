@@ -53,7 +53,7 @@ class Login extends Component {
         })
     })
     .then(ApiUtils.checkStatus)
-    .then((response) => alert(response.json()))
+    .then((response) => response.json())
     .then((response) => {
       this.goToUser(response);
     })
