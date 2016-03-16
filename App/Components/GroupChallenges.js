@@ -110,9 +110,12 @@ class GroupChallenges extends Component {
         <View style={styles.rowContainer}>
             <TouchableHighlight onPress={() => this.goToChallenge(challenge)} underlayColor="#9BAAF3">
               <Text style={styles.name}>{challenge.name}</Text>
-              </TouchableHighlight>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => this.goToChallenge(challenge)} underlayColor="#9BAAF3">
             <Text style={styles.challengeDescription}>{challenge.description}</Text>
-            <Text style={styles.challengeDescription}>{challenge.created_at}</Text>
+            </TouchableHighlight>
+            <Text style={styles.challengeDescription}>{"Starts: " + new Date(challenge.start_date).toDateString()}</Text>
+            <Text style={styles.challengeDescription}>{"Ends: " + new Date(challenge.end_date).toDateString()}</Text>
         </View>
       </View>
     );
