@@ -2,6 +2,7 @@
 var React = require('react-native');
 var GroupPage = require('./GroupPage');
 var posts = require('../Utils/posts');
+var Icon = require('react-native-vector-icons/FontAwesome');
 
 var {
 	StyleSheet,
@@ -123,7 +124,7 @@ class User extends Component {
     return (
       <View style={styles.center}>
       <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}><View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
-          { this.props.user.image_url == "/images/original/missing.png" ? <Text>Add a Photo</Text> : <Image style={styles.avatar} source={{uri: this.props.user.image_url}} /> }</View></TouchableOpacity>
+          { this.props.user.image_url == "/images/original/missing.png" ? <Text ><Icon name="camera" color="#6d00ff" style={{fontSize: 60}}/> </Text> : <Image style={styles.avatar} source={{uri: this.props.user.image_url}} /> }</View></TouchableOpacity>
           <Text style={styles.profileUsername}>{this.props.user.username}</Text></View>
       );
     }
