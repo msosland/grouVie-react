@@ -25,7 +25,6 @@ class GroupComments extends Component {
       image_url: '',
       btnLocation: 0,
       comment: '',
-      // commentObj: {},
       dataSource: ds.cloneWithRows(this.props.comments)
     }
   }
