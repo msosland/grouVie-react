@@ -37,7 +37,7 @@ class GroupComments extends Component {
   }
 
   fetchComments() {
-    fetch("http://grouvie.herokuapp.com/groups/" + this.props.group.id + "/comments")
+    fetch("http://localhost:3000/groups/" + this.props.group.id + "/comments")
       .then((response) => response.json())
       .then((responseData) => {
         console.log(responseData)

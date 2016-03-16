@@ -41,6 +41,7 @@ class GroupChallenges extends Component {
   }
 
   componentWillMount () {
+    // console.log(this.props);
     DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
     DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
   }

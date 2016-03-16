@@ -133,7 +133,6 @@ class ChallengeShow extends Component {
   }
   render(){
     var participations = this.props.challenge.participations;
-    console.log(participations);
     var list = participations.map((item, index) => {
       return (
         <View key={index}>
