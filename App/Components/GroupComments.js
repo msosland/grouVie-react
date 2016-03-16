@@ -175,14 +175,12 @@ var styles = StyleSheet.create({
     paddingBottom: 5
   },
   inputComment: {
-    color: "black",
     justifyContent: 'center',
     textAlign: 'center',
-    height: 60,
+    height: 50,
     padding: 10,
     fontSize: 25,
-    backgroundColor: '#fff',
-    marginTop: 2
+    backgroundColor: 'white',
   },
   button: {
     height: 60,
@@ -192,7 +190,7 @@ var styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 30
+    fontSize: 35
   }
 });
 
