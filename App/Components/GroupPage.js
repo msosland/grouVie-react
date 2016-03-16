@@ -31,16 +31,16 @@ class GroupPage extends Component {
     }
     if(btn === 0){
       obj.alignSelf = 'flex-start';
-      obj.backgroundColor = '#48BBEC';
+      obj.backgroundColor = '#0A8BE5';
       obj.margin = 10;
     } else if (btn === 1){
       obj.margin = 10;
       obj.alignSelf = 'flex-end';
-      obj.backgroundColor = '#E77AAE';
+      obj.backgroundColor = '#0A8BE5';
     } else {
       obj.margin = 10;
       obj.alignSelf = 'flex-start';
-      obj.backgroundColor = '#758BF4';
+      obj.backgroundColor = '#0A8BE5';
     }
     return obj;
   }
@@ -71,31 +71,30 @@ class GroupPage extends Component {
 
   render(){
     return (
-      <View style={styles.container}>
-
-        <TouchableHighlight
+      <View style={{flex: 1}}>
+        <View style={styles.container}>
+          <TouchableHighlight
             style={this.makeBackground(2)}
             onPress={this.goToChallenges.bind(this)}
             underlayColor="#9BAAF3">
               <Text style={styles.buttonText}>Challenges</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
+          </TouchableHighlight>
+          <TouchableHighlight
             style={this.makeBackground(1)}
             onPress={this.goToComments.bind(this)}
             underlayColor="#E39EBF">
               <Text style={styles.buttonText}>Chat Room</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
+          </TouchableHighlight>
+          <TouchableHighlight
             style={this.makeBackground(0)}
             onPress={this.goToMembers.bind(this)}
             underlayColor="#88D4F5">
               <Text style={styles.buttonText}>Members</Text>
-        </TouchableHighlight>
+          </TouchableHighlight>
+        </View>
         <View style={{bottom: this.state.btnLocation}}>
-        <TouchableHighlight
-            style={styles.footer}>
-        <Text style={styles.buttonText}>{this.props.group.name}</Text>
-        </TouchableHighlight></View>
+          <Text style={styles.buttonText}>{this.props.group.name}</Text>
+        </View>
       </View>
     )
   }
@@ -106,12 +105,6 @@ var styles = StyleSheet.create({
     paddingTop: 55,
     flex: 1,
     backgroundColor: 'white'
-  },
-  footer: {
-    height: 60,
-    backgroundColor: '#4800a8',
-    alignItems: 'center',
-    justifyContent: 'center'
   },
   footyText: {
     color: 'white',

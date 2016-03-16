@@ -1,5 +1,6 @@
 var React = require('react-native');
 var posts = require('../Utils/posts');
+var Swiper = require('react-native-swiper')
 
 
 var {
@@ -11,7 +12,23 @@ var {
   TouchableHighlight,
   Component,
   Image,
+  DeviceEventEmitter
 } = React;
+
+var renderPagination = function (index, total, context) {
+  return (
+    <View style={{
+      position: 'absolute',
+      bottom: -25,
+      right: 10,
+    }}>
+      <Text><Text style={{
+        color: '#007aff',
+        fontSize: 20,
+      }}>{index + 1}</Text>/{total}</Text>
+    </View>
+  )
+}
 
 
 class GroupMembers extends Component {
@@ -26,6 +43,19 @@ class GroupMembers extends Component {
       btnLocation: 0,
       dataSource: ds.cloneWithRows(this.props.members)
     };
+  }
+
+  componentWillMount () {
+    DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
+    DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
+  }
+
+  keyboardWillShow (e) {
+    this.setState({btnLocation: e.endCoordinates.height})
+  }
+
+  keyboardWillHide (e) {
+    this.setState({btnLocation: 0})
   }
 
   handleChange(e) {
@@ -67,7 +97,7 @@ class GroupMembers extends Component {
           style={styles.button}
           onPress={this.handleSubmit.bind(this)}
           underlayColor="#88d4f5">
-            <Text>Add to Group</Text>
+            <Text style={styles.buttonText}>Add to Group</Text>
         </TouchableHighlight>
       </View>
     )
@@ -88,9 +118,11 @@ class GroupMembers extends Component {
  render(){
     return (
       <View style={styles.container}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow.bind(this)} />
+        <Swiper style={styles.wrapper} height={480} renderPagination={renderPagination} paginationStyle={{bottom: -23, left: null, right: 10}} loop={false}>
+            <ListView
+              dataSource={this.state.dataSource}
+              renderRow={this.renderRow.bind(this)} />
+          </Swiper>
         <View style={{bottom: this.state.btnLocation}}>{this.addNewMemberForm()}</View>
       </View>
       )
@@ -126,17 +158,39 @@ var styles = StyleSheet.create({
   },
   inputComment: {
     color: "black",
-    height: 60,
+    justifyContent: 'center',
+    textAlign: 'center',
+    height: 48,
     padding: 10,
     fontSize: 25,
     backgroundColor: '#fff',
   },
   button: {
-    height: 60,
+    height: 48,
     backgroundColor: '#48BBEC',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 22
+  },
+    wrapper: {
+  },
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  image: {
+    flex: 1,
   }
+
 });
 
 module.exports = GroupMembers;
