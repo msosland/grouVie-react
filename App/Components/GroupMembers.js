@@ -4,7 +4,7 @@ var posts = require('../Utils/posts');
 
 var {
   StyleSheet,
-  ScrollView,
+  ListView,
   Text,
   TextInput,
   View,
@@ -17,9 +17,14 @@ var {
 class GroupMembers extends Component {
   constructor(props) {
     super(props);
+    var ds = new ListView.DataSource({
+      rowHasChanged: (row1, row2) => row1 !== row2,
+    });
     this.state = {
       username: '',
-      image_url: ''
+      image_url: '',
+      btnLocation: 0,
+      dataSource: ds.cloneWithRows(this.props.members)
     };
   }
 
@@ -31,23 +36,27 @@ class GroupMembers extends Component {
 
   handleSubmit(){
     var memberToAdd = this.state.memberToAdd;
-    this.setState({
-      memberToAdd: ''
-    });
-    posts.addMemberToGroup(memberToAdd, this.props.group.id)
-      .then((data) => {
-        this.props.members.push(data);
-        this.setState({});
-      })
-      .catch((error) => {
-        console.log('Request failed', error);
-        this.setState({error});
-      });
+    if (memberToAdd !== '') {
+      this.setState({
+          memberToAdd: ''
+        });
+        posts.addMemberToGroup(memberToAdd, this.props.group.id)
+          .then((responseJSON) => {
+            this.props.members.push(responseJSON);
+            this.setState({
+              dataSource: this.state.dataSource.cloneWithRows(this.props.members)
+            });
+          })
+          .catch((error) => {
+            console.log('Request failed', error);
+            this.setState({error});
+          });
+        }
   }
 
-  footer() {
+  addNewMemberForm() {
     return (
-      <View style={styles.footer}>
+      <View style={styles.addNewMemberForm}>
         <TextInput
           style={styles.inputComment}
           value={this.state.memberToAdd}
@@ -64,27 +73,29 @@ class GroupMembers extends Component {
     )
   }
 
-  render(){
-    var members = this.props.members;
-    var list = members.map((member, index) => {
-    var profilePic = members[index].image_url ? <Image style={styles.image} source={{uri:members[index].image_url}} /> : <Text style={styles.imageSquare}> No Picture yet </Text>;
-
-      return (
-        <View key={index}>
-          <View style={styles.rowContainer}>
-            {profilePic}
-            <Text style={styles.name}> {members[index].username} </Text>
-          </View>
+  renderRow(member) {
+    var profilePic = member.image_url ? <Image style={styles.image} source={{uri:member.image_url}} /> : <Text style={styles.imageSquare}> No Picture yet </Text>;
+    return (
+      <View >
+        <View style={styles.rowContainer}>
+          {profilePic}
+          <Text style={styles.name}> {member.username} </Text>
         </View>
-      )
-    });
+      </View>
+    );
+  }
+
+ render(){
     return (
       <View style={styles.container}>
-        <ScrollView>{list}</ScrollView>
-        <View>{this.footer()}</View>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderRow.bind(this)} />
+        <View style={{bottom: this.state.btnLocation}}>{this.addNewMemberForm()}</View>
       </View>
-    )
+      )
   }
+
 };
 
 var styles = StyleSheet.create({

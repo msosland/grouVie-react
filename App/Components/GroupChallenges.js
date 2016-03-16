@@ -7,7 +7,7 @@ var {
 	StyleSheet,
 	Navigator,
 	TouchableHighlight,
-	ScrollView,
+	ListView,
 	View,
 	Component,
 	Text,
@@ -19,10 +19,14 @@ var {
 class GroupChallenges extends Component {
   constructor(props) {
     super(props);
+    var ds = new ListView.DataSource({
+      rowHasChanged: (row1, row2) => row1 !== row2,
+    });
     this.state = {
       challengeName: '',
       challengeDescription: '',
-      btnLocation: 0
+      btnLocation: 0,
+      dataSource: ds.cloneWithRows(this.props.challenges)
     }
   }
 
@@ -53,23 +57,26 @@ class GroupChallenges extends Component {
   handleSubmit() {
     var challengeName = this.state.challengeName;
     var challengeDescription = this.state.challengeDescription;
-    this.setState({
-      challengeName: '',
-      challengeDescription: ''
-    });
-    posts.postChallenge(challengeName, challengeDescription, this.props.group.id, this.props.user.id)
-      .then((responseJSON) => {
-        this.props.challenges.push(responseJSON);
-        this.setState({});
-        this.goToChallenge(responseJSON);
-      })
-      .catch((error) => {
-        console.log('Request failed', error);
-        this.setState({error});
-      });
+    if (challengeName !== '') {
+      this.setState({
+          challengeName: '',
+          challengeDescription: ''
+        });
+        posts.postChallenge(challengeName, challengeDescription, this.props.group.id, this.props.user.id)
+          .then((responseJSON) => {
+            this.props.challenges.push(responseJSON);
+            this.setState({
+              dataSource: this.state.dataSource.cloneWithRows(this.props.challenges)
+            });
+          })
+          .catch((error) => {
+            console.log('Request failed', error);
+            this.setState({error});
+          });
+    }
   }
 
-  footer() {
+  addNewChallengeForm() {
     return (
       <View>
         <TextInput
@@ -92,44 +99,40 @@ class GroupChallenges extends Component {
     )
   }
 
-  statusIndicator(challenge) {
-    for (var i=0; i < this.props.user.challenges.length; i++) {
-      if (this.props.user.challenges[i] == challenge) {
-        return '<Text style={fontSize: 20, color: 'green'}>{challenge.name}</Text>'
-      }
-      else {
-        return <Text style={fontSize: 20, color: 'gray'}>{challenge.name}</Text>
-      }
-    }
+  renderRow(challenge) {
+    return (
+      <View >
+        <View style={styles.rowContainer}>
+            <TouchableHighlight onPress={() => this.goToChallenge(challenge)}>
+              <Text style={styles.name}>{challenge.name}</Text>
+              </TouchableHighlight>
+            <TouchableHighlight onPress={() => this.goToChallenge(challenge)}>
+            <Text style={styles.challengeDescription}>{challenge.description}</Text>
+            </TouchableHighlight>
+        </View>
+      </View>
+    );
   }
 
-  render() {
-    var challenges = this.props.challenges;
-    var list = challenges.map((item,index) => {
-      var desc = challenges[index].name ? <Text style={styles.name}> {challenges[index].name} </Text> : <View />;
-      return (
-        <View key={index}>
-          <View style={styles.rowContainer}>
-            <TouchableHighlight onPress={() => this.goToChallenge(item)}>
-              <Text style={fontSize: 20, color: {this.statusIndicator()}}>{challenge.name}</Text>
-              </TouchableHighlight>
-            <TouchableHighlight onPress={() => this.goToChallenge(item)}>
-            <Text style={styles.challengeDescription}>{challenges[index].description}</Text>
-            </TouchableHighlight>
-          </View>
-        </View>
-      )
-    });
+  render(){
     return (
-      <View style={{flex: 1, paddingTop: 50}}>
-        <ScrollView>{list}</ScrollView>
-        <View style={{bottom: this.state.btnLocation}}>{this.footer()}</View>
+      <View style={styles.container}>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderRow.bind(this)} />
+        <View style={{bottom: this.state.btnLocation}}>{this.addNewChallengeForm()}</View>
       </View>
-    )
+      )
   }
+
 };
 
 var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 50,
+    backgroundColor: 'white',
+  },
   rowContainer: {
     backgroundColor: 'white',
     borderRadius: 8,
@@ -159,6 +162,14 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  optedOut: {
+    fontSize: 20,
+    color: 'gray'
+  },
+  optedIn: {
+    fontSize: 20,
+    color: 'green',
+  }
 });
 
 module.exports = GroupChallenges;

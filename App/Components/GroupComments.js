@@ -25,9 +25,28 @@ class GroupComments extends Component {
       image_url: '',
       btnLocation: 0,
       comment: '',
-      // commentObj: {},
+      loaded: false,
       dataSource: ds.cloneWithRows(this.props.comments)
     }
+  }
+
+  componentDidMount() {
+    setInterval( () => {
+      this.fetchComments();
+    }, 1000);
+  }
+
+  fetchComments() {
+    fetch("http://grouvie.herokuapp.com/groups/" + this.props.group.id + "/comments")
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData)
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(responseData),
+          loaded: true,
+        });
+      })
+      .done();
   }
 
   componentWillMount () {
@@ -70,10 +89,6 @@ class GroupComments extends Component {
     return obj;
   }
 
-  componentDidMount() {
-
-  }
-
   handleSubmit(){
     var comment = this.state.comment;
     if (comment !== '') {
@@ -81,11 +96,11 @@ class GroupComments extends Component {
         comment: ''
       });
       posts.postComment(comment, this.props.group.id, this.props.user.id)
-        .then((data) => {
-          this.props.comments.push(data);
-          this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(this.props.comments)
-          });
+        .then((responseJSON) => {
+          this.props.comments.push(responseJSON);
+            this.setState({
+              dataSource: this.state.dataSource.cloneWithRows(this.props.comments)
+            });
         })
         .catch((error) => {
           console.log('Request failed', error);
@@ -122,7 +137,6 @@ class GroupComments extends Component {
             <Text style={styles.name}> ~ {comment.username} </Text>
           </View>
         </View>
-
       );
   }
 
