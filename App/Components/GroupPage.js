@@ -63,16 +63,9 @@ class GroupPage extends Component {
   }
 
   goToChallenges(){
-    // var groupChallenges = this.props.group.challenges;
-    // console.log(groupChallenges);
-
-    // for (var i = 0; i < groupChallenges; i++) {
-    //     console.log(groupChallenges[i].participations.username);
-    // }
-    // console.log("SEE ABOVE for usernames")
     this.props.navigator.push({
       component: GroupChallenges,
-      passProps: { challenges: this.props.group.challenges, user: this.props.user, group: this.props.group}
+      passProps: { user: this.props.user, group: this.props.group}
     });
   }
 
