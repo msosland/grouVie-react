@@ -108,7 +108,7 @@ class GrouVieReact extends Component {
   }
 };
 
-
+// console.ignoredYellowBox = ['Warning: Failed propType'];
 
 var styles = StyleSheet.create({
   container:{

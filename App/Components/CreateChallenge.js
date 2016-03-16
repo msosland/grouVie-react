@@ -2,7 +2,7 @@
 
 var React = require('react-native');
 var posts = require('../Utils/posts');
-import TimerMixin from 'react-timer-mixin';
+
 const {
   Component,
   Heading,
@@ -12,6 +12,7 @@ const {
   TextInput,
   TouchableHighlight,
   View,
+  DeviceEventEmitter
 } = React;
 
 class CreateChallenge extends Component {
@@ -22,9 +23,61 @@ class CreateChallenge extends Component {
       challengeName: '',
       challengeDescription: '',
       startDate: this.props.startDate,
-      endDate: this.props.endDate,
-      // timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
+      endDate: this.props.endDate
     };
+  }
+
+  componentWillUnmount() {
+    this.listener.remove();
+    this.listenerTwo.remove();
+  }
+
+  componentWillMount () {
+    this.listener = DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
+    this.listenerTwo = DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
+  }
+
+  keyboardWillShow (e) {
+    this.setState({btnLocation: e.endCoordinates.height})
+  }
+
+  keyboardWillHide (e) {
+    this.setState({btnLocation: 0})
+  }
+
+  handleSubmit() {
+    var challengeName = this.state.challengeName;
+    var challengeDescription = this.state.challengeDescription;
+    var startDate = this.state.startDate;
+    var endDate = this.state.endDate;
+
+    if (challengeName !== '' && startDate < endDate) {
+      this.setState({
+          btnLocation: 0,
+          challengeName: '',
+          challengeDescription: '',
+          startDate: new Date(),
+          endDate: new Date(),
+        });
+        posts.postChallenge(challengeName, challengeDescription, startDate, endDate, this.props.group.id, this.props.user.id)
+          .then((responseJSON) => {
+            this.props.refreshChallenges();
+            this.props.navigator.pop();
+          })
+          .catch((error) => {
+            console.log("error");
+            console.log('Request failed', error);
+            this.setState({error});
+          });
+    }
+  }
+
+  onStartDateChange(date) {
+    this.setState({startDate: date});
+  }
+
+  onEndDateChange(date) {
+    this.setState({endDate: date});
   }
 
   addNewChallengeForm() {
@@ -50,43 +103,6 @@ class CreateChallenge extends Component {
     )
   }
 
-
-  handleSubmit() {
-    var challengeName = this.state.challengeName;
-    var challengeDescription = this.state.challengeDescription;
-    var startDate = this.state.startDate;
-    var endDate = this.state.endDate;
-
-    if (challengeName !== '' && startDate < endDate) {
-      this.setState({
-          challengeName: '',
-          challengeDescription: '',
-          startDate: new Date(),
-          endDate: new Date(),
-        });
-        posts.postChallenge(challengeName, challengeDescription, startDate, endDate, this.props.group.id, this.props.user.id)
-          .then((responseJSON) => {
-            this.props.refreshChallenges();
-            console.log("will you hit");
-            this.props.navigator.pop();
-            console.log("no way you hit");
-          })
-          .catch((error) => {
-            console.log("error");
-            console.log('Request failed', error);
-            this.setState({error});
-          });
-    }
-  }
-
-  onStartDateChange(date) {
-    this.setState({startDate: date});
-  }
-
-  onEndDateChange(date) {
-    this.setState({endDate: date});
-  }
-
   render() {
     return (
       <View style={styles.container}>
@@ -100,7 +116,7 @@ class CreateChallenge extends Component {
           date={this.state.endDate}
           mode="date"
           onDateChange={this.onEndDateChange.bind(this)}/>
-          {this.addNewChallengeForm()}
+          <View style={{bottom: this.state.btnLocation}}>{this.addNewChallengeForm()}</View>
         </View>
     )
   }

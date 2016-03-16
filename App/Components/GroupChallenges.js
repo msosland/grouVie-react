@@ -41,29 +41,6 @@ class GroupChallenges extends Component {
     });
   }
 
-  // componentDidMount() {
-  //   this.getChallenges(this.props.group.id);
-  // }
-
-  componentWillUnmount() {
-    this.listener.remove();
-    this.listenerTwo.remove();
-  }
-
-  componentWillMount () {
-    this.listener = DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
-    this.listenerTwo = DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
-    this.getChallenges(this.props.group.id);
-  }
-
-  keyboardWillShow (e) {
-    this.setState({btnLocation: e.endCoordinates.height})
-  }
-
-  keyboardWillHide (e) {
-    this.setState({btnLocation: 0})
-  }
-
 
   handleSubmit() {
     this.props.navigator.push({
@@ -85,19 +62,9 @@ class GroupChallenges extends Component {
       .done();
   }
 
-  addNewChallengeForm() {
+  addNewChallengeButton() {
     return (
       <View>
-        <TextInput
-          style={styles.inputChallenge}
-          value={this.state.challengeName}
-          onChangeText={(challengeName) => this.setState({challengeName})}
-          placeholder="Challenge Name" />
-        <TextInput
-          style={styles.inputChallenge}
-          value={this.state.challengeDescription}
-          onChangeText={(challengeDescription) => this.setState({challengeDescription})}
-          placeholder="Challenge Description" />
         <TouchableHighlight
           style={styles.button}
           onPress={this.handleSubmit.bind(this)}
@@ -128,11 +95,10 @@ class GroupChallenges extends Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)} />
-        <View style={{bottom: this.state.btnLocation}}>{this.addNewChallengeForm()}</View>
+        <View>{this.addNewChallengeButton()}</View>
       </View>
-      )
+    )
   }
-
 };
 
 var styles = StyleSheet.create({
