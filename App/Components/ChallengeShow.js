@@ -10,6 +10,7 @@ var {
   Component,
   Text,
   Image,
+  Alert,
   ListView,
   StyleSheet,
   ScrollView,
@@ -75,7 +76,7 @@ class ChallengeShow extends Component {
     .then((responseJSON) => {
       this.props.challenge.participations.push(responseJSON);
       this.setState({});
-    })
+    }).then(Alert.alert("CHALLENGE ACCEPTED!!!!", null))
     .catch((error) => {
       console.log('Request failed', error);
       this.setState({error});
