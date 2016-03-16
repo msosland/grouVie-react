@@ -1,5 +1,6 @@
 var React = require('react-native');
 var posts = require('../Utils/posts');
+var Swiper = require('react-native-swiper')
 
 
 var {
@@ -11,7 +12,23 @@ var {
   TouchableHighlight,
   Component,
   Image,
+  DeviceEventEmitter
 } = React;
+
+var renderPagination = function (index, total, context) {
+  return (
+    <View style={{
+      position: 'absolute',
+      bottom: -25,
+      right: 10,
+    }}>
+      <Text><Text style={{
+        color: '#007aff',
+        fontSize: 20,
+      }}>{index + 1}</Text>/{total}</Text>
+    </View>
+  )
+}
 
 
 class GroupMembers extends Component {
@@ -21,6 +38,19 @@ class GroupMembers extends Component {
       username: '',
       image_url: ''
     };
+  }
+
+  componentWillMount () {
+    DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
+    DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
+  }
+
+  keyboardWillShow (e) {
+    this.setState({btnLocation: e.endCoordinates.height})
+  }
+
+  keyboardWillHide (e) {
+    this.setState({btnLocation: 0})
   }
 
   handleChange(e) {
@@ -58,7 +88,7 @@ class GroupMembers extends Component {
           style={styles.button}
           onPress={this.handleSubmit.bind(this)}
           underlayColor="#88d4f5">
-            <Text>Add to Group</Text>
+            <Text style={styles.buttonText}>Add to Group</Text>
         </TouchableHighlight>
       </View>
     )
@@ -70,18 +100,17 @@ class GroupMembers extends Component {
     var profilePic = members[index].image_url ? <Image style={styles.image} source={{uri:members[index].image_url}} /> : <Text style={styles.imageSquare}> No Picture yet </Text>;
 
       return (
-        <View key={index}>
-          <View style={styles.rowContainer}>
+        <View key={index} style={styles.slide} title={<Text style={styles.text}>{members[index].username} </Text>}>
             {profilePic}
-            <Text style={styles.name}> {members[index].username} </Text>
-          </View>
         </View>
       )
     });
     return (
       <View style={styles.container}>
-        <ScrollView>{list}</ScrollView>
-        <View>{this.footer()}</View>
+        <Swiper style={styles.wrapper} height={480} renderPagination={renderPagination} paginationStyle={{
+            bottom: -23, left: null, right: 10}} loop={false}>
+        {list}</Swiper>
+        <View style={{bottom: this.state.btnLocation}}>{this.footer()}</View>
       </View>
     )
   }
@@ -115,17 +144,39 @@ var styles = StyleSheet.create({
   },
   inputComment: {
     color: "black",
-    height: 60,
+    justifyContent: 'center',
+    textAlign: 'center',
+    height: 48,
     padding: 10,
     fontSize: 25,
     backgroundColor: '#fff',
   },
   button: {
-    height: 60,
+    height: 48,
     backgroundColor: '#48BBEC',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 22
+  },
+    wrapper: {
+  },
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  image: {
+    flex: 1,
   }
+
 });
 
 module.exports = GroupMembers;
