@@ -101,9 +101,10 @@ class ChallengeShow extends Component {
     )
   }
 
-  completionDate(participation) {
+  daysSinceCompleted(participation) {
     if (participation.completed) {
-      return participation.updated_at.toString().substr(5,5);
+      var completedDate = new Date(participation.updated_at);
+      return " - " + Math.floor((new Date() - Date.parse(completedDate)) / 1000 / 3600) + " hours ago";
       }
     else {
       return "";
@@ -148,7 +149,7 @@ class ChallengeShow extends Component {
               </View>
             </TouchableOpacity>
           </View>
-          <Text style={styles.read}>{participations[index].username + " " + this.completionDate(participations[index])}</Text>
+          <Text style={styles.read}>{participations[index].username + this.daysSinceCompleted(participations[index])}</Text>
         </View>
           )
     });
