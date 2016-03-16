@@ -5,7 +5,7 @@ var Swiper = require('react-native-swiper')
 
 var {
   StyleSheet,
-  ListView,
+  ScrollView,
   Text,
   TextInput,
   View,
@@ -34,14 +34,9 @@ var renderPagination = function (index, total, context) {
 class GroupMembers extends Component {
   constructor(props) {
     super(props);
-    var ds = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2,
-    });
     this.state = {
       username: '',
-      image_url: '',
-      btnLocation: 0,
-      dataSource: ds.cloneWithRows(this.props.members)
+      image_url: ''
     };
   }
 
@@ -66,27 +61,23 @@ class GroupMembers extends Component {
 
   handleSubmit(){
     var memberToAdd = this.state.memberToAdd;
-    if (memberToAdd !== '') {
-      this.setState({
-          memberToAdd: ''
-        });
-        posts.addMemberToGroup(memberToAdd, this.props.group.id)
-          .then((responseJSON) => {
-            this.props.members.push(responseJSON);
-            this.setState({
-              dataSource: this.state.dataSource.cloneWithRows(this.props.members)
-            });
-          })
-          .catch((error) => {
-            console.log('Request failed', error);
-            this.setState({error});
-          });
-        }
+    this.setState({
+      memberToAdd: ''
+    });
+    posts.addMemberToGroup(memberToAdd, this.props.group.id)
+      .then((data) => {
+        this.props.members.push(data);
+        this.setState({});
+      })
+      .catch((error) => {
+        console.log('Request failed', error);
+        this.setState({error});
+      });
   }
 
-  addNewMemberForm() {
+  footer() {
     return (
-      <View style={styles.addNewMemberForm}>
+      <View style={styles.footer}>
         <TextInput
           style={styles.inputComment}
           value={this.state.memberToAdd}
@@ -103,31 +94,26 @@ class GroupMembers extends Component {
     )
   }
 
-  renderRow(member) {
-    var profilePic = member.image_url ? <Image style={styles.image} source={{uri:member.image_url}} /> : <Text style={styles.imageSquare}> No Picture yet </Text>;
-    return (
-      <View >
-        <View style={styles.rowContainer}>
-          {profilePic}
-          <Text style={styles.name}> {member.username} </Text>
-        </View>
-      </View>
-    );
-  }
+  render(){
+    var members = this.props.members;
+    var list = members.map((member, index) => {
+    var profilePic = members[index].image_url ? <Image style={styles.image} source={{uri:members[index].image_url}} /> : <Text style={styles.imageSquare}> No Picture yet </Text>;
 
- render(){
+      return (
+        <View key={index} style={styles.slide} title={<Text style={styles.text}>{members[index].username} </Text>}>
+            {profilePic}
+        </View>
+      )
+    });
     return (
       <View style={styles.container}>
-        <Swiper style={styles.wrapper} height={480} renderPagination={renderPagination} paginationStyle={{bottom: -23, left: null, right: 10}} loop={false}>
-            <ListView
-              dataSource={this.state.dataSource}
-              renderRow={this.renderRow.bind(this)} />
-          </Swiper>
-        <View style={{bottom: this.state.btnLocation}}>{this.addNewMemberForm()}</View>
+        <Swiper style={styles.wrapper} height={480} renderPagination={renderPagination} paginationStyle={{
+            bottom: -23, left: null, right: 10}} loop={false}>
+        {list}</Swiper>
+        <View style={{bottom: this.state.btnLocation}}>{this.footer()}</View>
       </View>
-      )
+    )
   }
-
 };
 
 var styles = StyleSheet.create({
@@ -164,16 +150,17 @@ var styles = StyleSheet.create({
     padding: 10,
     fontSize: 25,
     backgroundColor: '#fff',
+    marginTop: 2
   },
   button: {
     height: 48,
-    backgroundColor: '#48BBEC',
+    backgroundColor: '#4800a8',
     alignItems: 'center',
     justifyContent: 'center'
   },
   buttonText: {
     color: 'white',
-    fontSize: 22
+    fontSize: 30
   },
     wrapper: {
   },
@@ -194,4 +181,3 @@ var styles = StyleSheet.create({
 });
 
 module.exports = GroupMembers;
-
