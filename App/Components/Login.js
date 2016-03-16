@@ -39,7 +39,7 @@ class Login extends Component {
       username: '',
       password: ''
     });
-    fetch("http://localhost:3000/login", {
+    fetch("http://grouvie.herokuapp.com/login", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

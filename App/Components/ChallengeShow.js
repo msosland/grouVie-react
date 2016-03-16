@@ -68,22 +68,7 @@ class ChallengeShow extends Component {
     });
   }
 
-  photoContainer(participant) {
-    var obj = {
-      flexDirection: 'row',
-      padding: 3,
-      margin: 5,
-      // width: 180,
-      alignSelf: 'center',
-      alignItems: 'center'
-    }
-    if(participant.completed === true){
-      obj.backgroundColor = 'green';
-    } else {
-      obj.backgroundColor = 'red';
-    }
-    return obj;
-  }
+
 
   handleSubmit(){
     posts.optInToChallenge(this.props.challenge.id, this.props.user.id)
@@ -115,16 +100,34 @@ class ChallengeShow extends Component {
     )
   }
 
-  checkCompletion(participation) {
+  completionDate(participation) {
     if (participation.completed) {
       return participation.updated_at.toString().substr(5,5);
       }
     else {
-      return "Not Complete";
+      return "";
     }
   }
 
-  isYourPhoto(participation) {
+  isCompletedStyling(participant) {
+    var obj = {
+      flexDirection: 'row',
+      padding: 3,
+      margin: 5,
+      alignSelf: 'center',
+      alignItems: 'center'
+    }
+
+    if (participant.completed === true){
+      obj.backgroundColor = 'green';
+    }
+    else {
+      obj.backgroundColor = 'gray';
+    }
+    return obj;
+  }
+
+  missingPhotoIcon(participation) {
     if (participation.user_id == this.props.user.id) {
       return <Icon name="camera" color="#000000" style={{fontSize: 60}}/>;
     }
@@ -137,14 +140,18 @@ class ChallengeShow extends Component {
     var list = participations.map((item, index) => {
       return (
         <View key={index}>
-          <View style={this.photoContainer(participations[index])}><TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}><View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
-          { participations[index].image_url == "/images/original/missing.png" ? <Text>{this.isYourPhoto(participations[index])}</Text> :
-            <Image style={styles.avatar} source={{uri: participations[index].image_url}} />
-          }
-          </View></TouchableOpacity>
-        </View>
+          <View style={this.isCompletedStyling(participations[index])}>
+            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+              <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
+                {participations[index].image_url == "/images/original/missing.png" ?
+                  <Text>{this.missingPhotoIcon(participations[index])}</Text> :
+                    <Image style={styles.avatar} source={{uri: participations[index].image_url}} />
+                }
+              </View>
+            </TouchableOpacity>
+          </View>
           <Text style={styles.read}>{participations[index].username}</Text>
-          <Text style={styles.read}>{this.checkCompletion(participations[index])}</Text>
+          <Text style={styles.date}>{this.completionDate(participations[index])}</Text>
         </View>
           )
     });
@@ -169,6 +176,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  date: {
+    fontSize: 15,
+  },
   read: {
     flex: 3,
     paddingLeft: 10,
@@ -180,13 +190,12 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   avatar: {
-    width: 150,
-    height: 150,
+    flexDirection: 'row',
+    height: 360,
+    width: 300,
     borderRadius: 6,
   },
   avatarContainer: {
-    // borderColor: '#9B9B9B',
-    // borderWidth: 10,
     justifyContent: 'center',
     alignItems: 'center'
   },
