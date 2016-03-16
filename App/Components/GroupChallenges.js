@@ -1,6 +1,7 @@
 
 var React = require('react-native');
 var ChallengeShow = require('./ChallengeShow');
+var CreateChallenge = require('./CreateChallenge');
 var posts = require('../Utils/posts');
 
 var {
@@ -40,14 +41,19 @@ class GroupChallenges extends Component {
     });
   }
 
+  // componentDidMount() {
+  //   this.getChallenges(this.props.group.id);
+  // }
+
   componentWillUnmount() {
     this.listener.remove();
     this.listenerTwo.remove();
   }
 
   componentWillMount () {
-    this.listener = DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
-    this.listenerTwo = DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
+    this.listener = DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
+    this.listenerTwo = DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
+    this.getChallenges(this.props.group.id);
   }
 
   keyboardWillShow (e) {
@@ -60,25 +66,23 @@ class GroupChallenges extends Component {
 
 
   handleSubmit() {
-    var challengeName = this.state.challengeName;
-    var challengeDescription = this.state.challengeDescription;
-    if (challengeName !== '') {
-      this.setState({
-          challengeName: '',
-          challengeDescription: ''
+    this.props.navigator.push({
+      component: CreateChallenge,
+      passProps: { startDate: new Date(), endDate: new Date(), challenges: this.props.group.challenges, user: this.props.user, group: this.props.group, refreshChallenges: this.getChallenges.bind(this)}
+    });
+  }
+
+  getChallenges() {
+    console.log("getting called");
+    fetch("http://localhost:3000/groups/" + this.props.group.id + "/challenges")
+      .then((response) => response.json())
+        .then((responseData) => {
+          this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(responseData),
+            loaded: true
         });
-        posts.postChallenge(challengeName, challengeDescription, this.props.group.id, this.props.user.id)
-          .then((responseJSON) => {
-            this.props.challenges.push(responseJSON);
-            this.setState({
-              dataSource: this.state.dataSource.cloneWithRows(this.props.challenges)
-            });
-          })
-          .catch((error) => {
-            console.log('Request failed', error);
-            this.setState({error});
-          });
-    }
+      })
+      .done();
   }
 
   addNewChallengeForm() {

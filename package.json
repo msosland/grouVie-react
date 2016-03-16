@@ -10,6 +10,7 @@
     "react-native-camera": "^0.3.8",
     "react-native-image-picker": "^0.18.3",
     "react-native-swiper": "^1.4.3",
-    "react-native-vector-icons": "^1.3.2"
+    "react-native-vector-icons": "^1.3.2",
+    "react-timer-mixin": "^0.13.3"
   }
 }

@@ -8,11 +8,12 @@ var posts = {
     }).then((res) => res.json());
   },
 
-  postChallenge(challengeName, challengeDescription, groupId, userId) {
+  postChallenge(challengeName, challengeDescription, startDate, endDate, groupId, userId) {
     var url = "http://grouvie.herokuapp.com/groups/" + groupId + "/challenges";
-    return fetch(url, {
+    var url2 = "http://localhost:3000/groups/" + groupId + "/challenges";
+    return fetch(url2, {
       method: 'post',
-      body: JSON.stringify({challengeName, challengeDescription, userId})
+      body: JSON.stringify({challengeName, challengeDescription, startDate, endDate, userId})
     }).then((response) => response.json());
   },
 
