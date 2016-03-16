@@ -98,7 +98,7 @@ class GroupChallenges extends Component {
           style={styles.button}
           onPress={this.handleSubmit.bind(this)}
           underlayColor="#88d4f5">
-            <Text>Create Challenge</Text>
+            <Text style={styles.buttonText}>Create Challenge</Text>
         </TouchableHighlight>
       </View>
     )
@@ -111,9 +111,8 @@ class GroupChallenges extends Component {
             <TouchableHighlight onPress={() => this.goToChallenge(challenge)} underlayColor="#9BAAF3">
               <Text style={styles.name}>{challenge.name}</Text>
               </TouchableHighlight>
-            <TouchableHighlight onPress={() => this.goToChallenge(challenge)}  underlayColor="#9BAAF3">
             <Text style={styles.challengeDescription}>{challenge.description}</Text>
-            </TouchableHighlight>
+            <Text style={styles.challengeDescription}>{challenge.created_at}</Text>
         </View>
       </View>
     );
@@ -147,10 +146,13 @@ var styles = StyleSheet.create({
   },
   inputChallenge: {
     color: "black",
+    justifyContent: 'center',
+    textAlign: 'center',
     height: 60,
     padding: 10,
     fontSize: 25,
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
+    marginTop: 2
   },
   name: {
     color: '#48BBEC',
@@ -163,7 +165,7 @@ var styles = StyleSheet.create({
   },
   button: {
     height: 60,
-    backgroundColor: '#48BBEC',
+    backgroundColor: '#4800a8',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -174,7 +176,11 @@ var styles = StyleSheet.create({
   optedIn: {
     fontSize: 20,
     color: 'green',
-  }
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 30
+  },
 });
 
 module.exports = GroupChallenges;
