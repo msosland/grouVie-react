@@ -94,7 +94,6 @@ class GroupComments extends Component {
     }
     return obj;
   }
-
   handleSubmit(){
     var comment = this.state.comment;
     if (comment !== '') {

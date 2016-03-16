@@ -36,14 +36,15 @@ class User extends Component {
 		};
 	}
 
+
   componentWillUnmount() {
     this.listener.remove();
     this.listenerTwo.remove();
   }
 
-	componentDidMount() {
-		this.fetchData();
-	}
+  componentDidMount() {
+    this.fetchData();
+  }
 
   componentWillMount () {
     this.listener = DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))

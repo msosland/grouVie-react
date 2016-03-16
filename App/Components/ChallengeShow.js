@@ -10,6 +10,7 @@ var {
   Component,
   Text,
   Image,
+  Alert,
   ListView,
   StyleSheet,
   ScrollView,
