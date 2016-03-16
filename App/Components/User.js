@@ -134,7 +134,7 @@ class User extends Component {
           <TextInput style={styles.textInput} autoCapitalize='none' placeholder='Group Name' autoCorrect={false} onChange={this.handleChange.bind(this)} value={this.state.groupName}/>
           <TouchableHighlight
             onPress={this.handleSubmit.bind(this)}
-            underlayColor="#88d4f5">
+            underlayColor="#6d00ff">
             <Text style={styles.createNew}>Create New Group</Text>
           </TouchableHighlight>
       </View>
@@ -144,7 +144,8 @@ class User extends Component {
   renderRow(group) {
     return (
         <View style={styles.groupContainer}>
-          <TouchableHighlight  onPress={() => this.goToGroup(group)}>
+          <TouchableHighlight  onPress={() => this.goToGroup(group)}
+          underlayColor="#6d00ff">
               <Text style={styles.groupList}>{group.name}</Text>
           </TouchableHighlight>
         </View>

@@ -103,10 +103,10 @@ class GroupChallenges extends Component {
     return (
       <View >
         <View style={styles.rowContainer}>
-            <TouchableHighlight onPress={() => this.goToChallenge(challenge)}>
+            <TouchableHighlight onPress={() => this.goToChallenge(challenge)} underlayColor="#9BAAF3">
               <Text style={styles.name}>{challenge.name}</Text>
               </TouchableHighlight>
-            <TouchableHighlight onPress={() => this.goToChallenge(challenge)}>
+            <TouchableHighlight onPress={() => this.goToChallenge(challenge)}  underlayColor="#9BAAF3">
             <Text style={styles.challengeDescription}>{challenge.description}</Text>
             </TouchableHighlight>
         </View>
