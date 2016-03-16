@@ -107,7 +107,7 @@ class ChallengeShow extends Component {
         <TouchableHighlight
           style={styles.button}
           onPress={this.handleSubmit.bind(this)}
-          underlayColor="#88d4f5">
+          underlayColor="#ffffff">
             <Text style={styles.buttonText}>Accept Challenge</Text>
         </TouchableHighlight>
       </View>
