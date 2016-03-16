@@ -141,7 +141,7 @@ class User extends Component {
       );
   }
 
-  renderGroup(group) {
+  renderRow(group) {
     return (
         <View style={styles.groupContainer}>
           <TouchableHighlight  onPress={() => this.goToGroup(group)}
@@ -158,7 +158,7 @@ class User extends Component {
 			<ListView
         renderHeader={this.getUserName.bind(this)}
 				dataSource={this.state.dataSource}
-				renderRow={this.renderGroup.bind(this)}
+				renderRow={this.renderRow.bind(this)}
 				style={styles.listView} />
         <View style={{bottom: this.state.btnLocation}}>{this.newGroupForm()}</View>
         </View>

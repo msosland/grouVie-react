@@ -150,16 +150,17 @@ var styles = StyleSheet.create({
     padding: 10,
     fontSize: 25,
     backgroundColor: '#fff',
+    marginTop: 2
   },
   button: {
     height: 48,
-    backgroundColor: '#48BBEC',
+    backgroundColor: '#4800a8',
     alignItems: 'center',
     justifyContent: 'center'
   },
   buttonText: {
     color: 'white',
-    fontSize: 22
+    fontSize: 30
   },
     wrapper: {
   },
@@ -180,4 +181,3 @@ var styles = StyleSheet.create({
 });
 
 module.exports = GroupMembers;
-
