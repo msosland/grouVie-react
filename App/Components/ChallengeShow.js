@@ -2,6 +2,7 @@ var React = require('react-native');
 var posts = require('../Utils/posts');
 var NativeImagePicker = require('./NativeImagePicker');
 var posts = require('../Utils/posts');
+var Icon = require('react-native-vector-icons/FontAwesome');
 
 var {
   View,
@@ -125,10 +126,10 @@ class ChallengeShow extends Component {
 
   isYourPhoto(participation) {
     if (participation.user_id == this.props.user.id) {
-      return "Camera Icon!";
+      return <Icon name="camera" color="#000000" style={{fontSize: 60}}/>;
     }
     else {
-      return "Incomplete";
+      return <Icon name="frown-o" color="#000000" style={{fontSize: 60}}/>;
     }
   }
   render(){
