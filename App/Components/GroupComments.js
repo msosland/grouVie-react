@@ -31,9 +31,15 @@ class GroupComments extends Component {
   }
 
   componentDidMount() {
-    setInterval( () => {
+    this.timer = setInterval( () => {
       this.fetchComments();
     }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    this.listener.remove();
+    this.listenertwo.remove();
   }
 
   fetchComments() {
@@ -50,8 +56,8 @@ class GroupComments extends Component {
   }
 
   componentWillMount () {
-    DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
-    DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
+    this.listener = DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
+    this.listenertwo = DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
   }
 
   keyboardWillShow (e) {
