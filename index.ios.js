@@ -27,7 +27,7 @@ var NavigationBarRouteMapper = {
       return null;
     }
     return(
-      <Text style={{fontSize: 30, color: 'white', alignSelf: 'center', paddingBottom: 2}}>grouVie</Text>
+      <Text style={{fontSize: 30, color: 'white', alignSelf: 'center', lineHeight: 29}}>grouVie</Text>
     )
   },
   RightButton: function( route, navigator, index, navState ){
