@@ -67,7 +67,7 @@ class Login extends Component {
         <TextInput style={styles.blank} autoCapitalize='none' autoCorrect={false} onChangeText={(username) => this.setState({username})} value={this.state.username}/>
         <Text style={styles.loginText}> Password: </Text>
         <TextInput style={styles.blank} autoCapitalize='none' autoCorrect={false} secureTextEntry={true} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
-        <TouchableHighlight onPress={this.handleSubmit.bind(this)} style={styles.login}>
+        <TouchableHighlight onPress={this.handleSubmit.bind(this)} style={styles.login} underlayColor="#6d00ff">
           <Text style={styles.loginButtonText}> Log In </Text>
         </TouchableHighlight>
       </View>
