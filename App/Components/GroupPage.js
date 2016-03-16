@@ -27,18 +27,18 @@ class GroupPage extends Component {
     var obj = {
       borderRadius: 6,
       justifyContent: 'center',
-      padding: 20,
+      padding: 40,
     }
     if(btn === 0){
       obj.alignSelf = 'flex-start';
       obj.backgroundColor = '#0A8BE5';
-      obj.margin = 10;
+      obj.margin = 15;
     } else if (btn === 1){
-      obj.margin = 10;
+      obj.margin = 15;
       obj.alignSelf = 'flex-end';
       obj.backgroundColor = '#0A8BE5';
     } else {
-      obj.margin = 10;
+      obj.margin = 15;
       obj.alignSelf = 'flex-start';
       obj.backgroundColor = '#0A8BE5';
     }
