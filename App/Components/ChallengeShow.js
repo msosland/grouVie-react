@@ -69,8 +69,6 @@ class ChallengeShow extends Component {
     });
   }
 
-
-
   handleSubmit(){
     posts.optInToChallenge(this.props.challenge.id, this.props.user.id)
     .then((responseJSON) => {
@@ -134,20 +132,35 @@ class ChallengeShow extends Component {
       return <Icon name="frown-o" color="#000000" style={{fontSize: 60}}/>;
     }
   }
+
+  isUserPicture(participation) {
+    if (participation.user_id == this.props.user.id) {
+     return <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+              <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
+                {participation.image_url == "/images/original/missing.png" ?
+                  <Text>{this.missingPhotoIcon(participation)}</Text> :
+                    <Image style={styles.avatar} source={{uri: participation.image_url}} />
+                }
+              </View>
+            </TouchableOpacity>
+    }
+    else {
+      return <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
+                {participation.image_url == "/images/original/missing.png" ?
+                  <Text>{this.missingPhotoIcon(participation)}</Text> :
+                    <Image style={styles.avatar} source={{uri: participation.image_url}} />
+                }
+              </View>
+    }
+  }
+
   render(){
     var participations = this.props.challenge.participations;
     var list = participations.map((item, index) => {
       return (
         <View key={index} style={styles.participant}>
           <View style={this.isCompletedStyling(participations[index])}>
-            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-              <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
-                {participations[index].image_url == "/images/original/missing.png" ?
-                  <Text>{this.missingPhotoIcon(participations[index])}</Text> :
-                    <Image style={styles.avatar} source={{uri: participations[index].image_url}} />
-                }
-              </View>
-            </TouchableOpacity>
+            {this.isUserPicture(participations[index])}
           </View>
           <Text style={styles.read}>{participations[index].username + this.daysSinceCompleted(participations[index])}</Text>
         </View>
