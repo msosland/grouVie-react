@@ -227,7 +227,7 @@ var styles = StyleSheet.create({
   textInput: {
     height: 40,
     backgroundColor: 'white',
-    borderColor: '#310373',
+    borderColor: '#4800a8',
     borderWidth: 1,
     justifyContent: 'center',
     textAlign: 'center'

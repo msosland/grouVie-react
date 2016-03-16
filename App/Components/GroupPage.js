@@ -92,7 +92,7 @@ class GroupPage extends Component {
               <Text style={styles.buttonText}>Members</Text>
           </TouchableHighlight>
         </View>
-        <View style={{bottom: this.state.btnLocation}}>
+        <View style={{bottom: this.state.btnLocation, backgroundColor: '#4800a8'}}>
           <Text style={styles.buttonText}>{this.props.group.name}</Text>
         </View>
       </View>
