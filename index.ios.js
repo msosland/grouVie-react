@@ -26,7 +26,8 @@ var NavigationBarRouteMapper = {
     if (index === 0) {
       return null;
     } else if (index === 1) {
-      return <Text sstyle={{fontSize: 30, color: 'white', alignSelf: 'center', lineHeight: 29}}>grouVie</Text>
+      <Text style={{fontSize: 30, color: 'white', alignSelf: 'center', lineHeight: 29}}
+      >grouVie</Text>
     }
     return(
       <Text style={{fontSize: 30, color: 'white', alignSelf: 'center', lineHeight: 29}}
