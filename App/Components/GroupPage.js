@@ -63,9 +63,16 @@ class GroupPage extends Component {
   }
 
   goToChallenges(){
+    // var groupChallenges = this.props.group.challenges;
+    // console.log(groupChallenges);
+
+    // for (var i = 0; i < groupChallenges; i++) {
+    //     console.log(groupChallenges[i].participations.username);
+    // }
+    // console.log("SEE ABOVE for usernames")
     this.props.navigator.push({
       component: GroupChallenges,
-      passProps: { challenges: this.props.group.challenges, user: this.props.user, group: this.props.group }
+      passProps: { challenges: this.props.group.challenges, user: this.props.user, group: this.props.group}
     });
   }
 
@@ -92,7 +99,7 @@ class GroupPage extends Component {
               <Text style={styles.buttonText}>Members</Text>
           </TouchableHighlight>
         </View>
-        <View style={{bottom: this.state.btnLocation}}>
+        <View style={{bottom: this.state.btnLocation, backgroundColor: '#4800a8'}}>
           <Text style={styles.buttonText}>{this.props.group.name}</Text>
         </View>
       </View>

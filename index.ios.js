@@ -29,7 +29,7 @@ var NavigationBarRouteMapper = {
       return <Text style={{fontSize: 30, color: 'white', alignSelf: 'center', paddingBottom: 2}}>grouVie</Text>
     }
     return(
-      <Text style={{fontSize: 25, color: 'white', alignSelf: 'center', paddingBottom: 2}}
+      <Text style={{fontSize: 30, color: 'white', alignSelf: 'center', lineHeight: 29}}
       //onPress={() => {navigator.replace({component: User})}}
       >grouVie</Text>
     )
