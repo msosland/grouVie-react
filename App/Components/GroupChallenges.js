@@ -1,5 +1,6 @@
 var React = require('react-native');
 var ChallengeShow = require('./ChallengeShow');
+var CreateChallenge = require('./CreateChallenge');
 var posts = require('../Utils/posts');
 
 var {
@@ -39,60 +40,29 @@ class GroupChallenges extends Component {
     });
   }
 
-  componentWillUnmount() {
-    this.listener.remove();
-    this.listenerTwo.remove();
-  }
-
-  componentWillMount () {
-    this.listener = DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
-    this.listenerTwo = DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
-  }
-
-  keyboardWillShow (e) {
-    this.setState({btnLocation: e.endCoordinates.height})
-  }
-
-  keyboardWillHide (e) {
-    this.setState({btnLocation: 0})
-  }
-
 
   handleSubmit() {
-    var challengeName = this.state.challengeName;
-    var challengeDescription = this.state.challengeDescription;
-    if (challengeName !== '') {
-      this.setState({
-          challengeName: '',
-          challengeDescription: ''
-        });
-        posts.postChallenge(challengeName, challengeDescription, this.props.group.id, this.props.user.id)
-          .then((responseJSON) => {
-            this.props.group.challenges.push(responseJSON);
-            this.setState({
-              dataSource: this.state.dataSource.cloneWithRows(this.props.group.challenges)
-            });
-          })
-          .catch((error) => {
-            console.log('Request failed', error);
-            this.setState({error});
-          });
-    }
+    this.props.navigator.push({
+      component: CreateChallenge,
+      passProps: { startDate: new Date(), endDate: new Date(), challenges: this.props.group.challenges, user: this.props.user, group: this.props.group, refreshChallenges: this.getChallenges.bind(this)}
+    });
   }
 
-  addNewChallengeForm() {
+  getChallenges() {
+    fetch("http://grouvie.herokuapp.com/groups/" + this.props.group.id + "/challenges")
+      .then((response) => response.json())
+        .then((responseData) => {
+          this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(responseData),
+            loaded: true
+        });
+      })
+      .done();
+  }
+
+  addNewChallengeButton() {
     return (
       <View>
-        <TextInput
-          style={styles.inputChallenge}
-          value={this.state.challengeName}
-          onChangeText={(challengeName) => this.setState({challengeName})}
-          placeholder="Challenge Name" />
-        <TextInput
-          style={styles.inputChallenge}
-          value={this.state.challengeDescription}
-          onChangeText={(challengeDescription) => this.setState({challengeDescription})}
-          placeholder="Challenge Description" />
         <TouchableHighlight
           style={styles.button}
           onPress={this.handleSubmit.bind(this)}
@@ -141,11 +111,10 @@ class GroupChallenges extends Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)} />
-        <View style={{bottom: this.state.btnLocation}}>{this.addNewChallengeForm()}</View>
+        <View>{this.addNewChallengeButton()}</View>
       </View>
-      )
+    )
   }
-
 };
 
 var styles = StyleSheet.create({

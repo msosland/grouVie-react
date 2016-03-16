@@ -3,6 +3,7 @@ var React = require('react-native');
 
 var Login = require('./App/Components/Login');
 var User = require('./App/Components/User');
+var CreateChallenge = require('./App/Components/CreateChallenge');
 var GroupPage = require('./App/Components/GroupPage');
 var GroupMembers = require('./App/Components/GroupMembers');
 var GroupChallenges = require('./App/Components/GroupChallenges');
@@ -89,6 +90,9 @@ class GrouVieReact extends Component {
     if (route.component == GroupComments) {
       return <GroupComments {...route.passProps} navigator={navigator}  title={"Group Comments"} leftButton={"  Back"}  />
     }
+    if (route.component == CreateChallenge) {
+      return <CreateChallenge {...route.passProps} navigator={navigator}  title={"CreateChallenge"} leftButton={"  Back"}  />
+    }
     if (route.component == ChallengeShow) {
       return <ChallengeShow {...route.passProps} navigator={navigator}  />
     }
@@ -109,6 +113,7 @@ class GrouVieReact extends Component {
   }
 };
 
+// console.ignoredYellowBox = ['Warning: Failed propType'];
 
 var styles = StyleSheet.create({
   container:{
