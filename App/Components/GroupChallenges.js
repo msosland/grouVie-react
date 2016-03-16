@@ -40,9 +40,14 @@ class GroupChallenges extends Component {
     });
   }
 
+  componentWillUnmount() {
+    this.listener.remove();
+    this.listenerTwo.remove();
+  }
+
   componentWillMount () {
-    DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
-    DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
+    this.listener = DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
+    this.listenerTwo = DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
   }
 
   keyboardWillShow (e) {
