@@ -118,10 +118,7 @@ class ChallengeShow extends Component {
       alignItems: 'center'
     }
 
-    if (participant.completed === true){
-      obj.backgroundColor = 'green';
-    }
-    else {
+    if (participant.completed !== true){
       obj.backgroundColor = 'gray';
     }
     return obj;
@@ -139,7 +136,7 @@ class ChallengeShow extends Component {
     var participations = this.props.challenge.participations;
     var list = participations.map((item, index) => {
       return (
-        <View key={index}>
+        <View key={index} style={styles.participant}>
           <View style={this.isCompletedStyling(participations[index])}>
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
               <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
@@ -150,8 +147,7 @@ class ChallengeShow extends Component {
               </View>
             </TouchableOpacity>
           </View>
-          <Text style={styles.read}>{participations[index].username}</Text>
-          <Text style={styles.date}>{this.completionDate(participations[index])}</Text>
+          <Text style={styles.read}>{participations[index].username + " " + this.completionDate(participations[index])}</Text>
         </View>
           )
     });
@@ -174,7 +170,7 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: '#4800a8',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   date: {
     fontSize: 15,
@@ -184,21 +180,24 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     alignSelf: 'center',
     color: 'black',
-    fontSize: 35
   },
   buttonText: {
     color: 'white',
+    fontSize: 35
   },
   avatar: {
     flexDirection: 'row',
     height: 360,
     width: 300,
     borderRadius: 6,
-  },
-  avatarContainer: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
+  participant: {
+    borderColor: '#d3d3d3',
+    borderWidth: 1,
+    paddingBottom: 5
+  }
 });
 
 module.exports = ChallengeShow;

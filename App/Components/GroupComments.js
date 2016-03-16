@@ -129,7 +129,7 @@ class GroupComments extends Component {
           style={styles.button}
           onPress={this.handleSubmit.bind(this)}
           underlayColor="#88d4f5">
-            <Text style={styles.submitText}>Submit</Text>
+            <Text style={styles.buttonText}>Submit</Text>
         </TouchableHighlight>
       </View>
     )
@@ -175,15 +175,14 @@ var styles = StyleSheet.create({
     paddingBottom: 5
   },
   inputComment: {
-    margin: 10,
-    width: 400,
-    justifyContent: 'center',
-    alignSelf: 'center',
     color: "black",
+    justifyContent: 'center',
+    textAlign: 'center',
     height: 60,
     padding: 10,
     fontSize: 25,
     backgroundColor: '#fff',
+    marginTop: 2
   },
   button: {
     height: 60,
@@ -191,10 +190,9 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  submitText: {
+  buttonText: {
     color: 'white',
-    fontSize: 35,
-    margin: 10
+    fontSize: 30
   }
 });
 
