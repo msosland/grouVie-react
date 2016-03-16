@@ -76,13 +76,13 @@ class GroupPage extends Component {
           <TouchableHighlight
             style={this.makeBackground(2)}
             onPress={this.goToChallenges.bind(this)}
-            underlayColor="#9BAAF3">
+            underlayColor="#88D4F5">
               <Text style={styles.buttonText}>Challenges</Text>
           </TouchableHighlight>
           <TouchableHighlight
             style={this.makeBackground(1)}
             onPress={this.goToComments.bind(this)}
-            underlayColor="#E39EBF">
+            underlayColor="#88D4F5">
               <Text style={styles.buttonText}>Chat Room</Text>
           </TouchableHighlight>
           <TouchableHighlight
