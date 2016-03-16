@@ -38,14 +38,15 @@ class User extends Component {
 		};
 	}
 
+
   componentWillUnmount() {
     this.listener.remove();
     this.listenerTwo.remove();
   }
 
-	componentDidMount() {
-		this.fetchData();
-	}
+  componentDidMount() {
+    this.fetchData();
+  }
 
   componentWillMount () {
     this.listener = DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
@@ -133,7 +134,7 @@ class User extends Component {
       <View style={styles.center}>
       <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}><View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
           { this.props.user.image_url == "/images/original/missing.png" ? <Text ><Icon name="camera" color="#6d00ff" style={{fontSize: 60}}/> </Text> : <Image style={styles.avatar} source={{uri: this.props.user.image_url}} /> }</View></TouchableOpacity>
-          <Text style={styles.profileUsername}>{this.props.user.username}</Text></View>
+         </View>
       );
     }
 

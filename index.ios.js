@@ -26,9 +26,14 @@ var NavigationBarRouteMapper = {
   Title: function( route, navigator, index, navState ){
     if (index === 0) {
       return null;
+    } else if (index === 1) {
+      <Text style={{fontSize: 30, color: 'white', alignSelf: 'center', lineHeight: 29}}
+      >grouVie</Text>
     }
     return(
-      <Text style={{fontSize: 30, color: 'white', alignSelf: 'center', lineHeight: 29}}>grouVie</Text>
+      <Text style={{fontSize: 30, color: 'white', alignSelf: 'center', lineHeight: 29}}
+      //onPress={() => {navigator.replace({component: User})}}
+      >grouVie</Text>
     )
   },
   RightButton: function( route, navigator, index, navState ){

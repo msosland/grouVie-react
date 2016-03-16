@@ -11,6 +11,7 @@ var {
   TextInput,
   View,
   Navigator,
+  Alert,
   StyleSheet,
   TouchableHighlight
 } = React;
@@ -50,14 +51,13 @@ class Login extends Component {
         username: username,
         password: password,
         })
- })
+    })
     .then(ApiUtils.checkStatus)
     .then((response) => response.json())
     .then((response) => {
       this.goToUser(response);
     })
     .catch(error => error)
-
 }
 
   render() {
