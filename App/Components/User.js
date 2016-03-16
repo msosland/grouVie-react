@@ -5,6 +5,7 @@ var posts = require('../Utils/posts');
 var Icon = require('react-native-vector-icons/FontAwesome');
 
 var {
+  ActivityIndicatorIOS,
 	StyleSheet,
 	TouchableHighlight,
 	ListView,
@@ -31,6 +32,7 @@ class User extends Component {
 			dataSource: new ListView.DataSource({
 				rowHasChanged: (row1, row2) => row1 !== row2,
 			}),
+      isLoading: true,
 			loaded: false,
       groupName: ''
 		};
@@ -65,6 +67,7 @@ class User extends Component {
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData),
           loaded: true,
+          isLoading: false,
         });
       })
       .done();
@@ -147,6 +150,17 @@ class User extends Component {
       );
   }
 
+  renderLoadingView() {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicatorIOS
+          size='large'
+          color= 'white'
+          />
+      </View>
+    )
+  }
+
   renderRow(group) {
     return (
         <View style={styles.groupContainer}>
@@ -159,6 +173,10 @@ class User extends Component {
   }
 
 	render() {
+    if (this.state.isLoading) {
+      return this.renderLoadingView();
+    }
+
 		return (
       <View style={{flex: 1}}>
 			<ListView
@@ -219,6 +237,11 @@ var styles = StyleSheet.create({
   listView: {
     paddingTop: 60,
     backgroundColor: 'white',
+  },
+  loading: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   profileUsername: {
     color: '#310373',
