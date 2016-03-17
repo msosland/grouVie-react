@@ -142,11 +142,10 @@ class User extends Component {
     return (
       <View>
           <TextInput style={styles.textInput} autoCapitalize='none' placeholder='Group Name' autoCorrect={false} onChange={this.handleChange.bind(this)} value={this.state.groupName}/>
-          <TouchableHighlight
-            onPress={this.handleSubmit.bind(this)}
-            underlayColor="#6d00ff">
+          <TouchableOpacity
+            onPress={this.handleSubmit.bind(this)}>
             <Text style={styles.createNew}>Create New Group</Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
       </View>
       );
   }
@@ -164,12 +163,11 @@ class User extends Component {
 
   renderRow(group) {
     return (
+      <TouchableOpacity  onPress={() => this.goToGroup(group)}>
         <View style={styles.groupContainer}>
-          <TouchableHighlight  onPress={() => this.goToGroup(group)}
-          underlayColor="#6d00ff">
-              <Text style={styles.groupList}>{group.name}</Text>
-          </TouchableHighlight>
+          <Text style={styles.groupList}>{group.name}</Text>
         </View>
+      </TouchableOpacity>
     );
   }
 
