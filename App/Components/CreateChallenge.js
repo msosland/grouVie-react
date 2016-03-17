@@ -82,7 +82,7 @@ class CreateChallenge extends Component {
 
   addNewChallengeForm() {
     return (
-      <View>
+      <View style={styles.challengeForm}>
         <TextInput
           style={styles.inputChallenge}
           value={this.state.challengeName}
@@ -109,11 +109,13 @@ class CreateChallenge extends Component {
       <View style={styles.dates}>
       <Text style={styles.headings}>Start Date</Text>
         <DatePickerIOS
+          style={styles.datePicker}
           date={this.state.startDate}
           mode="date"
           onDateChange={this.onStartDateChange.bind(this)}/>
         <Text style={styles.headings}>End Date</Text>
         <DatePickerIOS
+          style={styles.datePicker}
           date={this.state.endDate}
           mode="date"
           onDateChange={this.onEndDateChange.bind(this)}/></View>
@@ -129,9 +131,46 @@ var styles = StyleSheet.create({
     paddingTop: 60,
     backgroundColor: 'white',
   },
+  button: {
+    height: 50,
+    backgroundColor: '#4800a8',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 30
+  },
+  challengeDescription: {
+    color: 'black',
+    fontSize: 15,
+  },
+  challengeForm: {
+    borderTopColor: '#c3c3c3',
+    borderTopWidth: 1
+  },
   dates: {
     padding: 0,
     height: 430,
+  },
+  datePicker: {
+    textAlign: 'center',
+    alignItems: 'center',
+  },
+  headings: {
+    padding: 0,
+    fontSize: 25,
+    alignSelf: 'center',
+  },
+  inputChallenge: {
+    color: "black",
+    justifyContent: 'center',
+    textAlign: 'center',
+    height: 50,
+    padding: 5,
+    fontSize: 25,
+    backgroundColor: '#fff',
+    marginTop: 2,
   },
   rowContainer: {
     backgroundColor: 'white',
@@ -139,35 +178,6 @@ var styles = StyleSheet.create({
     padding: 5,
     backgroundColor: '#fff',
     margin: 5,
-  },
-  inputChallenge: {
-    color: "black",
-    justifyContent: 'center',
-    textAlign: 'center',
-    height: 50,
-    padding: 10,
-    fontSize: 25,
-    backgroundColor: '#fff',
-    marginTop: 2,
-  },
-  challengeDescription: {
-    color: 'black',
-    fontSize: 15,
-  },
-  button: {
-    height: 50,
-    backgroundColor: '#4800a8',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headings: {
-    padding: 0,
-    fontSize: 25,
-    alignSelf: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 30
   },
 });
 
