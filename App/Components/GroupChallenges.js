@@ -76,7 +76,7 @@ class GroupChallenges extends Component {
     )
   }
 
-  findChallengeStatus(challenge) {
+  challengeStatusStyling(challenge) {
     var obj = {
       backgroundColor: 'gray'
     };
@@ -92,16 +92,34 @@ class GroupChallenges extends Component {
     return obj;
   }
 
+  challengeStatusIcon(challenge) {
+    var statusIcon = <Icon name="check" color="gray" style={{fontSize: 30}}/>;
+
+    for (var i=0;i < challenge.participations.length; i++) {
+      if (challenge.participations[i].user_id === this.props.user.id && challenge.participations[i].completed === true) {
+        return <Icon name="check-circle-o" color="green" style={{fontSize: 60}}/>;
+      }
+      else if (challenge.participations[i].user_id === this.props.user.id) {
+        return <Icon name="circle-o" color="#c3c3c3" style={{fontSize: 60}}/>;
+      }
+      else {
+        statusIcon = '';
+      }
+    }
+
+  }
+
   renderRow(challenge) {
     return (
-      <View style={this.findChallengeStatus(challenge)}>
+      <View >
           <TouchableHighlight onPress={() => this.goToChallenge(challenge)} underlayColor="#B3B6BF">
             <View style={styles.rowContainer}>
-              <View>
+              <View style={styles.leftContainer}>
                 <Text style={styles.name}>{challenge.name}</Text>
                 <Text style={styles.challengeDescription}>{challenge.description}</Text>
                 <Text style={styles.challengeDate}>{new Date(challenge.start_date).toDateString().substr(0,10) + " - " + new Date(challenge.end_date).toDateString().substr(0,10)}</Text>
               </View>
+              <Text style={styles.statusIcon}>{this.challengeStatusIcon(challenge)}</Text>
             </View>
           </TouchableHighlight>
       </View>
@@ -128,36 +146,38 @@ var styles = StyleSheet.create({
   },
   rowContainer: {
     backgroundColor: 'white',
-    borderRadius: 8,
+    borderBottomColor: '#cccccc',
+    borderBottomWidth: 1,
     padding: 5,
     backgroundColor: '#fff',
-    margin: 10,
+    flex: 1,
+    flexDirection: 'row',
   },
-  inputChallenge: {
-    color: "black",
-    justifyContent: 'center',
+  leftContainer: {
+    flex: 1,
+  },
+  statusIcon: {
     textAlign: 'center',
-    height: 60,
-    padding: 10,
-    fontSize: 25,
-    backgroundColor: '#fff',
-    marginTop: 2
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 10,
   },
   name: {
     fontSize: 25,
     paddingBottom: 5,
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'left',
+    color: '#444444'
   },
   challengeDescription: {
-    color: 'black',
+    color: '#444444',
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   challengeDate: {
-    color: 'black',
+    color: '#444444',
     fontSize: 12,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   button: {
     height: 60,
@@ -165,18 +185,15 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  optedOut: {
-    fontSize: 20,
-    color: 'gray'
-  },
-  optedIn: {
-    fontSize: 20,
-    color: 'green',
-  },
   buttonText: {
     color: 'white',
     fontSize: 30
   },
+  // challengeStatus: {
+  //   width: 60,
+  //   borderWidth: 1,
+  //   borderColor: 'pink',
+  // }
 });
 
 module.exports = GroupChallenges;
