@@ -167,7 +167,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     textAlign: 'center',
     height: 50,
-    padding: 10,
+    padding: 5,
     fontSize: 25,
     backgroundColor: '#fff',
     marginTop: 2,
