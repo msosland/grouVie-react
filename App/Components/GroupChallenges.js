@@ -2,6 +2,8 @@ var React = require('react-native');
 var ChallengeShow = require('./ChallengeShow');
 var CreateChallenge = require('./CreateChallenge');
 var posts = require('../Utils/posts');
+var Icon = require('react-native-vector-icons/FontAwesome');
+
 
 var {
 	StyleSheet,
@@ -35,7 +37,8 @@ class GroupChallenges extends Component {
       component: ChallengeShow,
       passProps: {
         challenge: challenge,
-        user: this.props.user
+        user: this.props.user,
+        refreshChallenges: this.getChallenges.bind(this)
       }
     });
   }

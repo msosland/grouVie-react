@@ -62,6 +62,7 @@ class ChallengeShow extends Component {
         }
         posts.postPicture(response.data, this.props.challenge.id, user.id ).then((responseJSON) => {
           this.props.challenge.participations.splice(index, 0, responseJSON);
+          this.props.refreshChallenges();
           this.setState({
           });
         }).done();
@@ -74,6 +75,7 @@ class ChallengeShow extends Component {
     .then((responseJSON) => {
       this.props.challenge.participations.push(responseJSON);
       this.setState({});
+      this.props.refreshChallenges();
     }).then(Alert.alert("CHALLENGE ACCEPTED!!!!", null))
     .catch((error) => {
       console.log('Request failed', error);
@@ -119,17 +121,17 @@ class ChallengeShow extends Component {
     }
 
     if (participant.completed !== true){
-      obj.backgroundColor = 'gray';
+      obj.backgroundColor = '#cccccc';
     }
     return obj;
   }
 
   missingPhotoIcon(participation) {
     if (participation.user_id == this.props.user.id) {
-      return <Icon name="camera" color="#000000" style={{fontSize: 60}}/>;
+      return <Icon name="camera" color="#5e5e5e" style={{fontSize: 160}}/>;
     }
     else {
-      return <Icon name="frown-o" color="#000000" style={{fontSize: 60}}/>;
+      return <Icon name="frown-o" color="#5e5e5e" style={{fontSize: 160}}/>;
     }
   }
 
