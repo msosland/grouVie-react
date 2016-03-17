@@ -149,7 +149,6 @@ var styles = StyleSheet.create({
     fontSize: 25,
     backgroundColor: '#fff',
     marginTop: 2,
-    borderTopColor: 'grey',
   },
   challengeDescription: {
     color: 'black',
