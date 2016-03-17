@@ -106,6 +106,7 @@ class CreateChallenge extends Component {
   render() {
     return (
       <View style={styles.container}>
+      <View style={styles.dates}>
       <Text style={styles.headings}>Start Date</Text>
         <DatePickerIOS
           date={this.state.startDate}
@@ -115,7 +116,7 @@ class CreateChallenge extends Component {
         <DatePickerIOS
           date={this.state.endDate}
           mode="date"
-          onDateChange={this.onEndDateChange.bind(this)}/>
+          onDateChange={this.onEndDateChange.bind(this)}/></View>
           <View style={{bottom: this.state.btnLocation}}>{this.addNewChallengeForm()}</View>
         </View>
     )
@@ -127,6 +128,10 @@ var styles = StyleSheet.create({
     flex: 1,
     paddingTop: 60,
     backgroundColor: 'white',
+  },
+  dates: {
+    padding: 0,
+    height: 430,
   },
   rowContainer: {
     backgroundColor: 'white',
@@ -143,7 +148,7 @@ var styles = StyleSheet.create({
     padding: 10,
     fontSize: 25,
     backgroundColor: '#fff',
-    marginTop: 2
+    marginTop: 2,
   },
   challengeDescription: {
     color: 'black',
@@ -154,6 +159,11 @@ var styles = StyleSheet.create({
     backgroundColor: '#4800a8',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  headings: {
+    padding: 0,
+    fontSize: 25,
+    alignSelf: 'center',
   },
   buttonText: {
     color: 'white',
