@@ -76,22 +76,6 @@ class GroupChallenges extends Component {
     )
   }
 
-  challengeStatusStyling(challenge) {
-    var obj = {
-      backgroundColor: 'gray'
-    };
-
-    for (var i=0;i < challenge.participations.length; i++) {
-      if (challenge.participations[i].user_id === this.props.user.id && challenge.participations[i].completed === true) {
-          obj.backgroundColor = 'green'
-      }
-      else if (challenge.participations[i].user_id === this.props.user.id) {
-          obj.backgroundColor = '#ffdb4d'
-      }
-    }
-    return obj;
-  }
-
   challengeStatusIcon(challenge) {
     var statusIcon = <Icon name="check" color="gray" style={{fontSize: 30}}/>;
 
@@ -106,7 +90,6 @@ class GroupChallenges extends Component {
         statusIcon = '';
       }
     }
-
   }
 
   renderRow(challenge) {
@@ -189,11 +172,6 @@ var styles = StyleSheet.create({
     color: 'white',
     fontSize: 30
   },
-  // challengeStatus: {
-  //   width: 60,
-  //   borderWidth: 1,
-  //   borderColor: 'pink',
-  // }
 });
 
 module.exports = GroupChallenges;
