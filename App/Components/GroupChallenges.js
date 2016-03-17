@@ -95,15 +95,15 @@ class GroupChallenges extends Component {
   renderRow(challenge) {
     return (
       <View style={this.findChallengeStatus(challenge)}>
-        <View style={styles.rowContainer}>
-            <TouchableHighlight onPress={() => this.goToChallenge(challenge)} underlayColor="#9BAAF3">
-              <Text style={styles.name}>{challenge.name}</Text>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={() => this.goToChallenge(challenge)} underlayColor="#9BAAF3">
-            <Text style={styles.challengeDescription}>{challenge.description}</Text>
-            </TouchableHighlight>
-            <Text style={styles.challengeDate}>{new Date(challenge.start_date).toDateString().substr(0,10) + " - " + new Date(challenge.end_date).toDateString().substr(0,10)}</Text>
-        </View>
+          <TouchableHighlight onPress={() => this.goToChallenge(challenge)} underlayColor="#B3B6BF">
+            <View style={styles.rowContainer}>
+              <View>
+                <Text style={styles.name}>{challenge.name}</Text>
+                <Text style={styles.challengeDescription}>{challenge.description}</Text>
+                <Text style={styles.challengeDate}>{new Date(challenge.start_date).toDateString().substr(0,10) + " - " + new Date(challenge.end_date).toDateString().substr(0,10)}</Text>
+              </View>
+            </View>
+          </TouchableHighlight>
       </View>
     );
   }
