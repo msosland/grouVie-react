@@ -76,7 +76,7 @@ class GroupChallenges extends Component {
     )
   }
 
-  findChallengeStatus(challenge) {
+  challengeStatusStyling(challenge) {
     var obj = {
       backgroundColor: 'gray'
     };
@@ -92,9 +92,23 @@ class GroupChallenges extends Component {
     return obj;
   }
 
+  challengeStatusIcon(challenge) {
+    for (var i=0;i < challenge.participations.length; i++) {
+      if (challenge.participations[i].user_id === this.props.user.id && challenge.participations[i].completed === true) {
+          return <Icon name="camera" color="#5e5e5e" style={{fontSize: 160}}/>;
+      }
+      else if (challenge.participations[i].user_id === this.props.user.id) {
+          return <Icon name="camera" color="#5e5e5e" style={{fontSize: 160}}/>;
+      }
+      else {
+        return <Icon name="camera" color="#5e5e5e" style={{fontSize: 160}}/>;
+      }
+    }
+  }
+
   renderRow(challenge) {
     return (
-      <View style={this.findChallengeStatus(challenge)}>
+      <View style={this.challengeStatusStyling(challenge)}>
         <View style={styles.rowContainer}>
             <TouchableHighlight onPress={() => this.goToChallenge(challenge)} underlayColor="#9BAAF3">
               <Text style={styles.name}>{challenge.name}</Text>
