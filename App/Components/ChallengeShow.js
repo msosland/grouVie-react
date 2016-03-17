@@ -62,6 +62,7 @@ class ChallengeShow extends Component {
         }
         posts.postPicture(response.data, this.props.challenge.id, user.id ).then((responseJSON) => {
           this.props.challenge.participations.splice(index, 0, responseJSON);
+          this.props.refreshChallenges();
           this.setState({
           });
         }).done();
@@ -74,6 +75,7 @@ class ChallengeShow extends Component {
     .then((responseJSON) => {
       this.props.challenge.participations.push(responseJSON);
       this.setState({});
+      this.props.refreshChallenges();
     }).then(Alert.alert("CHALLENGE ACCEPTED!!!!", null))
     .catch((error) => {
       console.log('Request failed', error);
