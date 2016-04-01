@@ -16,8 +16,32 @@ This respository houses the front-end mobile application - for the API, see [gro
 
 ![login screen](login_screen.png)
 
+Here is the profile page for a user. Users can set their image, see their list of groups, and add new groups.
 
-![group messages](group_page.png)
+![profile page](screenshots/profile_page.jpg)
+
+Inside each group is a group landing page menu. Users can see groups challenges, chat, or members.
+
+![group page](screenshots/group_page.jpg)
+
+The members page allows the user to swipe through all the people in the group.
+
+![group members](screenshots/members_page.jpg)
+
+The chat page allows the user to chat about the challenges or anything they want!
+
+![group messages](comments_page.png)
+
+The challenge page shows the group's challenges. Green is for challenges that have been completed, gray is for incomplete, and blank means that the user is not participating in that challenge.
+
+![challenge page](screenshots/challenge_page.jpg)
+
+For each challenge, users can scroll through the photos that their friends uploaded.
+
+![participations page](screenshots/participations_page.jpg)
+
+Users can select to take a picture of upload a photo when they complete a challenge.
+
+![camera use](screenshots/camera_use.jpg)
 
 
-![group challenges](challenge_list.png)
