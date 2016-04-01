@@ -36,6 +36,10 @@ The challenge page shows the group's challenges. Green is for challenges that ha
 
 ![challenge page](screenshots/challenge_page.jpg)
 
+Users can add new challenges with start and end dates.
+
+![create challenge](screenshots/create_challenge.jpg)
+
 For each challenge, users can scroll through the photos that their friends uploaded.
 
 ![participations page](screenshots/participations_page.jpg)
